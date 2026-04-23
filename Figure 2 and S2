@@ -1,0 +1,19 @@
+### New mRNA production during imbibition (Figure 2 & S2).
+
+library (statforbiology)
+library (tidyverse)
+library (data.table)
+library (viridis)
+library (ggpointdensity)
+library (DESeq2)
+library (gprofiler2)
+library (ggalluvial)
+library (multcomp)
+library (multcompView)
+library (ggrepel)
+library (eulerr)
+library (ggthemes)
+library (ungeviz)
+library (scales)
+
+setwd("/data/")
