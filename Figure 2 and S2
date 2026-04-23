@@ -16,4 +16,187 @@ library (ggthemes)
 library (ungeviz)
 library (scales)
 
+# set the path to folder containing the data
 setwd("/data/")
+
+## Experiment with both positive and negative spike-ins were used for new mRNA identification during seed imbibition.
+
+# import and format count data
+dir <- "geo_counts/new_2/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+new_1 <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(new_1, function(df) df$V2))
+rownames(count_matrix) <- new_1[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+new_1 <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and spike-ins
+cpm <- new_1
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+# filter for protein-coding genes and spike-ins
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene) | grepl("spike", cpm$gene)), ]
+
+# add spike-in indicator
+cpm <- cpm %>%
+  mutate(spike = case_when(
+    grepl("ERCC", gene)  ~ "NEG",
+    grepl("spike", gene) ~ "POS",
+    TRUE                 ~ "NO"
+  ))
+
+cpm_new1 <- cpm
+
+# identification of new mRNAs using ERCC normalisation (Fig. 2B-D)
+
+# unlabelled ERCC spike-ins are detectable in both input and enriched samples
+# in enriched samples, they serve as indicators of nonspecific binding of transcripts to the beads
+# we leveraged this by including ERCC normalisation in our pipeline for new mRNA calling using DESeq2.
+
+# function for calling new mRNA when comparing enriched and input samples
+
+new_identification <- function(counts_matrix, coldata, rows1, rows2, 
+                               min_counts = 4, normalization_genes) {
+  
+  # subset coldata based on row numbers
+  coldata_subset <- coldata[c(rows1, rows2), ]
+  
+  # subset counts matrix to match the subsetted coldata
+  counts_matrix_subset <- counts_matrix[, coldata_subset$lib]
+  
+  condition1 <- as.character(unique(coldata$condition[rows1])) # extract condition names for the contrast
+  condition2 <- as.character(unique(coldata$condition[rows2]))
+  
+  dds <- DESeqDataSetFromMatrix(countData = counts_matrix_subset, 
+                                colData = coldata_subset, 
+                                design = ~ replicate + condition)
+  
+  dds <- estimateSizeFactors(dds, controlGenes = rownames(counts_matrix_subset) %in% normalization_genes)
+  
+  dds <- dds[rowSums(counts(dds) >= min_counts) >= min_counts, ]
+  
+  dds <- DESeq(dds)
+  
+  # ensure the contrast is correctly defined based on the input conditions
+  contrast <- c("condition", condition1, condition2)
+  res <- as.data.frame(results(dds, alpha = 0.05, contrast = contrast))
+  
+  res$gene <- rownames(res)
+  res$change <- "NO"
+  res$change <- ifelse(res$padj < 0.05 & res$log2FoldChange > 2, "NEW", res$change)
+  res$change <- factor(res$change, levels = c("NEW", "NO"))
+  
+  res <- res[c(res$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", rownames(res)) | grepl("spike", rownames(res))), ]
+  
+  return(res)
+}
+
+# create coldata data frame
+coldata <- data.frame(
+  lib = colnames(new_1),
+  condition = substr(colnames(new_1), 1, 6),
+  replicate = substr(colnames(new_1), 8, 8)
+)
+
+ercc <- rownames(new_1)[grepl("ERCC", rownames(new_1))]
+
+# process 1h data
+new_1h <- new_identification(new_1, coldata, 13:16, 1:4, normalization_genes = ercc)
+
+# process 3h data
+new_3h <- new_identification(new_1, coldata, 17:20, 5:8, normalization_genes = ercc)
+
+# process 6h data
+new_6h <- new_identification(new_1, coldata, 21:24, 9:12, normalization_genes = ercc)
+
+# plots for enrichment of new mRNAs (Fig. 2B-D)
+
+# function to generate plots for new mRNA identification
+
+new_mRNA_plot <- function(cpm_data, deseq_results, gene_list, condition_new, condition_inp, return_data = FALSE, highlight = NULL) {
+  # merge datasets and separate normalisation genes
+  plot <- merge(cpm_data, deseq_results, by = "gene")
+  ercc <- plot[plot$gene %in% gene_list & plot[[condition_new]] > 1, ]
+  highlight <- plot[plot$gene %in% highlight, ]
+  plot <- plot[!plot$gene %in% c(gene_list,highlight) , ]
+  plot$log2FoldChange[is.na(plot$log2FoldChange) | plot$padj > 0.05] <- 0
+  param <- coef(summary(lm(log10(ercc[[condition_new]]) ~ log10(ercc[[condition_inp]])))) # fit linear model
+  
+  # generate plot
+  p <- ggplot() +
+    geom_point(data = plot, aes(x = log10(plot[[condition_inp]]), y = log10(plot[[condition_new]]), color = log2FoldChange), size = 0.5) +
+    geom_point(data = ercc, aes(x = log10(ercc[[condition_inp]]), y = log10(ercc[[condition_new]])), size = 1, color = "#cc3a3d") +
+    geom_point(data = highlight, aes(x = log10(highlight[[condition_inp]]), y = log10(highlight[[condition_new]])), size = 1, color = "#fcab20") +
+    geom_text_repel(data = highlight, aes(x = log10(highlight[[condition_inp]]), y = log10(highlight[[condition_new]]),label = gene),box.padding = 0.5, max.overlaps = Inf) +
+    geom_abline(intercept = param[1, 1], slope = param[2, 1], color = "red", linewidth = 0.5, linetype = "dashed") +
+    scale_color_gradient(low = "#7f9bb0", high = "#26456e", limits = c(2, 10)) +
+    xlim(-1, 5) + ylim(-1, 5) +
+    xlab("log10(CPM) input") + ylab("log10(CPM) new") +
+    theme_classic() 
+  
+  if (return_data) {
+    return(list(plot = plot, ercc = ercc))
+  } else {
+    return(p)
+  }
+}
+
+spike <- rownames(new_1)[grepl("spike", rownames(new_1))]
+
+# plot 1h
+new_mRNA_plot(cpm_new1, new_1h, ercc, "new_1h", "inp_1h", return_data = F, highlight = spike)
+
+# plot 3h
+new_mRNA_plot(cpm_new1, new_3h, ercc, "new_3h", "inp_3h", return_data = F, highlight = spike)
+
+# plot 6h
+new_mRNA_plot(cpm_new1, new_6h, ercc, "new_6h", "inp_6h", return_data = F, highlight = spike)
+
+# GO terms to be added to Dataset S2
+res <- gost(query = new_1h$gene [which(new_1h$change == "NEW")], organism = "athaliana", custom_bg = new_1h$gene, user_threshold = 0.05)$result
+
+res <- gost(query = new_3h$gene [which(new_3h$change == "NEW")], organism = "athaliana", custom_bg = new_3h$gene, user_threshold = 0.05)$result
+
+res <- gost(query = new_6h$gene [which(new_6h$change == "NEW")], organism = "athaliana", custom_bg = new_6h$gene, user_threshold = 0.05)$result
+
+# correlation of response to alpha-amanitin and new mRNA production (Fig. 2E and S2C)
+
+# Changes in alpha-amanitin-treated samples are checked for total mRNA levels. Usually, there is a delay between the start of new mRNA production and changes in total mRNA levels.
+# Therefore, rather than comparing the same time points of two experiments, we analyse subsequent time points.
+
+# plot for 6h alpha-amanitin treatment and 3h labelling (Fig. S2C)
+plot <- merge (new_3h [,c(2,7,8)], as.data.frame(deg_alpha$t06_A_M) [,c(2,6,7)], by = "gene")
+colnames(plot) <- c("gene", "log2FC_enrichment", "new", "log2FC_amanitin", "padj")
+param <- as.data.frame(summary(lm(plot$log2FC_amanitin ~ plot$log2FC_enrichment))$coefficients)
+
+ggplot(plot, aes(x = log2FC_enrichment, y = log2FC_amanitin)) +
+  geom_point(size = 0.5) +
+  theme_classic() + 
+  scale_color_viridis() +
+  geom_pointdensity(size = 0.5) + 
+  theme(legend.position = "none") +
+  geom_abline(intercept = param$Estimate[1], slope = param$Estimate[2], color = "black", linewidth = 0.5, linetype = "dashed") +
+  xlab ("log2 new mRNA enrichment 3h") +
+  ylab ("log2 (amanitin / mock) 6h")
+
+# plot for 12h alpha-amanitin treatment and 6h labelling (Fig. 2E)
+plot <- merge (new_6h [,c(2,7,8)], as.data.frame(deg_alpha$t12_A_M) [,c(2,6,7)], by = "gene")
+colnames(plot) <- c("gene", "log2FC_enrichment", "new", "log2FC_amanitin", "padj")
+param <- as.data.frame(summary(lm(plot$log2FC_amanitin ~ plot$log2FC_enrichment))$coefficients)
+
+ggplot(plot, aes(x = log2FC_enrichment, y = log2FC_amanitin)) +
+  geom_point(size = 0.5) +
+  theme_classic() + 
+  scale_color_viridis() +
+  geom_pointdensity(size = 0.5) + 
+  theme(legend.position = "none") +
+  geom_abline(intercept = param$Estimate[1], slope = param$Estimate[2], color = "black", linewidth = 0.5, linetype = "dashed") +
+  xlab ("log2 new mRNA enrichment 6h") +
+  ylab ("log2 (amanitin / mock) 12h")
+
