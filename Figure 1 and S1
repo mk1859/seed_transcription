@@ -20,7 +20,6 @@ setwd("~/data/")
 araport <- fread("anotation.txt", header = TRUE)
 
 # import and format count data for time course experiment (mock and alpha-amanitin treatment)
-
 dir <- "geo_counts/alpha/at/"
 files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
 ath <- lapply(files, fread)
@@ -28,3 +27,76 @@ count_matrix <- do.call(cbind, lapply(ath, function(df) df$V2))
 rownames(count_matrix) <- ath[[1]]$V1
 colnames(count_matrix) <- gsub(".txt", "", basename(files))
 ath <- count_matrix [,-which(colnames(count_matrix) == "M_X_03h_2")]   # remove the failed library (very few reads obtained)
+
+## Initial DESeq2 run to identify genes for normalisation of the data set.
+
+coldata <- data.frame(
+  lib = colnames(ath),
+  inhibitor = factor(substr(colnames(ath), 1, 1), labels = c("amanitin", "dry", "mock")),
+  aba = factor(substr(colnames(ath), 3, 3), labels = c("Y", "N")),
+  time = substr(colnames(ath), 5, 7),
+  replica = factor(substr(colnames(ath), 9, 9)),
+  condition = substr(colnames(ath), 1, 7)
+)
+
+dds <- DESeq(DESeqDataSetFromMatrix(countData = ath, colData = coldata, design = ~ condition))
+
+# Relative abundance of stable mRNAs in libraries is expected to increase during treatment with a transcription inhibitor (see Supplementary Bioinformatic Methods and references therein).
+# This is because their content in the library rises due to the degradation of unstable mRNAs.
+# We compared amanitin- and mock-treated seeds at 6-hour and 12-hour time points and selected genes with highly confident up-regulated mRNAs at both time points.
+
+res_6h <- results(dds, alpha = 0.05, contrast = c("condition", "A_X_06h", "M_X_06h"), altHypothesis = "greater")
+up_t06 <- rownames(res_6h[which(res_6h$padj < 0.05), ])
+
+res_12h <- results(dds, alpha = 0.05, contrast = c("condition", "A_X_12h", "M_X_12h"), altHypothesis = "greater")
+up_t12 <- rownames(res_12h[which(res_12h$padj < 0.05), ])
+
+up <- unique(c(up_t06, up_t12))
+
+# The above approach was previously used to study mRNA stability in seedlings (see Supplementary Bioinformatic Methods and references therein).
+# In that scenario, the only expected changes in mRNA levels during the treatment time course were due to a complete or partial transcriptional block.
+# Seed imbibition is a dynamic process, and applying the inhibitor must counter the rapid, strong increase in gene expression.
+# The apparent gene up-regulation seen with alpha-amanitin treatment described above may be more easily achieved if the gene is highly up-regulated during imbibition and Pol II inhibition is delayed or incomplete.
+# Since the selected genes will serve for normalising both mock and alpha-amanitin time course samples, it is crucial to exclude these genes from the normalisation set.
+# Otherwise, they may cause underestimation of gene induction during imbibition and completely mask any possible inefficient transcription block by alpha-amanitin.
+# This indicates that levels of stable mRNAs should remain unchanged during imbibition in the mock.
+# To identify such genes, we compared dry and mock samples at the 6-hour and 12-hour time points.
+
+res_6h <- results(dds, alpha = 0.05, contrast = c("condition", "M_X_06h", "D_X_00h"), lfcThreshold = log2(1.5), altHypothesis = "lessAbs")
+stable_t06 <- rownames(res_6h[which(res_6h$padj < 0.05), ])
+
+res_12h <- results(dds, alpha = 0.05, contrast = c("condition", "M_X_12h", "D_X_00h"), lfcThreshold = log2(1.5), altHypothesis = "lessAbs")
+stable_t12 <- rownames(res_12h[which(res_12h$padj < 0.05), ])
+
+stable_genes <- intersect(stable_t06, stable_t12)
+
+# Now we intersect genes up-regulated upon alpha-amanitin treatment and genes unaffected by imbibition.
+# As our sequencing method depends on the presence of poly(A) tails, we exclude non-protein-coding genes from the list as potential off-targets.
+
+stable_genes <- intersect(stable_genes, up)
+stable_genes <- stable_genes[stable_genes %in% araport$gene[araport$attribute == "protein_coding"]]
+
+# Now, stable mRNAs can be used to normalise the entire dataset.
+
+dds <- DESeqDataSetFromMatrix(countData = ath, colData = coldata, design = ~ condition)
+dds <- estimateSizeFactors(dds, controlGenes= rownames(ath) %in% stable_genes)
+dds <- DESeq(dds)
+
+## Analysis of gene expression changes during the time course of seed imbibition (mock and alpha-amanitin treatments).
+
+# PCA plot (Fig. 1B).
+plot <- plotPCA(rlogTransformation(dds, blind=TRUE), intgroup=c('condition'), ntop = 1000, returnData=TRUE)
+percentVar <- round(100 * attr(plot, "percentVar"))
+pca_amm <- merge(plot [,1:5], coldata, by.x = "name", by.y = "lib")  # keep for Fig. S4
+plot <- pca_amm [which (pca_amm$aba == "N"),2:4]   # remove samples with ABA treatment
+
+ggplot(plot , aes(x=PC1, y=PC2, color = group)) +
+  geom_point(size = 3) + 
+  theme_classic() +
+  scale_color_manual(values=c("#ffbd4c","#ffb022","#ff810e","#c23728",
+                              "#7f7f7f",
+                              "#a7d5ed","#63bff0","#22a7f0", "#1984c5")) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed() +
+  ylim (-17, 17)
