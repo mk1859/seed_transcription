@@ -1,0 +1,30 @@
+### Imbibition of seeds upon Pol II inhibition (Figure 1 & S1).
+
+# 3'RNA-seq experiment included samples incubated with exogenous ABA; these will not be shown in these figures but will be included later in Fig. 4.
+
+library (tidyverse)
+library (DESeq2)
+library (cowplot)
+library (gprofiler2)
+library (ggthemes)
+library (data.table)
+library (WGCNA)
+library (ungeviz)
+library (multcomp)
+library (multcompView)
+
+# set the path to folder containing the data
+setwd("~/data/")
+
+# load Araport annotation data
+araport <- fread("anotation.txt", header = TRUE)
+
+# import and format count data for time course experiment (mock and alpha-amanitin treatment)
+
+dir <- "geo_counts/alpha/at/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+ath <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(ath, function(df) df$V2))
+rownames(count_matrix) <- ath[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+ath <- count_matrix [,-which(colnames(count_matrix) == "M_X_03h_2")]   # remove the failed library (very few reads obtained)
