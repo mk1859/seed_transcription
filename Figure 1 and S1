@@ -14,7 +14,7 @@ library (multcomp)
 library (multcompView)
 
 # set the path to folder containing the data
-setwd("~/data/")
+setwd("/data/")
 
 # load Araport annotation data
 araport <- fread("anotation.txt", header = TRUE)
@@ -84,7 +84,7 @@ dds <- DESeq(dds)
 
 ## Analysis of gene expression changes during the time course of seed imbibition (mock and alpha-amanitin treatments).
 
-# PCA plot (Fig. 1B).
+# PCA plot (Fig. 1B)
 plot <- plotPCA(rlogTransformation(dds, blind=TRUE), intgroup=c('condition'), ntop = 1000, returnData=TRUE)
 percentVar <- round(100 * attr(plot, "percentVar"))
 pca_amm <- merge(plot [,1:5], coldata, by.x = "name", by.y = "lib")  # keep for Fig. S4
@@ -100,3 +100,507 @@ ggplot(plot , aes(x=PC1, y=PC2, color = group)) +
   ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
   coord_fixed() +
   ylim (-17, 17)
+
+# differential gene expression analysis for relevant pairwise comparisons
+
+contrast_list <- list(
+  "M_01_00" = c("M_X_01h", "D_X_00h"), "M_03_00" = c("M_X_03h", "D_X_00h"), "M_06_00" = c("M_X_06h", "D_X_00h"), "M_12_00" = c("M_X_12h", "D_X_00h"),
+  "A_01_00" = c("A_X_01h", "D_X_00h"), "A_03_00" = c("A_X_03h", "D_X_00h"), "A_06_00" = c("A_X_06h", "D_X_00h"), "A_12_00" = c("A_X_12h", "D_X_00h"),
+  "M_03_01" = c("M_X_03h", "M_X_01h"), "M_06_03" = c("M_X_06h", "M_X_03h"), "M_12_06" = c("M_X_12h", "M_X_06h"),
+  "A_03_01" = c("A_X_03h", "A_X_01h"), "A_06_03" = c("A_X_06h", "A_X_03h"), "A_12_06" = c("A_X_12h", "A_X_06h"),
+  "t01_A_M" = c("A_X_01h", "M_X_01h"), "t03_A_M" = c("A_X_03h", "M_X_03h"), "t06_A_M" = c("A_X_06h", "M_X_06h"), "t12_A_M" = c("A_X_12h", "M_X_12h"),
+  "ABA_A_M" = c("A_A_06h", "M_A_06h"), "M_ABA" = c("M_A_06h", "M_X_06h"),
+  "A_ABA" = c("A_A_06h", "A_X_06h"), "M_06_00_ABA" = c("M_A_06h", "D_X_00h")
+)
+
+deg_alpha <- setNames(
+  lapply(names(contrast_list), function(name) {
+    c <- contrast_list[[name]]
+    res <- results(dds, alpha = 0.05, contrast = c("condition", c[1], c[2]))
+    res$gene <- rownames(res)
+    res
+  }),
+  names(contrast_list)
+)
+
+# summary for differentially expressed genes
+
+# function to summarise a list of DESeq2 results, returning lists of genes with significantly changed mRNA levels
+
+process_deg_data <- function(deg_list, lfc_threshold = 1) {
+  up <- list()
+  dw <- list()
+  for (i in seq_along(deg_list)) {
+    x <- as.data.frame(deg_list[[i]])
+    up[[i]] <- x$gene[which(x$padj < 0.05 & x$log2FoldChange > lfc_threshold)]
+    dw[[i]] <- x$gene[which(x$padj < 0.05 & x$log2FoldChange < -lfc_threshold)]
+  }
+  names(up) <- names(deg_list)
+  names(dw) <- names(deg_list)
+  return(list(up = up, dw = dw))
+}
+
+# comparison of dry seeds with mock- and amanitin-imbibed samples (Fig. S1G)
+plot <- process_deg_data(deg_alpha[1:8])
+
+plot <- data.frame(
+  timepoint = rep(c("1h", "3h", "6h", "12h"), 2),
+  up = lengths(plot$up),
+  dw = lengths(plot$dw),
+  treatment = rep(c("M", "A"), each = 4)
+)
+
+plot$type <- factor(paste0(plot$treatment, plot$timepoint), levels = c("M1h","A1h","M3h","A3h","M6h","A6h","M12h","A12h"))
+
+# plot for up-regulated mRNAs
+p1 <- ggplot(data=plot, aes(x=type, y=up, fill = type)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.x=element_blank()) +
+  scale_fill_manual(values=c("#a7d5ed","#ffbd4c","#63bff0","#ffb022","#22a7f0","#ff810e","#1984c5","#c23728" )) +
+  ylim (0,4000)
+
+# plot for down-regulated mRNAs
+p2 <- ggplot(data=plot, aes(x=type, y=dw, fill = type)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.x=element_blank()) + 
+  scale_x_discrete(position = "top")  +
+  scale_fill_manual(values=c("#a7d5ed","#ffbd4c","#63bff0","#ffb022","#22a7f0","#ff810e","#1984c5","#c23728" )) +
+  scale_y_reverse(limits = c(4000,0))
+
+# combining both plots (Fig. S1G)
+plot_grid(p1, p2, ncol = 1, align = 'v')
+
+# direct comparison of amanitin- and mock-treated samples (Fig. 1C)
+plot <- process_deg_data(deg_alpha[15:18])
+
+plot <- data.frame(
+  timepoint = c("1h","3h","6h","12h"),
+  amanitin = lengths(plot$up),
+  mock = lengths(plot$dw)
+)
+
+plot$timepoint <- factor(plot$timepoint, levels = c("1h","3h","6h","12h"))
+
+# plot for up-regulated mRNAs
+p1 <- ggplot(data=plot, aes(x=timepoint, y=amanitin, fill = timepoint)) +
+  geom_bar(stat="identity") + 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank(),
+         axis.text.x=element_blank()) +
+  scale_fill_manual(values=c("#ffbd4c","#ffb022","#ff810e","#c23728")) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 4000), breaks = (seq(0,4000,by = 100))) 
+
+# plot for down-regulated mRNAs
+p2 <- ggplot(data=plot, aes(x=timepoint, y=mock, fill = timepoint)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  scale_fill_manual(values=c("#a7d5ed","#63bff0","#22a7f0", "#1984c5")) +
+  ylim (0,4000)+
+  coord_flip()
+
+# combining both plots (Fig. 1C)
+plot_grid(p1, p2, ncol = 2, align = 'hv')
+
+# gene expression clustering through identifying WGCNA modules
+
+# select mRNAs affected during mock imbibition
+imb_genes <- unlist(process_deg_data(deg_alpha[c(1:4, 9:11)]))
+imb_genes <- imb_genes [!duplicated(imb_genes)]
+
+# We used 3'RNA-seq relying on poly(A) tails, so we focus on nuclear protein-coding genes to exclude possible off-targets.
+imb_genes <- imb_genes [which(imb_genes %in% araport$gene [which(araport$attribute == "protein_coding")])]
+imb_genes <- imb_genes [-c(grep ("ATM", imb_genes),grep ("ATC", imb_genes))]
+
+# calculate CPMs for whole experiment
+cpm <- ath
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- cpm[, -grep("_A_", colnames(cpm))]   # remove ABA samples
+
+# calculate z-scores
+zscore_alpha <- t(scale(t(cpm)))
+colnames(zscore_alpha) <- colnames(cpm)
+rownames(zscore_alpha) <- rownames(cpm)
+
+# subset z-scores to selected genes and transpose
+selected_genes <- as.data.frame(t(zscore_alpha[rownames(zscore_alpha) %in% imb_genes, ])) 
+
+# calculate mean expression per condition and select mock
+selected_genes$condition <- factor(gsub('.{0,3}$', '', rownames(selected_genes)))
+selected_genes <- as.data.frame(t(apply (selected_genes [,-ncol(selected_genes)], 2, function (x) {
+  tapply (x, selected_genes$condition, mean)})))
+
+mock <- selected_genes [,c(5:9)]
+
+# identification of WGCNA gene expression modules for mock imbibition
+net <- blockwiseModules(t(mock), power = 10,
+                        TOMType = "signed", minModuleSize = 30, deepSplit = 2, mergeCutHeight = 0.25,
+                        numericLabels = TRUE, networkType = "signed",
+                        saveTOMs = TRUE, saveTOMFileBase = "test",
+                        verbose = 3, maxBlockSize = 4000)
+
+# add module assignments and gene names
+mock$cluster <- factor(net$colors, levels = c(3, 1, 2, 4, 0), labels = c("C1", "C2", "C3", "C4", "C0"))
+mock$gene <- rownames(mock)
+
+# save the module assignment
+clusters_alpha <- mock[, c("gene", "cluster")] 
+
+# GO-terms enriched in each module (Fig. 1D)
+
+# Complete results of the enrichment test are provided in the Supplementary Datasets.
+# For the figure, we select only representative, least redundant terms.
+
+background <- araport$gene[araport$attribute == "protein_coding"]   # background for enrichment test
+plot <- list()
+
+res <- gost(query = clusters_alpha$gene [which(clusters_alpha$cluster == "C1")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$C1 <- res [c(1,17),c(11,3,10)]
+
+res <- gost(query = clusters_alpha$gene [which(clusters_alpha$cluster == "C2")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$C2 <- res [c(1,4,11,17,20,28,34,40,48,72,77,102),c(11,3,10)]
+
+res <- gost(query = clusters_alpha$gene [which(clusters_alpha$cluster == "C3")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$C3 <- res [c(1,3,8,10,14,16,17,34,41,49,57),c(11,3,10)]
+
+res <- gost(query = clusters_alpha$gene [which(clusters_alpha$cluster == "C4")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$C4 <- res [c(4),c(11,3,10)]
+
+plot <- rbindlist(plot, idcol = "cluster")
+plot$order <- factor(paste(plot$term_name, 1:nrow(plot)), levels = rev(paste(plot$term_name, 1:nrow(plot))))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=order, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+# plot heat maps and modules (Fig. 1D)
+
+# order by cluster and fix the gene order
+mock <- mock[order(mock$cluster, decreasing = T), ]
+gene_order <- mock$gene
+mock$gene <- factor(mock$gene, levels = gene_order)
+
+# melt mock data for heat map
+mock_melted <- pivot_longer(mock, cols = starts_with("D_X_00"):starts_with("M_X_12"), 
+                            names_to = "condition", values_to = "level")
+mock_melted$condition <- factor(substr(mock_melted$condition, 5, 6))
+mock_melted$cluster <- factor(mock_melted$cluster)
+
+# create mock heat map and cluster indicator plots
+mock_heatmap <- ggplot(mock_melted, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e", mid = "white", high = "#cc3a3d", midpoint = 0, 
+                       limits = range(mock_melted$level, na.rm = TRUE)) +
+  theme_classic() +
+  theme(axis.line.y = element_blank(), axis.ticks.y = element_blank(),
+        axis.title.y = element_blank(), axis.text.y = element_blank(),
+        axis.line.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(), axis.text.x = element_blank())
+
+cluster_indicator <- ggplot(mock_melted, aes(x = "x", y = gene, fill = cluster)) +
+  geom_tile() +
+  theme_classic() +
+  theme(axis.line = element_blank(), axis.ticks = element_blank(),
+        axis.title = element_blank(), axis.text = element_blank(),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#fcab20", "#e7363c", "#26456e", "#59ac99", "grey"))
+
+# heat map displaying amanitin expression data
+amanitin <- selected_genes[, c(5, 1:4)]
+amanitin$cluster <- net$colors
+amanitin$gene <- rownames(amanitin)
+amanitin$gene <- factor(amanitin$gene, levels = gene_order)  # Use the gene order specified above.
+amanitin$cluster <- factor(amanitin$cluster, levels = c(3, 1, 2, 4, 0), labels = c("C1", "C2", "C3", "C4", "C0"))
+
+amanitin_melted <- pivot_longer(amanitin, cols = starts_with("D_X_00"):starts_with("A_X_12"), 
+                                names_to = "condition", values_to = "level")
+amanitin_melted$condition <- factor(substr(amanitin_melted$condition, 5, 6))
+amanitin_melted$cluster <- factor(amanitin_melted$cluster)
+
+amanitin_heatmap <- ggplot(amanitin_melted, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e", mid = "white", high = "#cc3a3d", midpoint = 0, 
+                       limits = range(c(mock_melted$level,amanitin_melted$level), na.rm = TRUE)) + # consistent scale between heat maps.
+  theme_classic() +
+  theme(axis.line.y = element_blank(), axis.ticks.y = element_blank(),
+        axis.title.y = element_blank(), axis.text.y = element_blank(),
+        axis.line.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(), axis.text.x = element_blank())
+
+# combine heat maps and cluster indicator (Fig. 1D)
+plot_grid(cluster_indicator, mock_heatmap, amanitin_heatmap,
+          nrow = 1, rel_widths = c(0.6, 1.5, 1.5), align = "hv")
+
+# plots summarising module behaviour (Fig. 1E)
+
+# mock summary
+mock <- mock [,-7]
+colnames(mock) <- c("t00", "t01", "t03", "t06","t12", "cluster")
+
+mock_summ <- mock %>%
+    group_by(cluster) %>%
+    summarise(across(starts_with("t"), .fns = list(mean = ~mean(.), sd = ~sd(.)), .names = "{.col}_{.fn}")) %>%
+    pivot_longer(cols = starts_with("t"), 
+                 names_to = c("time", ".value"), 
+                 names_sep = "_") %>%
+    mutate(SEM = sd / sqrt(n()),  # Compute standard error
+           lower_CI = mean - 1.96 * SEM, 
+           upper_CI = mean + 1.96 * SEM)
+
+mock_summ$type <- "mock"
+
+# alpha-amanitin summary
+amanitin <-amanitin [,-7]
+colnames(amanitin) <- c("t00", "t01", "t03", "t06","t12", "cluster")
+
+amanitin_summ <- amanitin %>%
+  group_by(cluster) %>%
+  summarise(across(starts_with("t"), .fns = list(mean = ~mean(.), sd = ~sd(.)), .names = "{.col}_{.fn}")) %>%
+  pivot_longer(cols = starts_with("t"), 
+               names_to = c("time", ".value"), 
+               names_sep = "_") %>%
+  mutate(SEM = sd / sqrt(n()),  # Compute standard error
+         lower_CI = mean - 1.96 * SEM, 
+         upper_CI = mean + 1.96 * SEM)
+
+amanitin_summ$type <- "amanitin"
+
+# combine both 
+plot_data <- bind_rows(mock_summ, amanitin_summ) %>%
+  mutate(group = paste0(cluster, type))
+
+plot_data <- plot_data %>% filter(cluster != "C0")#  Remove cluster C0 
+
+# create plots with confidence intervals (Fig. 1E)
+ggplot(data = plot_data, aes(x = time, y = mean, color = cluster, group = group)) +
+  geom_ribbon(aes(ymin = lower_CI, ymax = upper_CI), fill = "grey", alpha = 0.3, color = NA) +  # CI shading
+  geom_line(aes(linetype = type), linewidth = 1.2) +
+  scale_linetype_manual(values = c("dashed", "solid")) +
+  theme_classic() +
+  scale_x_discrete(expand = c(0.05, 0.05)) +
+  scale_color_manual(values = c("#fcab20", "#e7363c", "#26456e", "#59ac99")) +
+  facet_wrap(~cluster, ncol = 4)
+
+# box plots showing that amanitin affects up-regulation but not down-regulation of expression during imbibition (Fig. S1H-I)
+
+# combine results for differential gene expression analysis
+plot <- data.frame(
+  gene = deg_alpha$M_12_00$gene,
+  mock_log2FC = deg_alpha$M_12_00$log2FoldChange,
+  mock_padj = deg_alpha$M_12_00$padj,
+  amanitin_log2FC = deg_alpha$A_12_00$log2FoldChange
+)
+
+# plot and t-test for up-regulated mRNAs
+plot_up <- plot [which(plot$mock_log2FC > 1 & plot$mock_padj < 0.05), -3]
+plot_up <- pivot_longer(plot_up, cols = mock_log2FC:amanitin_log2FC, names_to = "sample", values_to = "log2FC")
+plot_up$sample <- gsub("_log2FC", "", plot_up$sample)
+plot_up$sample <- factor(plot_up$sample, levels = c("mock", "amanitin"))
+
+ggplot(plot_up, aes(sample, log2FC, fill = sample)) +
+  geom_boxplot() +
+  theme_classic() +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#1984c5","#c23728"))
+
+t.test(plot_up$log2FC[plot_up$sample == "mock"], plot_up$log2FC[plot_up$sample == "amanitin"])$p.value
+
+# plot and t-test for down-regulated mRNAs
+plot_dw <- plot [which(plot$mock_log2FC < -1 & plot$mock_padj < 0.05), -3]
+plot_dw <- pivot_longer(plot_dw, cols = mock_log2FC:amanitin_log2FC, names_to = "sample", values_to = "log2FC")
+plot_dw$sample <- gsub("_log2FC", "", plot_dw$sample)
+plot_dw$sample <- factor(plot_dw$sample, levels = c("mock", "amanitin"))
+
+ggplot(plot_dw, aes(sample, log2FC, fill = sample)) +
+  geom_boxplot() +
+  theme_classic() +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#1984c5","#c23728"))
+
+t.test(plot_dw$log2FC[plot_dw$sample == "mock"], plot_dw$log2FC[plot_dw$sample == "amanitin"])$p.value
+
+## Analysis of germination phenotypes
+
+# plot for % of seeds germinated after amanitin treatment (Fig. 1A)
+
+plot <- read.table("germination/alpha_germ.txt",header=T, dec = ",")
+plot$frac <- plot$rupture/plot$sum
+plot$cond <- factor (plot$cond, levels = rev(c("holes_A","intact_A", "holes_W","intact_W")))
+
+ggplot(plot, aes(x = cond, y = frac, color = rep, group = cond)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  coord_flip() +
+  geom_hpline(stat = "summary")
+
+one.way <- aov(frac ~ cond, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cond))
+
+# plot for % of seeds germinating after scarification (Fig. S1A)
+plot <- read.table("germination/stratification_germ.txt",header=T, dec = ",")
+
+ggplot(plot, aes(x = treatment, y = germination, color = replicate)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau()+
+  ylim (0,1)
+
+t.test (plot$germination [which(plot$treatment == "intact")], plot$germination [which(plot$treatment == "scarified")], paired = T, var.equal = T)$p.value
+
+# plot for % of seeds stained with tetrazolium red (Fig. S1B)
+plot <- read.table("germination/stratification_stain.txt",header=T, dec = ",")
+
+ggplot(plot, aes(x = treatment, y = staining, color = replicate)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau()+
+  ylim (0,1)
+
+t.test (plot$staining [which(plot$treatment == "intact")], plot$staining [which(plot$treatment == "scarified")], paired = T, var.equal = T)$p.value
+
+## RT-qPCR analysis
+
+# inhibition of expression up-regulation by amanitin at 6h (Fig. S1C)
+plot <- read.table("qPCR/alpha_norm_data.txt",header=T, dec = ",")
+plot$sample <- factor (plot$sample, levels = c("int_wat","int_amm", "scar_wat","scar_amm"))
+
+ggplot(plot, aes(x = sample, y = hsp17, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.5)
+
+t.test (plot$hsp17 [which(plot$sample == "int_wat")], plot$hsp17 [which(plot$sample == "int_amm")], var.equal = T)$p.value
+t.test (plot$hsp17 [which(plot$sample == "scar_wat")], plot$hsp17 [which(plot$sample == "scar_amm")], var.equal = T)$p.value
+
+ggplot(plot, aes(x = sample, y = sro5, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,2)
+
+t.test (plot$sro5 [which(plot$sample == "int_wat")], plot$sro5 [which(plot$sample == "int_amm")], var.equal = T)$p.value
+t.test (plot$sro5 [which(plot$sample == "scar_wat")], plot$sro5 [which(plot$sample == "scar_amm")], var.equal = T)$p.value
+
+# inhibition of expression up-regulation by amanitin at 1h (Fig. S1D)
+plot <- read.table("qPCR/alpha_1h_norm_data.txt",header=T, dec = ",")
+plot$sample <- factor (plot$sample, levels = c("mock","alpha"))
+
+ggplot(plot, aes(x = sample, y = dreb2b, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.2)
+
+t.test (plot$dreb2b [which(plot$sample == "mock")], plot$dreb2b [which(plot$sample == "alpha")], var.equal = T)$p.value
+
+ggplot(plot, aes(x = sample, y = dreb2c, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.2)
+
+t.test (plot$dreb2c [which(plot$sample == "mock")], plot$dreb2c [which(plot$sample == "alpha")], var.equal = T)$p.value
+
+ggplot(plot, aes(x = sample, y = hsp70, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.2)
+
+t.test (plot$hsp70 [which(plot$sample == "mock")], plot$hsp70 [which(plot$sample == "alpha")], var.equal = T)$p.value
+
+# inhibition of expression up-regulation by cordycepin and alpha-amanitin at 6h (Fig. S1F)
+plot <- read.table("qPCR/cordy_norm_data.txt",header=T, dec = ",")
+plot$sample <- factor (plot$sample, levels = c("mock","alpha","cordy"))
+
+ggplot(plot, aes(x = sample, y = P85, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.4)
+
+one.way <- aov(P85 ~ sample, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$sample))
+
+ggplot(plot, aes(x = sample, y = ras1, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.4)
+
+one.way <- aov(ras1 ~ sample, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$sample))
+
+ggplot(plot, aes(x = sample, y = dreb2c, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.4)
+
+one.way <- aov(dreb2c ~ sample, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$sample))
+
+ggplot(plot, aes(x = sample, y = dreb2c, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.4)
+
+one.way <- aov(dreb2c ~ sample, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$sample))
+
+ggplot(plot, aes(x = sample, y = sro5, color = rep, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,1.4)
+
+one.way <- aov(sro5 ~ sample, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$sample))
+
+
+
