@@ -1,0 +1,436 @@
+### New mRNA production during imbibition with cycloheximide (Figure 3 & S3).
+
+library (tidyverse)
+library (data.table)
+library (DESeq2)
+library (statforbiology)
+library (WGCNA)
+library (gprofiler2)
+library (cowplot)
+library (multcomp)
+library (multcompView)
+library (ggalt)
+library (ggrepel)
+library (eulerr)
+library (scales)
+library (ungeviz)
+
+# set the path to folder containing the data
+setwd("/data/")
+
+## New mRNA production during imbibition for genes belonging to clusters from Fig. 1 (Fig. 3A).
+new <- lapply(list(new_1h, new_3h, new_6h), function(x) {
+  merge(x, clusters_alpha, by = "gene", all.x = T)
+})
+
+names(new) <- c("1h", "3h", "6h")
+new <- rbindlist(new, idcol = "time")
+
+new$cluster <- as.character(new$cluster)
+new$cluster <- ifelse (is.na(new$cluster)| new$cluster == "C0", "no", new$cluster)
+
+ggplot(new, aes(x = cluster, y = log2FoldChange, fill = cluster)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#fcab20", "#e7363c", "#26456e", "#59ac99", "grey")) +
+  xlab("cluster") +
+  ylab("log2FC CPM/predicted") +
+  theme(legend.position = "none") +
+  ylim(-4, 10) +
+  facet_wrap(~time, nrow = 1) +
+  geom_hline(yintercept=2, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$time == "1h")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$time == "3h")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$time == "6h")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+### Analysis of first experiment with cycloheximide. 
+
+# import and format count
+dir <- "geo_counts/cyclo/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+cyclo <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(cyclo, function(df) df$V2))
+rownames(count_matrix) <- cyclo[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+cyclo <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and ERCC spike-ins
+cpm <- cyclo
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) # Add gene names
+
+# filter for protein-coding genes and ERCCs
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene)), ]
+cpm$ERCC <- ifelse(substr(cpm$gene, 1, 4) == "ERCC", "Y", "N") # Add ERCC indicator
+
+cpm_cyclo <- cpm
+
+# identification of new mRNAs using ERCC normalisation (Fig. S3D)
+ercc <- rownames(cyclo) [grep ("ERCC", rownames(cyclo))]
+
+coldata <- data.frame(lib = colnames (cyclo),
+                      condition = substr (colnames (cyclo), 1, 6),
+                      replicate = substr (colnames (cyclo), 8, 8) )
+
+new_3hM <- new_identification(cyclo, coldata, 16:18, 13:15, min_counts = 3, normalization_genes = ercc)  # 3h mock
+new_6hM <- new_identification(cyclo, coldata, 22:24, 19:21, min_counts = 3, normalization_genes = ercc)  # 6h mock
+new_3hC <- new_identification(cyclo, coldata, 4:6, 1:3, min_counts = 3, normalization_genes = ercc)  # 3h CHX
+new_6hC <- new_identification(cyclo, coldata, 10:12, 7:9, min_counts = 3, normalization_genes = ercc)  # 6h CHX
+
+# plots for enrichment of new mRNAs
+new_mRNA_plot(cpm_cyclo, new_3hM, ercc, "M_3h_N", "M_3h_I", return_data = FALSE) # 3h mock
+new_mRNA_plot(cpm_cyclo, new_6hM, ercc, "M_6h_N", "M_6h_I", return_data = FALSE) # 6h mock
+new_mRNA_plot(cpm_cyclo, new_3hC, ercc, "C_3h_N", "C_3h_I", return_data = FALSE) # 3h CHX
+new_mRNA_plot(cpm_cyclo, new_6hC, ercc, "C_6h_N", "C_6h_I", return_data = FALSE) # 6h CHX
+
+# differential gene expression in total mRNA samples upon cycloheximide treatment
+
+# It was reported that CHX treatment may affect the stability of the mRNA genome-wide.
+# That is why we use ERCC normalisation even for total mRNA differential analysis.
+
+# function for DEG identification in total MRNA samples
+deg_total <- function(counts_matrix, coldata, rows1, rows2, normalization_genes = rownames(counts_matrix)) {
+  # subset coldata based on row numbers
+  coldata_subset <- coldata[c(rows1, rows2), ]
+  # subset counts matrix to match the subsetted coldata and remove ERCC
+  counts_matrix_subset <- counts_matrix[-grepl("ERCC", rownames(counts_matrix)), coldata_subset$lib]
+  
+  condition1 <- unique(coldata$condition[rows1]) #Extract condition names for the contrast
+  condition2 <- unique(coldata$condition[rows2])
+  
+  dds <- DESeqDataSetFromMatrix(countData = counts_matrix_subset, 
+                                colData = coldata_subset, 
+                                design = ~ condition)
+  dds <- estimateSizeFactors(dds, controlGenes = rownames(counts_matrix_subset) %in% normalization_genes)
+  dds <- DESeq(dds)
+  
+  # ensure the contrast is correctly defined based on the input conditions
+  contrast <- c("condition", condition1, condition2)
+  res <- as.data.frame(results(dds, alpha = 0.05, contrast = contrast))
+  
+  res$gene <- rownames(res)
+  res$change <- "NO"
+  res$change <-   ifelse (res$padj < .05 & res$log2FoldChange > 1, "UP", res$change)
+  res$change <-   ifelse (res$padj < .05 & res$log2FoldChange < -1, "DW", res$change)
+  res$change <-   factor (res$change, levels = c("UP","DW","NO"))
+  
+  return(res)
+}
+
+# function to create volcano plots
+create_volcano_plot <- function(res, lfc_cap = 5, padj_cap = 50, lfc_threshold = 1, padj_threshold = 0.05, return_data = FALSE) {
+  
+  res$log_padj <- -log10(res$padj)
+
+  p <- ggplot(res, aes(x = squish(log2FoldChange, range = c(-lfc_cap, lfc_cap)), y = squish(log_padj, range = c(0, padj_cap)), color = change)) +
+    geom_point(size = 1, shape = 16, alpha = 0.4) +
+    scale_color_manual(values = c("#E15759", "#4E79A7", "#79706E")) +
+    theme_classic() +
+    geom_vline(xintercept = c(-lfc_threshold, lfc_threshold), linetype = "dashed", color = "black") +
+    geom_hline(yintercept = -log10(padj_threshold), linetype = "dashed", color = "black") +
+    theme(legend.position = "none", strip.text = element_blank()) +
+    xlab("log2 fold change") +
+    ylab("-log10 adjusted p-value") +
+    xlim(-lfc_cap, lfc_cap) +
+    coord_cartesian(ylim = c(0, padj_cap))
+  
+  if (return_data) {
+    return(plot = res)
+  } else {
+    return(p)
+  }
+}
+
+# differential levels of mRNAs upon cycloheximide treatment (Fig. S3B-C)
+
+coldata <- data.frame(lib = colnames (cyclo),
+                      condition = substr (colnames (cyclo), 1, 6),
+                      replicate = substr (colnames (cyclo), 8, 8) )
+
+ercc <- rownames(cyclo) [grep ("ERCC", rownames(cyclo))]
+
+res_CvM_3h_inp <- deg_total(cyclo, coldata, 1:3, 13:15, normalization_genes = ercc) # 3h
+create_volcano_plot (res_CvM_3h_inp, lfc_cap = 5, padj_cap = 50)
+
+res_CvM_6h_inp <- deg_total(cyclo, coldata, 7:9, 19:21, normalization_genes = ercc) # 6h
+create_volcano_plot (res_CvM_6h_inp, lfc_cap = 5, padj_cap = 50)
+
+# differential accumulation of new mRNAs upon cycloheximide treatment (Fig. 3C-D)
+# function for analysis of differential new mRNA levels
+deg_new <- function(counts_matrix, coldata, rows1, rows2, 
+                    min_counts = 4, normalization_genes) {
+  
+  # subset coldata based on row numbers
+  coldata_subset <- coldata[c(rows1, rows2), ]
+  
+  # subset counts matrix to match the subsetted coldata
+  counts_matrix_subset <- counts_matrix[, coldata_subset$lib]
+  
+  condition1 <- as.character(unique(coldata$condition[rows1])) #Extract condition names for the contrast
+  condition2 <- as.character(unique(coldata$condition[rows2]))
+  
+  dds <- DESeqDataSetFromMatrix(countData = counts_matrix_subset, 
+                                colData = coldata_subset, 
+                                design = ~ condition)
+  
+  dds <- estimateSizeFactors(dds, controlGenes = rownames(counts_matrix_subset) %in% normalization_genes)
+  
+  dds <- dds[rowSums(counts(dds) >= min_counts) >= min_counts, ]
+  
+  dds <- DESeq(dds)
+  
+  # ensure the contrast is correctly defined based on the input conditions
+  contrast <- c("condition", condition1, condition2)
+  res <- as.data.frame(results(dds, alpha = 0.05, contrast = contrast))
+  
+  res$gene <- rownames(res)
+  res$change <- "NO"
+  res$change <-   ifelse (res$padj < .05 & res$log2FoldChange > 1, "UP", res$change)
+  res$change <-   ifelse (res$padj < .05 & res$log2FoldChange < -1, "DW", res$change)
+  res$change <-   factor (res$change, levels = c("UP","DW","NO"))
+  
+  return(res)
+}
+
+res_CvM_3h_new <- deg_new(cyclo, coldata, 4:6, 16:18, min_counts = 3, normalization_genes = ercc) # 3h
+create_volcano_plot (res_CvM_3h_new, lfc_cap = 5, padj_cap = 50)
+
+res_CvM_6h_new <- deg_new(cyclo, coldata, 10:12, 22:24, min_counts = 3, normalization_genes = ercc) # 6h
+ create_volcano_plot (res_CvM_6h_new, lfc_cap = 5, padj_cap = 50)
+
+# new mRNA enrichment upon 6h cycloheximide treatment, classified according to clusters from Fig. 1 (Fig. 3F)
+plot <- merge (res_CvM_6h_new, clusters_alpha, by = "gene", all.x = T)
+plot$cluster <- as.character(plot$cluster)
+plot$cluster <- ifelse (is.na(plot$cluster)| plot$cluster == "C0", "no", plot$cluster)
+
+ggplot(plot, aes(x = cluster, y = log2FoldChange, fill = cluster)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("#fcab20","#e7363c","#26456e","#59ac99", "grey"))+
+  xlab("cluster") +
+  ylab("log2FC cycloheximide/mock")+
+  theme(legend.position = "none") +
+  geom_hline(yintercept=0, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ cluster, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+# clustering of genes producing new mRNAs affected by CHX at 6h (Fig. 3E).
+genes <- res_CvM_6h_new %>%
+  filter(change %in% c("DW", "UP")) %>%
+  pull(gene) %>%
+  intersect(araport$gene[araport$attribute == "protein_coding"]) 
+
+# calculate mean expression per condition
+selected_genes <- as.data.frame(t(zscore_alpha[rownames(zscore_alpha) %in% genes, ]))
+selected_genes$condition <- factor(gsub('.{0,3}$', '', rownames(selected_genes)))
+selected_genes <- as.data.frame(t(apply (selected_genes [,-ncol(selected_genes)], 2, function (x) {
+  tapply (x, selected_genes$condition, mean)})))
+selected_genes <- selected_genes [,c(5:9)]
+
+scale <- range(selected_genes, na.rm = TRUE)
+
+# subset for down-regualted mRNAs
+dw <- selected_genes[rownames(selected_genes) %in% res_CvM_6h_new$gene[which(res_CvM_6h_new$change == "DW")], ]
+
+net <- blockwiseModules(t(dw), power = 10, TOMType = "signed", minModuleSize = 30,
+                        deepSplit = 2, mergeCutHeight = 0.25, numericLabels = TRUE,
+                        networkType = "signed", saveTOMs = TRUE,
+                        saveTOMFileBase = "test", verbose = 3, maxBlockSize = 4000)
+
+dw <- dw %>%
+  mutate(cluster = net$colors,
+         gene = rownames(.)) 
+
+# merge with orginal clusters from Fig. 1
+dw <- merge (dw, clusters_alpha, by = "gene", all.x =T)
+dw$cluster.y <- as.character(dw$cluster.y)
+dw$cluster.x <- as.character(dw$cluster.x)
+
+# re-assign to match expression profiles from Fig. 1
+level_mapping <- c("1" = "2", "0"="Un")
+dw$cluster.x <- level_mapping[dw$cluster.x]
+
+# discriminate genes in original clusters and those "added"
+dw$clusters <- ifelse (is.na(dw$cluster.y), paste0("C", dw$cluster.x, "p"), dw$cluster.y )
+
+dw <- dw %>%  mutate(gene = factor(gene, levels = gene[order(clusters, decreasing = T)])) %>%
+  pivot_longer(cols = D_X_00:M_X_12, names_to = "condition", values_to = "level") %>%
+  mutate(condition = factor(substr(condition, 5, 6)))
+
+p1 <- ggplot(dw, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e", mid = "white", high = "#cc3a3d", midpoint = 0, limits = scale) +
+  theme_classic() +
+  theme(axis.line = element_blank(), axis.ticks = element_blank(),
+        axis.title = element_blank(), axis.text.y = element_blank())
+
+p2 <- ggplot(dw, aes(x = "x", y = gene, fill = as.factor(clusters))) +
+  geom_tile() +
+  theme_classic() +
+  theme(axis.line=element_blank(), axis.ticks=element_blank(),
+        axis.title=element_blank(), axis.text.y=element_blank(),
+        legend.position = "none") +
+  scale_fill_manual(values=c("#fcab20", "#e7363c", "#F39B9E","#26456e","#59ac99","grey"))
+
+plot_grid(p2, p1, nrow = 1, rel_widths = c(0.6, 1.5), align = 'hv')
+
+# subset for up-regulated mRNAs
+up <- selected_genes [which(rownames(selected_genes) %in% res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "UP")]),]
+
+net <- blockwiseModules(t(up), power = 4,
+                        TOMType = "signed", minModuleSize = 50, deepSplit = 2, mergeCutHeight = 0.25,
+                        numericLabels = TRUE, networkType = "signed",
+                        saveTOMs = TRUE, saveTOMFileBase = "test",
+                        verbose = 3, maxBlockSize = 4000)
+
+up <- up %>%
+  mutate(cluster = net$colors,
+         gene = rownames(.)) 
+
+# merge with orginal clusters from Fig. 1
+up <- merge (up, clusters_alpha, by = "gene", all.x =T)
+up$cluster.y <- as.character(up$cluster.y)
+up$cluster.x <- as.character(up$cluster.x)
+
+# re-assign to match expression profiles from Fig. 1
+level_mapping <- c("1" = "2", "2" = "1", "3"="3", "4"="Un", "0" = "Un")
+up$cluster.x <- level_mapping[up$cluster.x]
+
+# discriminate genes in original clusters and those "added"
+up$clusters <- ifelse (is.na(up$cluster.y), paste0("C", up$cluster.x, "p"), up$cluster.y )
+up$clusters <- ifelse (up$clusters == "C0", "CUnp", up$clusters)
+
+up <- up %>%  mutate(gene = factor(gene, levels = gene[order(clusters, decreasing = T)])) %>%
+  pivot_longer(cols = D_X_00:M_X_12, names_to = "condition", values_to = "level") %>%
+  mutate(condition = factor(substr(condition, 5, 6)))
+
+p1 <- ggplot(up, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e", mid = "white", high = "#cc3a3d", midpoint = 0, limits = scale) +
+  theme_classic() +
+  theme(axis.line = element_blank(), axis.ticks = element_blank(),
+        axis.title = element_blank(), axis.text.y = element_blank())
+
+p2 <- ggplot(up, aes(x = "x", y = gene, fill = as.factor(clusters))) +
+  geom_tile() +
+  theme_classic() +
+  theme(axis.line=element_blank(), axis.ticks=element_blank(),
+        axis.title=element_blank(), axis.text.y=element_blank(),
+        legend.position = "none") +
+  scale_fill_manual(values=c("#fcab20", "#FED590","#e7363c", "#F39B9E","#26456e","#93A2B7","#59ac99","grey"))
+
+plot_grid(p2, p1, nrow = 1, rel_widths = c(0.6, 1.5), align = 'hv')
+
+# statistical tests for overlap between mRNAs included in original Fig. 1 clusters and genes with affected new mRNA accumulation at 6h CHX treatment
+res <- res_CvM_6h_new %>%
+  mutate(change = as.character(change)) %>%
+  mutate(change = ifelse(is.na(change), "NO", change))
+
+plot_df <- res %>%
+  merge(clusters_alpha, by = "gene", all.x = TRUE) %>%
+  mutate(cluster = ifelse(is.na(cluster) | cluster == "C0", "no", as.character(cluster)),
+         change = as.character(change)) %>%
+  group_by(change, cluster) %>%
+  summarize(Freq = n(), .groups = "drop") %>%
+  pivot_wider(., names_from = change, values_from = Freq, values_fill = 0) %>%
+  as.data.frame()
+
+rownames(plot_df) <- plot_df$cluster
+plot_df <- plot_df[, -1, drop = FALSE]
+
+plot_matrix <- as.matrix(plot_df)
+
+# function to perform Fisher's test for a given cluster
+perform_fisher_test <- function(cluster_row, data_matrix, change_col, other_cols) {
+  a <- data_matrix[cluster_row, change_col]
+  b <- sum(data_matrix[cluster_row, other_cols])
+  d <- sum(data_matrix[-cluster_row, change_col])
+  e <- sum(data_matrix[-cluster_row, other_cols])
+  fisher.test(as.table(matrix(c(a, d, b, e), nrow = 2, byrow = TRUE)), alternative = "greater")$p.value
+}
+
+# Perform Fisher's tests for 'DOWN' changes against 'NO' and 'UP'
+dw_p_values <- sapply(rownames(plot_matrix)[rownames(plot_matrix) != "no"], function(cluster) {
+  cluster_index <- which(rownames(plot_matrix) == cluster)
+  perform_fisher_test(cluster_index, plot_matrix, "DW", c("NO", "UP"))
+})
+
+dw <- p.adjust(dw_p_values, method = "BH")
+
+# Perform Fisher's tests for 'UP' changes against 'DOWN' and 'NO'
+up_p_values <- sapply(rownames(plot_matrix)[rownames(plot_matrix) != "no"], function(cluster) {
+  cluster_index <- which(rownames(plot_matrix) == cluster)
+  perform_fisher_test(cluster_index, plot_matrix, "UP", c("DW", "NO"))
+})
+
+up <- p.adjust(up_p_values, method = "BH")
+
+
+# GO terms for mRNAs affected by CHX (Fig. 3E)
+plot <- list ()
+res <- gost(query = res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "DW")], organism = "athaliana", custom_bg = res_CvM_6h_new$gene, user_threshold = 0.05)$result
+plot$DW <- res [c(1,5,8,21),c(11,3,10)]
+
+res <- gost(query = res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "UP")], organism = "athaliana", custom_bg = res_CvM_6h_new$gene, user_threshold = 0.05)$result
+plot$UP <- res [c(4,5,6,8,9,10,12,13,14,16,17,18,21,22,29,30),c(11,3,10)]
+
+plot <- rbindlist(plot, idcol = "cluster")
+plot$order <- factor(paste(plot$term_name, 1:nrow(plot)), levels = rev(paste(plot$term_name, 1:nrow(plot))))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=order, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+# new transcript enrichment of mRNAs responding to CHX treatment (Fig. S3E)
+data_frames <- list(
+  M3h = list(data = new_3hM[, c(2, 7)], prefix = "M"),
+  M6h = list(data = new_6hM[, c(2, 7)], prefix = "M"),
+  C3h = list(data = new_3hC[, c(2, 7)], prefix = "C"),
+  C6h = list(data = new_6hC[, c(2, 7)], prefix = "C")
+)
+
+plot <- lapply(names(data_frames), function(name) {
+  prefix <- data_frames[[name]]$prefix
+  data <- data_frames[[name]]$data
+  
+  res_CvM_6h_new [,7:8] %>%
+    filter(change %in% c("UP", "DW")) %>%
+    inner_join(data, by = "gene") %>%
+    mutate(condition = name,
+           lab = paste0(prefix, change))
+}) %>%
+  rbindlist() %>%
+  mutate(condition = factor(condition, levels = c("M3h", "M6h", "C3h", "C6h")))
+
+ggplot(plot, aes(x = change, y = log2FoldChange, fill = lab)) +
+  geom_boxplot() +
+  theme_classic() +
+  xlab("CHX effect") +
+  ylab("log2FC enrichment") +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#F39B9E", "#FED590", "#e7363c", "#fcab20")) +
+  ylim(-2.5, 10) +
+  facet_wrap(~condition, nrow = 1)
+
+
