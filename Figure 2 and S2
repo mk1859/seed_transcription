@@ -200,3 +200,523 @@ ggplot(plot, aes(x = log2FC_enrichment, y = log2FC_amanitin)) +
   xlab ("log2 new mRNA enrichment 6h") +
   ylab ("log2 (amanitin / mock) 12h")
 
+# content of different expression level groups for libraries with enriched and input samples at 6h (Fig. S2M)
+plot <- subset(cpm_new1, spike == "NO", select = c(gene, inp_6h, new_6h))
+plot <- subset(plot, !grepl("AT[MC]", plot$gene) & !(inp_6h == 0 & new_6h == 0))
+
+top_proportions <- function(values, fractions) {
+  sorted_vals <- sort(values, decreasing = TRUE)
+  indices <- round(fractions * length(sorted_vals))
+  sapply(indices, function(p) {
+    sum(sorted_vals[1:p]) / sum(values) })
+}
+
+# calculate proportions for input and enriched libraries
+input <- diff(c(0, top_proportions(plot$inp_6h, c(0.01, 0.05, 0.20, 0.50, 1))))
+new <- diff(c(0, top_proportions(plot$new_6h, c(0.01, 0.05, 0.20, 0.50, 1))))
+
+# create summary data frame for plotting
+plot <- data.frame(
+  value = c(input, new),
+  type = rep(c("inp", "new"), each = length(input)),
+  top = factor(c("0-1%", "1-5%", "5-20%", "20-50%", "50-100%"),
+               levels = c("0-1%", "1-5%", "5-20%", "20-50%", "50-100%"))
+)
+
+ggplot(plot, aes(y = value, x = type, fill = top)) +
+  geom_col(width = 0.5, color = "black") +
+  scale_fill_manual(values = c("#7f9bb0", "#627d9a", "#456084", "#26456e", "#002f6f")) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_minimal() +
+  xlab("Library") +
+  ylab("Content") +
+  geom_flow(aes(alluvium = top),  
+            lty = 2, fill = "white", color = "black",
+            curve_type = "linear", 
+            width = .5)
+
+# calculate labeling percentages (Fig. 2G)
+
+# function to calculate labeling percentage.
+calculate_labeling_percentage <- function(cpm_data, deseq_results, time_column) {
+  genes <- cpm_data$gene[cpm_data[[time_column]] > 1] 
+  genes <- genes[genes %in% araport$gene[araport$attribute == "protein_coding"]]
+  lab_mRNA <- genes[genes %in% deseq_results$gene[deseq_results$change == "NEW"]]
+  return(length(lab_mRNA) / length(genes))
+}
+
+lab_1h <- calculate_labeling_percentage(cpm_new1, new_1h, "inp_1h")
+lab_3h <- calculate_labeling_percentage(cpm_new1, new_3h, "inp_3h")
+lab_6h <- calculate_labeling_percentage(cpm_new1, new_6h, "inp_6h")
+
+plot <- data.frame(time = c("1h", "3h", "6h"), lab = c(lab_1h, lab_3h, lab_6h))
+
+ggplot(data = plot, aes(x = time, y = lab, fill = time)) +
+  geom_bar(stat = "identity") +
+  theme_classic() +
+  scale_fill_manual(values = c("#7f9bb0", "#627d9a", "#456084")) +
+  xlab("time point") +
+  ylab("percent of genes") +
+  theme(legend.position = "none") +
+  ylim(0, 1)
+
+# levels of labelling of up- and down-regulated mRNAs (Fig. 2H)
+plot <- process_deg_data(deg_alpha[1:3])
+
+plot_data <- data.frame(
+  time = rep(c("1h", "3h", "6h"), each = 2),
+  change = rep(c("up", "dw"), times = 3),
+  percent = c(
+    length(which(new_1h$gene %in% plot$up$M_01_00 & new_1h$change == "NEW")) / sum(new_1h$gene %in% plot$up$M_01_00) * 100,
+    length(which(new_1h$gene %in% plot$dw$M_01_00 & new_1h$change == "NEW")) / sum(new_1h$gene %in% plot$dw$M_01_00) * 100,
+    length(which(new_3h$gene %in% plot$up$M_03_00 & new_3h$change == "NEW")) / sum(new_3h$gene %in% plot$up$M_03_00) * 100,
+    length(which(new_3h$gene %in% plot$dw$M_03_00 & new_3h$change == "NEW")) / sum(new_3h$gene %in% plot$dw$M_03_00) * 100,
+    length(which(new_6h$gene %in% plot$up$M_06_00 & new_6h$change == "NEW")) / sum(new_6h$gene %in% plot$up$M_06_00) * 100,
+    length(which(new_6h$gene %in% plot$dw$M_06_00 & new_6h$change == "NEW")) / sum(new_6h$gene %in% plot$dw$M_06_00) * 100
+  )
+)
+
+ggplot(data = plot_data, aes(x = time, y = percent, color = change, group = change)) +
+  geom_line(linewidth = 1.2) +
+  theme_classic() +
+  theme(legend.position = "none") +
+  scale_x_discrete(expand = c(0.05, 0.05)) +
+  scale_color_manual(values = c("#26456e", "#e7363c")) +
+  ylim(0, 100)
+
+# accumulation of new mRNAs along the imbibition (Fig. S2I)
+
+# to relaibly do this we calculate CPMs normalised to ERCC levels
+cpm <- new_1
+depth <- colSums(cpm [which(rownames(cpm) %in% ercc),])
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+# filter for protein-coding genes and select columns for new mRNA
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"]), 4:7]
+
+# select genes producing new mRNAs at least in one time point
+genes <- c(new_1h$gene [which(new_1h$change == "NEW")], new_3h$gene [which(new_3h$change == "NEW")], new_6h$gene [which(new_6h$change == "NEW")])
+genes <- genes [!duplicated(genes)]
+cpm <- cpm [which(cpm$gene %in% genes),]
+
+# calculate z-scores
+zscore <- as.data.frame(t(scale(t(cpm [,1:3]))))
+zscore$gene <- rownames(zscore)
+
+# order for plot
+zscore <- zscore[order(zscore$new_6h, decreasing = F), ]
+zscore$gene <- factor(zscore$gene, levels = zscore$gene)
+
+zscore <- pivot_longer(zscore, cols = "new_1h":"new_6h", 
+                            names_to = "condition", values_to = "level")
+zscore$condition <- factor(substr(zscore$condition, 5, 6))
+
+# create heat map
+ggplot(zscore, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e", mid = "white", high = "#cc3a3d", midpoint = 0) +
+  theme_classic() +
+  theme(axis.line.y = element_blank(), axis.ticks.y = element_blank(),
+        axis.title.y = element_blank(), axis.text.y = element_blank(),
+        axis.line.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(), axis.text.x = element_blank())
+
+# identification of protein-coding genes non-transcribed during imbibition
+non_trans <- intersect(
+  intersect(new_3h$gene[new_3h$log2FoldChange < 1], new_6h$gene[new_6h$log2FoldChange < 1]),
+  intersect(c(new_3h$gene, new_6h$gene), araport$gene[araport$attribute == "protein_coding"])
+)
+
+non_trans <- non_trans[!grepl("ERCC|ATM|ATC", non_trans)]
+
+# CPMs of mRNAs non-transcribed during imbibition. (Fig. S2O)
+plot <- cpm_new1[cpm_new1$gene %in% new_3h$gene, ]   # select genes detected in new mRNA identification pipeline
+plot$non_trans <- ifelse(plot$gene %in% non_trans, "Y", "N")
+plot$non_trans <- factor(plot$non_trans, levels = c("Y", "N"))
+
+ggplot(plot, aes(x = non_trans, y = log10(inp_3h), fill = non_trans)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#e7363c", "#26456e")) +
+  theme(legend.position = "none") +
+  xlab("non transcribed") +
+  ylab("log10 (CPMs) 3h input")
+
+t.test (plot$inp_3h [which(plot$non_trans == "N")], plot$inp_3h [which(plot$non_trans == "Y")])$p.value
+
+# non-transcribed mRNAs behaviour during imbibition (Fig. S2P)
+plot <- zscore_alpha[rownames(zscore_alpha) %in% non_trans, 17:35]
+plot <- as.data.frame(t(plot))
+plot$condition <- factor(gsub('.{0,3}$', '', rownames(plot))) # Convert to factor
+plot <- as.data.frame(t(apply (plot [,-ncol(plot)], 2, function (x) {tapply (x, plot$condition, mean)})))
+plot$gene <- rownames(plot)
+plot <- pivot_longer(plot, cols = D_X_00:M_X_12, names_to = "time", values_to = "zscore")
+plot$time <- paste0(substr(plot$time, 5, 6), "h")
+
+ggplot(plot, aes(x = time, y = zscore, fill = time)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#f5643c", "#627d9a", "#456084", "#26456e", "#002f6f")) +
+  theme(legend.position = "none") +
+  xlab("time point") +
+  ylab("mean z-scores")
+
+one.way <- aov(zscore ~ time, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$time))
+
+# non-transcribed mRNAs labelling during imbibition (Fig. S2N).
+
+ercc <- rownames(cpm_new1)[grepl("ERCC", rownames(cpm_new1))]
+
+plot <- merge(cpm_new1, new_3h, by = "gene")
+ercc <- plot[plot$gene %in% ercc & plot$new_3h > 1, ]
+plot <- plot[!plot$gene %in% ercc, ]
+plot <- plot [which(plot$gene %in% non_trans),]
+plot$log2FoldChange[is.na(plot$log2FoldChange) | plot$padj > 0.05] <- 0 # Set non-significant log2FoldChange to 0
+param <- coef(summary(lm(log10(ercc$new_3h) ~ log10(ercc$inp_3h)))) # Fit linear model
+
+# generate plot
+ggplot() +
+  geom_point(data = plot, aes(x = log10(plot$inp_3h), y = log10(plot$new_3h)), size = 1) +
+  geom_point(data = ercc, aes(x = log10(ercc$inp_3h), y = log10(ercc$new_3h)), size = 1.5, color = "#cc3a3d") +
+  geom_abline(intercept = param[1, 1], slope = param[2, 1], color = "red", linewidth = 0.5, linetype = "dashed") +
+  xlim(-1, 5) + ylim(-1, 5) +
+  xlab("log10(CPM) input") + ylab("log10(CPM) new") +
+  theme_classic()
+
+## Analysis of new mRNA production from the original enrichment experiment, performed without labelled spike-ins.
+
+# import and format count data
+dir <- "geo_counts/new_1/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+new_2 <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(new_2, function(df) df$V2))
+rownames(count_matrix) <- new_2[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+new_2 <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and ERCC spike-ins
+cpm <- new_2
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+# filter for protein-coding genes and ERCCs
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene)), ]
+cpm$ERCC <- ifelse(substr(cpm$gene, 1, 4) == "ERCC", "Y", "N") # Add ERCC indicator
+
+cpm_new2 <- cpm
+
+# create coldata data frame
+coldata <- data.frame(
+  lib = colnames(new_2),
+  condition = substr(colnames(new_2), 1, 5),
+  replicate = substr(colnames(new_2), 7, 7)
+)
+
+ercc <- rownames(new_2)[grepl("ERCC", rownames(new_2))]
+
+# process 1h data
+new_1h_old <- new_identification(new_2, coldata, 9:12, 1:4, normalization_genes = ercc)
+
+# process 3h data
+new_3h_old <- new_identification(new_2, coldata, 13:16, 5:8, normalization_genes = ercc)
+
+# plot 1h (Fig. S2D)
+new_mRNA_plot(cpm_new2, new_1h_old, ercc, "new1h", "inp1h", return_data = F)
+
+# plot 3h (Fig. S2D)
+new_mRNA_plot(cpm_new2, new_3h_old, ercc, "new3h", "inp3h", return_data = F)
+
+# Venn diagram for overlaps between new mRNAs identified at 1h in original (old) and spike-in (new) experiment (Fig. S2E)
+plot <- list (new = new_1h$gene [which(new_1h$change == "NEW" & grepl("AT", new_1h$gene))],
+              old = new_1h_old$gene [which(new_1h_old$change == "NEW")])
+
+plot(euler(plot), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#ffbd4c"), 
+     edges = list(col = "transparent"))
+
+# Venn diagram for overlaps between new mRNAs identified at 3h (Fig. S2E)
+plot <- list (new = new_3h$gene [which(new_3h$change == "NEW" & grepl("AT", new_3h$gene))],
+              old = new_3h_old$gene [which(new_3h_old$change == "NEW")])
+
+plot(euler(plot), 
+           quantities = TRUE, 
+           fill = c("#a7d5ed", "#ffbd4c"), 
+           edges = list(col = "transparent"))
+
+## U to C conversion analysis
+
+# import and format count data
+dir <- "geo_counts/convers/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+convers <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(convers, function(df) df$V2))
+rownames(count_matrix) <- convers[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+convers <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and spike-ins.
+cpm <- convers
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+# filter for protein-coding genes and spike-ins
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene) | grepl("spike", cpm$gene)), ]
+
+# add spike-in indicator
+cpm <- cpm %>%
+  mutate(spike = case_when(
+    grepl("ERCC", gene)  ~ "NEG",
+    grepl("spike", gene) ~ "POS",
+    TRUE                 ~ "NO"
+  ))
+
+cpm_convers <- cpm
+
+# create coldata data frame
+coldata <- data.frame(
+  lib = colnames(convers),
+  condition = substr(colnames(convers), 1, 8),
+  replicate = substr(colnames(convers), 10, 10)
+)
+
+ercc <- rownames(convers)[grepl("ERCC", rownames(convers))]
+spike <- rownames(convers)[grepl("spike", rownames(convers))]
+
+# call new mRNAs in conversion experiment and plot them (Fig. S2F).
+new_convers <- new_identification(convers, coldata, 5:8, 1:4, normalization_genes = ercc)
+
+new_mRNA_plot(cpm_convers, new_convers, ercc, "new_conv", "inp_conv", return_data = F, highlight = spike)
+
+# import SlamDunk output for converted and control libraries
+dir <- "geo_counts/convers_slam/"
+files <- list.files(dir, pattern = "*.tsv", full.names = TRUE)
+conv_list <- lapply(files, function(path) {
+  read.table(path, header = TRUE)[, c(4, 7:13)]
+})
+names (conv_list) <- gsub(".tsv", "", basename(files))
+
+# calculate the ratios of converted to unconverted reads for each gene in each library.
+conv_list <- lapply(conv_list, function(df) {
+  df$read_ratio <- ifelse(df$ReadCount > 0, 
+                          df$TcReadCount / df$ReadCount, 
+                          0)
+  return(df)
+})
+
+# calculate average conversion levels in control RNA samples
+non_conv <- data.frame(
+  gene = conv_list$non_conv_1$Name,
+  mean_conv = rowMeans(do.call(cbind, lapply(conv_list[paste0("non_conv_", 1:4)], `[[`, "ConversionRate"))),
+  mean_cpm = rowMeans(do.call(cbind, lapply(conv_list[paste0("non_conv_", 1:4)], `[[`, "ReadsCPM"))),
+  mean_reads = rowMeans(do.call(cbind, lapply(conv_list[paste0("non_conv_", 1:4)], `[[`, "read_ratio")))
+)
+
+# calculate conversion levels in total RNA samples
+inp_conv <- data.frame(
+  gene = conv_list$inp_conv_1$Name,
+  mean_conv = rowMeans(do.call(cbind, lapply(conv_list[paste0("inp_conv_", 1:4)], `[[`, "ConversionRate"))),
+  mean_cpm = rowMeans(do.call(cbind, lapply(conv_list[paste0("inp_conv_", 1:4)], `[[`, "ReadsCPM"))),
+  mean_reads = rowMeans(do.call(cbind, lapply(conv_list[paste0("inp_conv_", 1:4)], `[[`, "read_ratio")))
+)
+
+# calculate conversion levels in enriched RNA samples
+new_conv <- data.frame(
+  gene = conv_list$new_conv_1$Name,
+  mean_conv = rowMeans(do.call(cbind, lapply(conv_list[paste0("new_conv_", 1:4)], `[[`, "ConversionRate"))),
+  mean_cpm = rowMeans(do.call(cbind, lapply(conv_list[paste0("new_conv_", 1:4)], `[[`, "ReadsCPM"))),
+  mean_reads = rowMeans(do.call(cbind, lapply(conv_list[paste0("new_conv_", 1:4)], `[[`, "read_ratio")))
+)
+
+# create data frame for all conditions
+conversion <- data.frame (gene = non_conv$gene,
+                          non_conv_mean_conv = non_conv$mean_conv,
+                          non_conv_mean_reads = non_conv$mean_reads,
+                          inp_conv_mean_conv = inp_conv$mean_conv,
+                          inp_conv_mean_reads = inp_conv$mean_reads,
+                          new_conv_mean_conv = new_conv$mean_conv,
+                          new_conv_mean_reads = new_conv$mean_reads)
+
+# combine with new mRNA calling, select ratio of converted reads and mark spike-ins
+plot <- new_convers %>%
+  inner_join(conversion, by = "gene") %>%
+  dplyr::select(gene, change, non_conv_mean_reads, inp_conv_mean_reads, new_conv_mean_reads) %>% 
+  mutate(
+    change = as.character(change),
+    change = case_when(
+      grepl("ERCC", gene)  ~ "NEG",
+      grepl("spike", gene) ~ "POS",
+      TRUE                 ~ change
+    )
+  ) %>%
+  pivot_longer(contains("mean_reads"), names_to = "type", values_to = "ratio_reads") %>%    # pivot long and clean up the 'type' column
+  mutate(type = factor(substr(type, 1, 3), levels = c("non", "inp", "new")))
+
+genes <- plot %>% filter(!change %in% c("NEG", "POS"))
+spikes <- plot %>% filter(change %in% c("NEG", "POS"))
+
+# plot on Fig. 2F (converted reads)
+ggplot() +
+  geom_boxplot(data = genes, aes(x = type, y = ratio_reads, fill = change), alpha = 0.7) +
+  geom_jitter(data = spikes, aes(x = type, y = ratio_reads, color = change), width = 0.2, size = 2) +
+  theme_classic() +
+  scale_fill_manual(values=c("#4E79A7","#79706E")) +
+  scale_color_manual(values=c("#E15759","#fcab20"))
+
+# plot on Fig. S2G (conversion ratios) 
+# combine with new mRNA calling, select ratio of converted nucleotides and mark spike-ins
+plot <- new_convers %>%
+  inner_join(conversion, by = "gene") %>%
+  dplyr::select(gene, change, non_conv_mean_conv, inp_conv_mean_conv, new_conv_mean_conv) %>% 
+  mutate(
+    change = as.character(change),
+    change = case_when(
+      grepl("ERCC", gene)  ~ "NEG",
+      grepl("spike", gene) ~ "POS",
+      TRUE                 ~ change
+    )
+  ) %>%
+  pivot_longer(contains("mean_conv"), names_to = "type", values_to = "mean_conv") %>%
+  mutate(type = factor(substr(type, 1, 3), levels = c("non", "inp", "new")))
+
+genes <- plot %>% filter(!change %in% c("NEG", "POS"))
+spikes <- plot %>% filter(change %in% c("NEG", "POS"))
+
+ggplot() +
+  geom_boxplot(data = genes, aes(x = type, y = mean_conv, fill = change), alpha = 0.7) +
+  geom_jitter(data = spikes, aes(x = type, y = mean_conv, color = change), width = 0.2, size = 2) +
+  theme_classic() +
+  scale_fill_manual(values=c("#4E79A7","#79706E")) +
+  scale_color_manual(values=c("#E15759","#fcab20"))
+
+# prepare plot comparing enrichment levels with conversion in total mRNA samples (Fig. S2H)
+
+# combine with new mRNA calling and select ratio of converted nucleotides
+plot <- new_convers %>%
+  inner_join(conversion, by = "gene") %>%
+  dplyr::select(gene, log2FoldChange, change, non_conv_mean_conv, inp_conv_mean_conv) 
+
+# remove genes with zero conversions in total and control, filter for genes with more than 1 CPM in sequencing
+plot <- plot [which(plot$inp_conv_mean_conv > 0 & plot$non_conv_mean_conv > 0 ),]
+plot <- plot [which(plot$gene %in% inp_conv$gene [which(inp_conv$mean_cpm > 1)]),]
+
+# calculate difference between conversion in total mRNA and control samples, remove spike-ins
+# control samples ("non") were not subjected to chemical conversion, their "conversion" values are sum of error rates of RT, PCR and NGS sequencing
+plot$diff <- (plot$inp_conv_mean_conv)-(plot$non_conv_mean_conv)
+plot <- plot [grep("AT",plot$gene),]
+
+# plot with squishing outliers (Fig. S2H)
+ggplot(plot, aes(x = log2FoldChange, y = squish(diff, range = c(-0.002, 0.02)))) +
+  geom_pointdensity(size = 0.5, method = "kde2d") +
+  scale_color_viridis() +
+  theme_classic() +
+  labs(x = "log2(beads enrichment)", y = "conversion - control") +
+  theme(legend.position = "none")
+
+## Analysis of new mRNA production from initially imbibed intact seeds and then squeezed for 4-SU uptake (pulse labeling).
+
+# import and format count data
+dir <- "geo_counts/squeezed/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+squeezed <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(squeezed, function(df) df$V2))
+rownames(count_matrix) <- squeezed[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+squeezed <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and ERCC spike-ins
+cpm <- squeezed
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+# filter for protein-coding genes and ERCCs
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene)), ]
+cpm$ERCC <- ifelse(substr(cpm$gene, 1, 4) == "ERCC", "Y", "N") # Add ERCC indicator
+
+cpm_squeezed <- cpm
+
+# create coldata data frame
+coldata <- data.frame(
+  lib = colnames(squeezed),
+  condition = substr(colnames(squeezed), 1, 6),
+  replicate = substr(colnames(squeezed), 8, 8)
+)
+
+ercc <- rownames(squeezed)[grepl("ERCC", rownames(squeezed))]
+
+# process 3h data
+new_3h_squeezed <- new_identification(squeezed, coldata, 9:12, 1:4, normalization_genes = ercc)
+
+# process 6h data
+new_6h_squeezed <- new_identification(squeezed, coldata, 13:16, 5:8, normalization_genes = ercc)
+
+# plot 3h (Fig. S2J)
+new_mRNA_plot(cpm_squeezed, new_3h_squeezed, ercc, "new_3h", "inp_3h", return_data = F)
+
+# plot 6h (Fig. S2J)
+new_mRNA_plot(cpm_squeezed, new_6h_squeezed, ercc, "new_6h", "inp_6h", return_data = F)
+
+# Venn diagram for overlaps between new mRNAs identified at 3h (Fig. S2K)
+plot <- list (new = new_3h$gene [which(new_3h$change == "NEW" & grepl("AT", new_3h$gene))],
+              squeezed = new_3h_squeezed$gene [which(new_3h_squeezed$change == "NEW")])
+
+plot(euler(plot), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#E15759"), 
+     edges = list(col = "transparent"))
+
+# Venn diagram for overlaps between new mRNAs identified at 6h (Fig. S2K)
+plot <- list (new = new_6h$gene [which(new_6h$change == "NEW" & grepl("AT", new_6h$gene))],
+              squeezed = new_6h_squeezed$gene [which(new_6h_squeezed$change == "NEW")])
+
+plot(euler(plot), 
+           quantities = TRUE, 
+           fill = c("#a7d5ed", "#E15759"), 
+           edges = list(col = "transparent"))  
+
+## RT-qPCR analysis
+
+# enhancement of 4-SU labeling by scarification (Fig. S2A)
+plot <- read.table("qPCR/4su_norm_data.txt",header=T, dec = ",")
+plot$mark <- as.factor(plot$mark)
+
+ggplot(plot, aes(x = mark, y = log2FC, color = replica, group = mark)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") +
+  ylim(0,7)
+
+# enrichment using 5-EU labelling (Fig. S2L)
+plot <- read.table("qPCR/lab_5eu.txt",header=T, dec = ",")
+plot$gene <- factor(plot$gene, levels =unique(plot$gene[order(plot$order)]))
+
+ggplot(plot, aes(x = gene, y = enrich, group = gene)) +
+  geom_jitter(width = 0.08, height = 0.0, color = "grey") +
+  theme_classic() +
+  theme(legend.position = "none") + 
+  scale_color_tableau() + 
+  geom_hpline(stat = "summary") 
