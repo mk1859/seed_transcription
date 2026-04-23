@@ -18,7 +18,7 @@ setwd("/data/")
 
 ## Experiment on temperatures during imbibition.
 
-# import of counts for input
+# import of counts for total mRNAs
 dir <- "geo_counts/temp_imb/input/"
 files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
 temp_imb_inp <- lapply(files, fread)
@@ -248,4 +248,296 @@ ggplot(data=plot, aes(x=cluster, y=Freq, fill=clusters)) +
   ylab("number of genes")+
   theme(legend.position = "none")
 
+# identificitaion of new mRNAs in seeds imbibed in different temperatures
 
+# import of counts for enriched new mRNAs
+dir <- "geo_counts/temp_imb/new/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+temp_imb_new <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(temp_imb_new, function(df) df$V2))
+rownames(count_matrix) <- temp_imb_new[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+temp_imb_new <- count_matrix
+
+# combine input and new, calculate CPMs
+temp_imb <- cbind (temp_imb_new, temp_imb_inp)
+depth <- colSums(temp_imb)
+cpm <- t(t(temp_imb) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene)), ]
+cpm$ERCC <- ifelse(substr(cpm$gene, 1, 4) == "ERCC", "Y", "N") 
+
+cpm_imb <- cpm
+
+# identification of new mRNAs using ERCC normalisation (Fig. 4B)
+ercc <- rownames(temp_imb) [grep ("ERCC", rownames(temp_imb))]
+
+coldata <- data.frame(lib = colnames (temp_imb),
+                      condition = substr (colnames (temp_imb), 1, 5),
+                      replicate = as.factor(1:4))
+
+new_t04 <- new_identification(temp_imb, coldata, 1:4, 13:16, min_counts = 4, normalization_genes = ercc)
+new_t22 <- new_identification(temp_imb, coldata, 5:8, 17:20, min_counts = 4, normalization_genes = ercc)
+new_t35 <- new_identification(temp_imb, coldata, 9:12, 21:24, min_counts = 4, normalization_genes = ercc)
+
+# plots for enrichment of new mRNAs (Fig. 4B)
+new_mRNA_plot(cpm_imb, new_t04, ercc, "t04_N", "t04_I", return_data = FALSE) # 4C
+new_mRNA_plot(cpm_imb, new_t22, ercc, "t22_N", "t22_I", return_data = FALSE) # 22C
+new_mRNA_plot(cpm_imb, new_t35, ercc, "t35_N", "t35_I", return_data = FALSE) # 35C
+
+# new mRNA production for genes belonging to clusters from Fig. 1 (Fig. 4C)
+data_frames <- list("4C" = new_t04, "22C" = new_t22, "35C" = new_t35)
+
+new <- lapply(names(data_frames), function(name) {
+  data_frames[[name]] %>% 
+    merge(clusters_alpha, all.x = T, by = "gene") %>% 
+    mutate(temp = name) 
+}) %>%
+  rbindlist() %>%
+  mutate(temp = factor(temp, levels = c("4C", "22C", "35C"))) 
+
+new$cluster <- ifelse(is.na(new$cluster)| new$cluster == "C0", "no", new$cluster)
+
+ggplot(new, aes(x = cluster, y = log2FoldChange, fill = cluster)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#fcab20", "#e7363c", "#26456e", "#59ac99","grey")) +
+  xlab("cluster") +
+  ylab("log2 new mRNA enrichment") +
+  theme(legend.position = "none") +
+  ylim(-3, 8) +
+  facet_wrap(~temp, nrow = 1)+
+  geom_hline(yintercept=2, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "4C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "22C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "35C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+# new mRNA production for genes belonging to clusters from Fig. S4C (Fig. S4E)
+new <- lapply(names(data_frames), function(name) {
+  data_frames[[name]] %>% 
+    merge(clusters_temp_inp, all.x = T, by = "gene") %>% 
+    mutate(temp = name) 
+}) %>%
+  rbindlist() %>%
+  mutate(temp = factor(temp, levels = c("4C", "22C", "35C"))) 
+
+new$cluster <- ifelse(is.na(new$cluster), "no", new$cluster)
+
+ggplot(new, aes(x = cluster, y = log2FoldChange, fill = cluster)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#0183acff", "#95c773ff", "#cd3337ff", "grey")) +
+  xlab("cluster") +
+  ylab("log2 new mRNA enrichment") +
+  theme(legend.position = "none") +
+  ylim(-2.5, 7.5) +
+  facet_wrap(~temp, nrow = 1) +
+  geom_hline(yintercept=2, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "4C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "22C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "35C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+# differential accumulation of new mRNAs upon various imbibition temperatures (Fig. S4A).
+coldata <- data.frame(lib = colnames (temp_imb_new),
+                      condition = substr (colnames (temp_imb_new), 1, 3),
+                      replicate = as.factor(1:4))
+
+ercc <- rownames(temp_imb_new) [grep ("ERCC", rownames(temp_imb_new))]
+
+res_new_22_04 <- deg_new(temp_imb_new, coldata, 5:8, 1:4, min_counts = 4, normalization_genes = ercc)
+create_volcano_plot (res_new_22_04, lfc_cap = 6, padj_cap = 20)
+
+res_new_22_35 <- deg_new(temp_imb_new, coldata, 5:8, 9:12, min_counts = 4, normalization_genes = ercc)
+create_volcano_plot (res_new_22_35, lfc_cap = 6, padj_cap = 20)
+
+res_new_35_04 <- deg_new(temp_imb_new, coldata, 9:12, 1:4, min_counts = 4, normalization_genes = ercc)
+
+## Exogenous ABA effects on transcriptomes during early imbibition.
+
+# This is part of the experiment from Fig. 1.
+# PCA plot (Fig. S4F - data from Fig. 1B)
+ggplot(pca_amm, aes(x=PC1, y=PC2, color = condition.x)) +
+  geom_point(size = 3) + 
+  theme_classic() +
+  scale_color_manual(values=c("#b78ab7","#ffbd4c","#ffb022","#ff810e","#c23728",
+                              "#7f7f7f",
+                              "#701570","#a7d5ed","#63bff0","#22a7f0", "#1984c5")) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed() +
+  ylim (-17, 17)
+
+# DEGs due to ABA-treatment during 6h imbibition.(Fig. S4G)
+res <- as.data.frame(deg_alpha$M_ABA)
+res$change <- "NO"
+res$change <- ifelse (res$padj < .05 & res$log2FoldChange < -1, "DW", res$change)
+res$change <- ifelse (res$padj < .05 & res$log2FoldChange > 1, "UP", res$change)
+res$change <- factor(res$change, levels = c("UP", "DW", "NO"))
+
+create_volcano_plot (res, lfc_cap = 5, padj_cap = 50)
+
+# change in expression of mRNAs affected by ABA during mock imbibition (Fig. 4D)
+plot <- bind_rows(
+  mutate(as.data.frame(deg_alpha$M_06_00), treatment = "mock"),
+  mutate(as.data.frame(deg_alpha$M_06_00_ABA), treatment = "ABA")
+)
+
+res <- as.data.frame(deg_alpha$M_ABA) %>%
+  filter(gene %in% araport$gene[araport$attribute == "protein_coding"],
+         padj < 0.05, log2FoldChange < -1)
+
+plot <- plot %>%
+  filter(gene %in% res$gene) %>%
+  mutate(treatment = factor(treatment, levels = c("mock", "ABA")))
+
+plot <- merge (plot, clusters_alpha, by = "gene", all.x = T)
+plot$cluster <- ifelse (is.na(plot$cluster) | plot$cluster == "C0", "no", as.character(plot$cluster))
+
+plot %>% 
+  dplyr::arrange(gene, treatment) %>% 
+  ggplot2::ggplot(., aes(y = log2FoldChange, x = treatment)) +
+  geom_path(aes(group = gene),size = 0.2, alpha = 0.2, position = position_jitter(width = 0.1, seed = 3922)) + 
+  geom_point(aes(color = cluster),size = 1, position = position_jitter(width = 0.1, seed = 3922)) + 
+  theme_classic() + 
+  scale_color_manual(values=c("#fcab20","#e7363c","#26456e","grey")) +
+  scale_x_discrete(expand = c(0.15,0.15)) +
+  theme (legend.position = "none")
+
+## New mRNAs upon ABA treatment (experiment without ERCC spike-ins).
+
+# import of counts
+dir <- "geo_counts/ABA/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+aba_exp <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(aba_exp, function(df) df$V2))
+rownames(count_matrix) <- aba_exp[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+aba_exp <- count_matrix
+
+# mean CPMs
+depth <- colSums(aba_exp)
+cpm <- t(t(aba_exp) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+cpm <- cpm[cpm$gene %in% araport$gene[araport$attribute == "protein_coding"], ]
+
+cpm_aba <- cpm
+
+# Since this experiment does not include exogenous spike-ins, we rely on endogenous mRNAs, which we have shown behave similarly to ERCC.
+
+# identification of new mRNAs using non-transcribed genes normalisation
+
+coldata <- data.frame(lib = colnames (aba_exp),
+                      condition = substr (colnames (aba_exp), 1, 5),
+                      replicate = as.factor(substr (colnames (aba_exp), 7, 7)))
+
+new_mock_ABA <- new_identification(aba_exp, coldata, 13:16, 9:12, min_counts = 4, normalization_genes = non_trans) # mock
+new_aba_ABA <- new_identification(aba_exp, coldata, 5:8, 1:4, min_counts = 4, normalization_genes = non_trans) # ABA
+
+# plots for enrichment of new mRNAs (Fig. S4I)
+new_mRNA_plot(cpm_aba, new_mock_ABA, non_trans, "M_new", "M_inp", return_data = FALSE) # mock
+new_mRNA_plot(cpm_aba, new_aba_ABA, non_trans, "A_new", "A_inp", return_data = FALSE) # ABA
+
+# differential new mRNA accumulation ABA vs mock (Fig. 4E)
+res_aba_res_new <- deg_new(aba_exp, coldata, 5:8, 13:16, min_counts = 4, normalization_genes = non_trans)
+res <- create_volcano_plot (res_aba_res_new, lfc_cap = 3, padj_cap = 20, return_data = T)
+
+lab1 <- c("AT2G40330", "AT1G27461", "AT4G18650", "AT3G11410", "AT2G29380", "AT1G30100")
+lab2 <- c("PYL6", "SDR4L", "DOGL4", "AHG3", "HAI3", "NCED5")
+res$lab <- ""
+for (i in 1:length (lab1)){
+  res$lab [which(res$gene == lab1 [i])] <- lab2 [i]
+}
+
+ggplot(res , aes(x=log2FoldChange , y= log_padj, color = change)) +
+  geom_point(size = 1, shape = 16, alpha = 0.4) + 
+  scale_color_manual(values=c("#E15759","#4E79A7","#79706E")) +
+  theme_classic() +
+  geom_vline(xintercept=c(-1, 1), linetype="dashed", color = "black") +
+  geom_hline(yintercept=-log10(.05), linetype="dashed", color = "black") +
+  theme (legend.position = "none", strip.text = element_blank())+
+  xlab ("log2 fold change") +
+  ylab ("-log10 adjusted p-value") +
+  xlim (-3,3) +
+  ylim (0, 20) +
+  geom_text_repel(data = res, aes(x = log2FoldChange, y = log_padj,label = lab ),box.padding = 0.5, max.overlaps = Inf)
+
+# change in new mRNA of genes affected in total mRNA by ABA treatment (Fig. S4J)
+res <- as.data.frame(deg_alpha$M_ABA)
+res$gene <- rownames(res)
+res$change <- "NO"
+res$change <-   ifelse (res$padj < .05 & res$log2FoldChange > 1, "UP", res$change)
+res$change <-   ifelse (res$padj < .05 & res$log2FoldChange < -1, "DW", res$change)
+
+plot <- merge(res_aba_res_new [,c(7,2)], res [,7:8], by = "gene", all.x = T)
+plot$change <- ifelse(is.na(plot$change), "NO", plot$change)
+plot$change <-   factor (plot$change, levels = c("UP","DW","NO"))
+
+ggplot(plot, aes(x = change, y = log2FoldChange, fill = change)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values = c("#E15759","#4E79A7","#79706E")) +
+  theme(legend.position = "none") +
+  geom_hline(yintercept=0, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ change, data = plot,)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$change))
+
+## New mRNAs upon ANTABACTIN treatment (experiment without ERCC spike-ins).
+
+# import of counts
+dir <- "geo_counts/ANT/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+ant_exp <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(ant_exp, function(df) df$V2))
+rownames(count_matrix) <- ant_exp[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+ant_exp <- count_matrix
+
+# mean CPMs 
+depth <- colSums(ant_exp)
+cpm <- t(t(ant_exp) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+cpm <- cpm[cpm$gene %in% araport$gene[araport$attribute == "protein_coding"], ]
+
+cpm_ant <- cpm
+
+# Since this experiment does not include exogenous spike-ins, we rely on endogenous mRNAs, which we have shown behave similarly to ERCC.
+
+# identification of new mRNAs using non-transcribed genes normalisation
+coldata <- data.frame(lib = colnames (ant_exp),
+                      condition = substr (colnames (ant_exp), 1, 7),
+                      replicate = as.factor(substr (colnames (ant_exp), 9, 9)))
+
+new_mock_ANT <- new_identification(ant_exp, coldata, 13:16, 9:12, min_counts = 4, normalization_genes = non_trans) # mock
+new_ant_ANT <- new_identification(ant_exp, coldata, 5:8, 1:4, min_counts = 4, normalization_genes = non_trans) # ANT
