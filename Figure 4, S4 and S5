@@ -541,3 +541,420 @@ coldata <- data.frame(lib = colnames (ant_exp),
 
 new_mock_ANT <- new_identification(ant_exp, coldata, 13:16, 9:12, min_counts = 4, normalization_genes = non_trans) # mock
 new_ant_ANT <- new_identification(ant_exp, coldata, 5:8, 1:4, min_counts = 4, normalization_genes = non_trans) # ANT
+
+# plots for enrichment of new mRNAs (Fig. S4L)
+new_mRNA_plot(cpm_ant, new_mock_ANT, non_trans, "CON_new", "CON_inp", return_data = FALSE) # mock
+new_mRNA_plot(cpm_ant, new_ant_ANT, non_trans, "ANT_new", "ANT_inp", return_data = FALSE) # ANT
+
+## differential new mRNA production ANT vs mock (Fig. 4F)
+res_ant_res_new <- deg_new(ant_exp, coldata, 5:8, 13:16, min_counts = 4, normalization_genes = non_trans)
+res <- create_volcano_plot (res_ant_res_new, lfc_cap = 3, padj_cap = 20, return_data = T)
+
+lab1 <- c("AT2G40330", "AT1G27461", "AT1G03790", "AT2G38310", "AT2G29380", "AT5G05440", "AT4G17870")
+lab2 <- c("PYL6", "SDR4L", "SOM", "PYL4", "HAI3", "PYL5", "PYR1")
+res$lab <- ""
+for (i in 1:length (lab1)){
+  res$lab [which(res$gene == lab1 [i])] <- lab2 [i]
+}
+
+ggplot(res , aes(x=log2FoldChange , y= log_padj, color = change)) +
+  geom_point(size = 1, shape = 16, alpha = 0.4) + 
+  scale_color_manual(values=c("#E15759","#4E79A7","#79706E")) +
+  theme_classic() +
+  geom_vline(xintercept=c(-1, 1), linetype="dashed", color = "black") +
+  geom_hline(yintercept=-log10(.05), linetype="dashed", color = "black") +
+  theme (legend.position = "none", strip.text = element_blank())+
+  xlab ("log2 fold change") +
+  ylab ("-log10 adjusted p-value") +
+  xlim (-3,3) +
+  ylim (0, 20) +
+  geom_text_repel(data = res, aes(x = log2FoldChange, y = log_padj,label = lab ),box.padding = 0.5, max.overlaps = Inf)
+
+## Experiment on temperatures during seed maturation. 
+
+# import of counts
+dir <- "geo_counts/maturation/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+maturation <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(maturation, function(df) df$V2))
+rownames(count_matrix) <- maturation[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+maturation <- count_matrix
+
+# PCA plot for data without enriched new mRNAs (Fig. 4H)
+mat_sel <- maturation [,-grep("new", colnames(maturation))]
+coldata <- data.frame(lib = colnames (mat_sel),
+                      condition = as.factor(substr (colnames (mat_sel), 1, 7)),
+                      replica = as.factor(substr (colnames (mat_sel), 9, 9)))
+
+dds <- DESeqDataSetFromMatrix(countData = mat_sel, colData = coldata, design = ~ condition)
+dds <- DESeq(dds)
+
+plot <- plotPCA(rlogTransformation(dds, blind=TRUE), intgroup=c('condition'), ntop =1000, returnData=TRUE)
+percentVar <- round(100 * attr(plot, "percentVar"))
+plot <- merge(plot, coldata, by.x = "name", by.y = "lib")
+
+ggplot(plot , aes(x=PC1, y=PC2, color = condition.x)) +
+  geom_point(size = 5) + 
+  theme_classic() +
+  scale_color_manual(values=c("#b080a9ff","#c9e39eff","#e68585ff",
+                              "#620053ff","#93c83eff","#cd0b0bff"))  +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+
+# list of DEGs affected by maturation and imbibition
+contrast_list <- list(
+  "D_22_15" = c("dry_22C","dry_15C"), "D_26_15" = c("dry_26C","dry_15C"), "D_26_22" = c("dry_26C","dry_22C"),
+  "I_22_15" = c("imb_22C","imb_15C"), "I_26_15" = c("imb_26C","imb_15C"), "I_26_22" = c("imb_26C","imb_22C"),
+  "Imb_15" = c("imb_15C","dry_15C"), "Imb_22" = c("imb_22C","dry_22C"), "Imb_26" = c("imb_26C","dry_26C"))
+
+deg_maturation <- setNames(
+  lapply(names(contrast_list), function(name) {
+    c <- contrast_list[[name]]
+    res <- results(dds, alpha = 0.05, contrast = c("condition", c[1], c[2]))
+    res$gene <- rownames(res)
+    res$change <- "NO"
+    res$change <-   ifelse (res$padj < .05 & res$log2FoldChange < -1, "DW", res$change)
+    res$change <-   ifelse (res$padj < .05 & res$log2FoldChange > 1, "UP", res$change)
+    res$change <-   factor(res$change, levels = c("UP", "DW", "NO"))
+    res
+  }),
+  names(contrast_list)
+)
+
+# z-scores for maturation data
+cpm <- mat_sel
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+zscore_maturation <- t(scale(t(cpm)))
+colnames(zscore_maturation) <- colnames(cpm)
+rownames(zscore_maturation) <- rownames(cpm)
+
+# gene expression affected by maturation conditions - clustering (Fig. S5A)
+genes <- unlist(process_deg_data(deg_maturation))
+genes <- genes [!duplicated(genes)]
+genes <- genes [which(genes %in% araport$gene [which(araport$attribute == "protein_coding")])]
+genes <- genes [-c(grep ("ATM", genes),grep ("ATC", genes))]
+
+# clustering and heatmap for genes with affected expression
+selected_genes <- as.data.frame(t(zscore_maturation [rownames(zscore_maturation) %in% genes, ])) 
+selected_genes$condition <- factor(gsub('.{0,3}$', '', rownames(selected_genes)))
+selected_genes <- as.data.frame(t(apply (selected_genes [,-ncol(selected_genes)], 2, function (x) {
+  tapply (x, selected_genes$condition, mean)})))
+
+net <- blockwiseModules(t(selected_genes), power = 10,
+                        TOMType = "signed", minModuleSize = 30, deepSplit = 2, mergeCutHeight = 0.25,
+                        numericLabels = TRUE, networkType = "signed",
+                        saveTOMs = TRUE, saveTOMFileBase = "test",
+                        verbose = 3, maxBlockSize = 4000)
+
+selected_genes <- selected_genes %>%
+  mutate(cluster = net$colors,
+         gene = rownames(.),
+         cluster = if_else(cluster == 0, NA_integer_, cluster)) %>% 
+  filter(!is.na(cluster)) %>% 
+  arrange(cluster) %>% 
+  mutate(gene = factor(gene, levels = gene), cluster = factor(cluster, levels = c(1, 2, 3, 4, 5))) 
+
+clusters_maturation <- selected_genes [,7:8]
+
+selected_genes <- pivot_longer(selected_genes, cols = dry_15:imb_26, names_to = "condition", values_to = "level") 
+
+p1 <- ggplot(selected_genes, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e",mid = "white",high = "#cc3a3d",midpoint = 0, limits = range(selected_genes$level, na.rm = T)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.line.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.x=element_blank())
+
+p2 <- ggplot(selected_genes, aes(x = "x", y = gene, fill = cluster)) +
+  geom_tile() +
+  theme_classic() +
+  theme(axis.line=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title=element_blank(),
+        axis.text.y=element_blank(),
+        legend.position = "none") +
+  scale_fill_manual(values=c("#e7363c","#26456e","#f5643c","#59ac99","#4b1f6f"))
+
+plot_grid(p2, p1, nrow = 1, rel_widths = c(0.8,1.5), align = 'hv')
+
+# GO terms enriched in clusters (Fig. S5A)
+background <- araport$gene [which(araport$attribute == "protein_coding")]  
+plot <- list()
+
+res <- gost(query = clusters_maturation$gene [which(clusters_maturation$cluster == 1)], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$A <- res [c(1,2,4,5,8,9,11,12,15),c(11,3,10)]
+
+res <- gost(query = clusters_maturation$gene [which(clusters_maturation$cluster == 2)], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$B <- res [c(1,3,4,5,6,12),c(11,3,10)]
+
+res <- gost(query = clusters_maturation$gene [which(clusters_maturation$cluster == 3)], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$C <- res [c(6,7,12,16,22,43),c(11,3,10)]
+
+res <- gost(query = clusters_maturation$gene [which(clusters_maturation$cluster == 4)], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$D <- res [c(2,5,6),c(11,3,10)]
+
+res <- gost(query = clusters_maturation$gene [which(clusters_maturation$cluster == 5)], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$E <- res [c(1,9),c(11,3,10)]
+
+plot <- rbindlist(plot, idcol = "cluster")
+plot$order <- factor(paste(plot$term_name, 1:nrow(plot)), levels = rev(paste(plot$term_name, 1:nrow(plot))))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=order, y=log, fill = cluster)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+# Venn diagram for overlaps between genes induced by imbibition (Fig. 4I)
+plot <- list (t15 = deg_maturation$Imb_15$gene [which(deg_maturation$Imb_15$change == "UP")],
+              t22 = deg_maturation$Imb_22$gene [which(deg_maturation$Imb_22$change == "UP")],
+              t26 = deg_maturation$Imb_26$gene [which(deg_maturation$Imb_26$change == "UP")])
+ggvenn(
+  plot,
+  fill_color = c("#620053ff","#93c83eff","#cd0b0bff"),
+  stroke_size = 0.5, set_name_size = 4, auto_scale = F
+)
+
+# identification of new mRNAs using non-transcribed genes for normalisation (Fig. S5B)
+
+# Since this experiment does not include exogenous spike-ins, we rely on endogenous mRNAs, which we have shown behave similarly to ERCC.
+
+# calculate CPMs and mean CPMs for mRNAs
+depth <- colSums(maturation)
+cpm <- t(t(maturation) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+cpm <- cpm[cpm$gene %in% araport$gene[araport$attribute == "protein_coding"], ]
+
+cpm_maturation <- cpm
+
+# new mRNAs
+coldata <- data.frame(lib = colnames (maturation),
+                      condition = as.factor(substr (colnames (maturation), 1, 7)),
+                      replicate = as.factor(substr (colnames (maturation), 9, 9)))
+
+new_M22C <- new_identification(maturation, coldata, 22:24, 13:15, min_counts = 3, normalization_genes = non_trans)
+new_M15C <- new_identification(maturation, coldata, 19:21, 10:12, min_counts = 3, normalization_genes = non_trans)
+new_M26C <- new_identification(maturation, coldata, 25:27, 16:18, min_counts = 3, normalization_genes = non_trans)
+
+new_mRNA_plot(cpm_maturation, new_M22C, non_trans, "new_22C", "imb_22C", return_data = F)
+new_mRNA_plot(cpm_maturation, new_M15C, non_trans, "new_15C", "imb_15C", return_data = F)
+new_mRNA_plot(cpm_maturation, new_M26C, non_trans, "new_26C", "imb_26C", return_data = F)
+
+# new mRNA production for genes belonging to clusters from Fig. 1 (Fig. 4J)
+new <- list (new_M15C, new_M22C, new_M26C)
+new <- lapply (new, function (x) merge (x, clusters_alpha [-which(clusters_alpha$cluster == "C0"),], by = "gene", all.x = T))
+names (new) <- c("M15C", "M22C", "M26C")
+new <- rbindlist (new, idcol = "temp")
+new$cluster <- as.character(new$cluster)
+new$cluster <- ifelse (is.na(new$cluster), "no", new$cluster)
+
+ggplot(new, aes(x = cluster, y = log2FoldChange, fill = cluster)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("#fcab20","#e7363c","#26456e","#59ac99", "grey"))+
+  xlab("cluster") +
+  ylab("log2FC")+
+  theme(legend.position = "none") +
+  ylim (-3,8) +
+  facet_wrap(~ temp, nrow = 1) +
+  geom_hline(yintercept=2, linetype="dashed")
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "M15C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "M22C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+one.way <- aov(log2FoldChange ~ cluster, data = new [which(new$temp == "M26C")],)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$cluster))
+
+# differential production of new mRNAs (Fig. S5C)
+
+# Since we have not added spike-ins, we need to rely on endogenous mRNAs.
+# Unlike the ABA/ANT experiment, which used the same starting material for imbibition, different conditions during maturation could have led to differential accumulation of non-transcribed mRNAs.
+# Therefore, we are using all genes for normalisation, but we exclude results showing no new mRNA enrichment.
+
+# 22C vs 15C
+dds <- DESeqDataSetFromMatrix (countData = maturation [,c(19:24)], colData = coldata [c(19:24),], design = ~ condition)
+dds <- dds[rowSums(counts(dds) >= 3) >= 3,]
+dds <- DESeq(dds)
+
+res <- results(dds, alpha = 0.05, contrast = c("condition", "new_22C", "new_15C")) %>%
+  as.data.frame() %>%
+  mutate(gene = rownames(.))
+
+res <- res %>%
+  filter(gene %in% c(new_M15C$gene[new_M15C$change == "NEW"],
+                     new_M22C$gene[new_M22C$change == "NEW"])) %>%
+  mutate(change = case_when(
+    padj < 0.05 & log2FoldChange < -1 ~ "DW",
+    padj < 0.05 & log2FoldChange > 1 ~ "UP",
+    TRUE ~ "NO"
+  ),
+  change = factor(change, levels = c("UP", "DW", "NO")))
+
+res_M22v15C_new <- res
+
+create_volcano_plot (res_M22v15C_new, lfc_cap = 3, padj_cap = 50)
+
+# 26C vs 22C
+dds <- DESeqDataSetFromMatrix (countData = maturation [,c(22:27)], colData = coldata [c(22:27),], design = ~ condition)
+dds <- dds[rowSums(counts(dds) >= 3) >= 3,]
+dds <- DESeq(dds)
+
+res <- results(dds, alpha = 0.05, contrast = c("condition", "new_26C", "new_22C")) %>%
+  as.data.frame() %>%
+  mutate(gene = rownames(.))
+
+res <- res %>%
+  filter(gene %in% c(new_M26C$gene[new_M26C$change == "NEW"],
+                     new_M22C$gene[new_M22C$change == "NEW"])) %>%
+  mutate(change = case_when(
+    padj < 0.05 & log2FoldChange < -1 ~ "DW",
+    padj < 0.05 & log2FoldChange > 1 ~ "UP",
+    TRUE ~ "NO"
+  ),
+  change = factor(change, levels = c("UP", "DW", "NO")))
+
+res_M26v22C_new <- res
+
+create_volcano_plot (res_M26v22C_new, lfc_cap = 3, padj_cap = 50)
+
+# 26C vs 15C
+dds <- DESeqDataSetFromMatrix (countData = maturation [,c(19:21,25:27)], colData = coldata [c(19:21,25:27),], design = ~ condition)
+dds <- dds[rowSums(counts(dds) >= 3) >= 3,]
+dds <- DESeq(dds)
+
+res <- results(dds, alpha = 0.05, contrast = c("condition", "new_26C", "new_15C")) %>%
+  as.data.frame() %>%
+  mutate(gene = rownames(.))
+
+res <- res %>%
+  filter(gene %in% c(new_M26C$gene[new_M26C$change == "NEW"],
+                     new_M15C$gene[new_M15C$change == "NEW"])) %>%
+  mutate(change = case_when(
+    padj < 0.05 & log2FoldChange < -1 ~ "DW",
+    padj < 0.05 & log2FoldChange > 1 ~ "UP",
+    TRUE ~ "NO"
+  ),
+  change = factor(change, levels = c("UP", "DW", "NO")))
+
+res_M26v15C_new <- res
+
+create_volcano_plot (res_M26v15C_new, lfc_cap = 3, padj_cap = 50)
+
+# clusters for new mRNA production (Fig. S5D)
+
+# Calculate CPMs and z-scores
+cpm <- maturation [,grep("new", colnames(maturation))] 
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+zscore_temp_mat_new <- t(scale(t(cpm)))
+colnames(zscore_temp_mat_new) <- colnames(cpm)
+rownames(zscore_temp_mat_new) <- rownames(cpm)
+
+cpm <- maturation [,grep("new", colnames(maturation))] 
+depth <- colSums(cpm)
+
+# selecting genes
+new_mat <- c(res_M26v15C_new$gene [which(res_M26v15C_new$change %in% c("UP", "DW"))],
+             res_M22v15C_new$gene [which(res_M22v15C_new$change %in% c("UP", "DW"))],
+             res_M26v22C_new$gene [which(res_M26v22C_new$change %in% c("UP", "DW"))])
+new_mat <- new_mat [!duplicated(new_mat)]
+new_mat <- new_mat [which(new_mat %in% araport$gene [which(araport$attribute == "protein_coding")])]
+
+selected_genes <- zscore_temp_mat_new [which(rownames(zscore_temp_mat_new)%in% new_mat),]
+
+# clustering
+net <- blockwiseModules(t(selected_genes), power = 4,
+                        TOMType = "signed", minModuleSize = 50, deepSplit = 2, mergeCutHeight = 0.25,
+                        numericLabels = TRUE, networkType = "signed",
+                        saveTOMs = TRUE, saveTOMFileBase = "test",
+                        verbose = 3, maxBlockSize = 4000, minNSamples = 3)
+
+selected_genes <- as.data.frame(t(selected_genes))
+selected_genes$condition <- factor(gsub('.{0,3}$', '', rownames(selected_genes)))
+selected_genes <- as.data.frame(t(apply (selected_genes [,-ncol(selected_genes)], 2, function (x) {
+  tapply (x, selected_genes$condition, mean)})))
+
+selected_genes <- selected_genes %>%
+  mutate(cluster = net$colors,
+         gene = rownames(.),
+         cluster = if_else(cluster == 0, NA_integer_, cluster)) %>% 
+  filter(!is.na(cluster)) %>% 
+  mutate(cluster = factor(cluster, levels = c(2,3,1), labels = c("M15","M22","M26"))) %>% 
+  arrange(cluster) %>% 
+  mutate(gene = factor(gene, levels = gene)) 
+
+clusters_maturation_new  <- selected_genes [,4:5]
+
+selected_genes <- pivot_longer(selected_genes, cols = new_15:new_26, names_to = "condition", values_to = "level") 
+
+p1 <- ggplot(selected_genes, aes(x = condition, y = gene, fill = level)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#3e446e",mid = "white",high = "#cc3a3d",midpoint = 0, limits = range(selected_genes$level, na.rm = T)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.line.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.x=element_blank())
+
+p2 <- ggplot(selected_genes, aes(x = "x", y = gene, fill = cluster)) +
+  geom_tile() +
+  theme_classic() +
+  theme(axis.line=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title=element_blank(),
+        axis.text.y=element_blank(),
+        legend.position = "none") +
+  scale_fill_manual(values=c("#620053ff","#93c83eff","#cd0b0bff"))
+
+plot_grid(p2, p1, nrow = 1, rel_widths = c(0.6,1.2), align = 'hv')
+
+# GO terms enriched in clusters (Fig. S5D)
+background <- c(res_M26v15C_new$gene, res_M22v15C_new$gene, res_M26v22C_new$gene)
+background <- background [!duplicated(background)]
+background <- background [which(background %in% araport$gene [which(araport$attribute == "protein_coding")])]
+plot <- list ()
+
+res <- gost(query = clusters_maturation_new$gene [which(clusters_maturation_new$cluster == "M15")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$M15 <- res [c(1,2,4,5,6,8,12),c(11,3,10)]
+
+res <- gost(query = clusters_maturation_new$gene [which(clusters_maturation_new$cluster == "M22")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$M22 <- res [c(1,3,7,10),c(11,3,10)]
+
+res <- gost(query = clusters_maturation_new$gene [which(clusters_maturation_new$cluster == "M26")], organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot$M26 <- res [c(5,6,7,8,10,11,12),c(11,3,10)]
+
+plot <- rbindlist(plot, idcol = "cluster")
+plot$order <- factor(paste(plot$term_name, 1:nrow(plot)), levels = rev(paste(plot$term_name, 1:nrow(plot))))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=order, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
