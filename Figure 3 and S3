@@ -342,6 +342,7 @@ res <- res_CvM_6h_new %>%
   mutate(change = as.character(change)) %>%
   mutate(change = ifelse(is.na(change), "NO", change))
 
+# create data frame with numbers of affected genes
 plot_df <- res %>%
   merge(clusters_alpha, by = "gene", all.x = TRUE) %>%
   mutate(cluster = ifelse(is.na(cluster) | cluster == "C0", "no", as.character(cluster)),
@@ -365,7 +366,7 @@ perform_fisher_test <- function(cluster_row, data_matrix, change_col, other_cols
   fisher.test(as.table(matrix(c(a, d, b, e), nrow = 2, byrow = TRUE)), alternative = "greater")$p.value
 }
 
-# Perform Fisher's tests for 'DOWN' changes against 'NO' and 'UP'
+# perform Fisher's tests for 'DOWN' changes against 'NO' and 'UP'
 dw_p_values <- sapply(rownames(plot_matrix)[rownames(plot_matrix) != "no"], function(cluster) {
   cluster_index <- which(rownames(plot_matrix) == cluster)
   perform_fisher_test(cluster_index, plot_matrix, "DW", c("NO", "UP"))
@@ -373,14 +374,13 @@ dw_p_values <- sapply(rownames(plot_matrix)[rownames(plot_matrix) != "no"], func
 
 dw <- p.adjust(dw_p_values, method = "BH")
 
-# Perform Fisher's tests for 'UP' changes against 'DOWN' and 'NO'
+# perform Fisher's tests for 'UP' changes against 'DOWN' and 'NO'
 up_p_values <- sapply(rownames(plot_matrix)[rownames(plot_matrix) != "no"], function(cluster) {
   cluster_index <- which(rownames(plot_matrix) == cluster)
   perform_fisher_test(cluster_index, plot_matrix, "UP", c("DW", "NO"))
 })
 
 up <- p.adjust(up_p_values, method = "BH")
-
 
 # GO terms for mRNAs affected by CHX (Fig. 3E)
 plot <- list ()
@@ -433,4 +433,236 @@ ggplot(plot, aes(x = change, y = log2FoldChange, fill = lab)) +
   ylim(-2.5, 10) +
   facet_wrap(~condition, nrow = 1)
 
+## Analysis of experiment with cycloheximide and puromycin. 
 
+# import and format count data
+dir <- "geo_counts/puromycin/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+puro <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(puro, function(df) df$V2))
+rownames(count_matrix) <- puro[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+puro <- count_matrix
+
+# calculate CPMs and mean CPMs for mRNAs and ERCC spike-ins
+cpm <- puro
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) # Add gene names
+
+# filter for protein-coding genes and ERCCs
+cpm <- cpm[c(cpm$gene %in% araport$gene[araport$attribute == "protein_coding"] | grepl("ERCC", cpm$gene)), ]
+cpm$ERCC <- ifelse(substr(cpm$gene, 1, 4) == "ERCC", "Y", "N") # Add ERCC indicator
+
+cpm_puro <- cpm
+
+ercc <- rownames(puro) [grep ("ERCC", rownames(puro))]
+
+# create coldata data frame
+coldata <- data.frame(lib = colnames (puro),
+                      condition = substr (colnames (puro), 1, 7),
+                      replicate = substr (colnames (puro), 9, 9) )
+
+# differential levels of total mRNAs upon cycloheximide and puromycin treatment (Fig. S3F)
+res_CvM_2_inp <- deg_total(puro, coldata, 1:3, 4:6, normalization_genes = ercc) # CHX
+create_volcano_plot (res_CvM_2_inp, lfc_cap = 5, padj_cap = 50)
+
+res_PvM_2_inp <- deg_total(puro, coldata, 7:9, 4:6, normalization_genes = ercc) # PUR
+create_volcano_plot (res_PvM_2_inp, lfc_cap = 5, padj_cap = 50)
+
+# identification of new mRNAs using ERCC normalisation
+new_mck <- new_identification(puro, coldata, 13:15, 4:6, min_counts = 3, normalization_genes = ercc)  # mock
+new_chx <- new_identification(puro, coldata, 10:12, 1:3, min_counts = 3, normalization_genes = ercc)  # CHX
+new_pur <- new_identification(puro, coldata, 16:18, 7:9, min_counts = 3, normalization_genes = ercc)  # PUR
+
+# plots for enrichment of new mRNAs (Fig. S3G)
+new_mRNA_plot(cpm_puro, new_mck, ercc, "new_mck", "inp_mck", return_data = FALSE) # mock
+new_mRNA_plot(cpm_puro, new_chx, ercc, "new_chx", "inp_chx", return_data = FALSE) # CHX
+new_mRNA_plot(cpm_puro, new_pur, ercc, "new_pur", "inp_pur", return_data = FALSE) # PUR
+
+# differential accumulation of new mRNAs upon treatments (Fig. S3H)
+res_CvM_2_new <- deg_new(puro, coldata, 10:12, 13:15, min_counts = 3, normalization_genes = ercc) # CHX
+create_volcano_plot (res_CvM_2_new, lfc_cap = 5, padj_cap = 50)
+
+res_PvM_2_new <- deg_new(puro, coldata, 16:18, 13:15, min_counts = 3, normalization_genes = ercc) # PUR
+create_volcano_plot (res_PvM_2_new, lfc_cap = 5, padj_cap = 50)
+
+# GO terms of new mRNAs up-regulated by puromycin treatment
+res <- gost(query = res_PvM_2_new$gene [which(res_PvM_2_new$change == "UP")], organism = "athaliana", custom_bg = res_PvM_2_new$gene, user_threshold = 0.05)$result
+
+# Venn diagram for overlaps between up-regulated new mRNAs in two CHX and puromycin treatment (Fig. S3I)
+plot <- list (new = res_CvM_2_new$gene [which(res_CvM_2_new$change == "UP")],
+              old = res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "UP")],
+              pur = res_PvM_2_new$gene [which(res_PvM_2_new$change == "UP")])
+
+plot(euler(plot), 
+     quantities = TRUE, 
+     fill = c("#ffbd4c","#E15759","#a7d5ed"), 
+     edges = list(col = "transparent"))
+
+## Analysis of total mRNA stability changes during CHX treatment. 
+
+# import and format count data
+dir <- "geo_counts/stability/"
+files <- list.files(dir, pattern = "*.txt", full.names = TRUE)
+stabil <- lapply(files, fread)
+count_matrix <- do.call(cbind, lapply(stabil, function(df) df$V2))
+rownames(count_matrix) <- stabil[[1]]$V1
+colnames(count_matrix) <- gsub(".txt", "", basename(files))
+stabil <- count_matrix
+
+# ERCC spike-ins are used to normalise the dataset
+coldata <- data.frame(lib = colnames (stabil),
+                      condition = substr (colnames (stabil), 1, 4),
+                      replicate = substr (colnames (stabil), 6, 6))
+
+ercc <- rownames (stabil)[grep ("ERCC", rownames(stabil))]
+
+dds <- DESeqDataSetFromMatrix(countData = stabil, colData = coldata, design = ~ condition)
+dds <- estimateSizeFactors(dds, controlGenes= rownames(stabil) %in% ercc)
+dds <- DESeq(dds)
+
+# PCA plot (Fig. S3K)
+plot <- plotPCA(rlogTransformation(dds, blind=TRUE), intgroup=c('condition'), ntop = 1000, returnData=TRUE)
+percentVar <- round(100 * attr(plot, "percentVar"))
+
+ggplot(plot , aes(x=PC1, y=PC2, color = group)) +
+  geom_point(size = 3) + 
+  theme_classic() +
+  scale_color_manual(values=c("#ffb022","#ff810e","#c23728",
+                              "#7f7f7f",
+                              "#63bff0","#22a7f0", "#1984c5")) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+
+# differential gene expression analysis for relevant pairwise comparisons
+contrast_list <- list(
+  "M_01_00" = c("M_1h", "D_0h"), "M_03_00" = c("M_3h", "D_0h"), "M_06_00" = c("M_6h", "D_0h"),
+  "C_01_00" = c("C_1h", "D_0h"), "C_03_00" = c("C_3h", "D_0h"), "C_06_00" = c("C_6h", "D_0h"),
+  "t01_C_M" = c("C_1h", "M_1h"), "t03_C_M" = c("C_3h", "M_3h"), "t06_C_M" = c("C_6h", "M_6h")
+)
+
+deg_cyclo <- setNames(
+  lapply(names(contrast_list), function(name) {
+    c <- contrast_list[[name]]
+    res <- results(dds, alpha = 0.05, contrast = c("condition", c[1], c[2]))
+    res$gene <- rownames(res)
+    res
+  }),
+  names(contrast_list)
+)
+
+# summary for differentially expressed genes (Fig. S3L)
+
+# comparison of dry seeds with mock- and CHX-imbibed samples
+plot <- process_deg_data(deg_cyclo[1:6])
+
+plot <- data.frame(
+  timepoint = rep(c("1h", "3h", "6h"), 2),
+  up = lengths(plot$up),
+  dw = lengths(plot$dw),
+  treatment = rep(c("M", "C"), each = 3)
+)
+
+plot$type <- factor(paste0(plot$treatment, plot$timepoint), levels = c("M1h","C1h","M3h","C3h","M6h","C6h"))
+
+# plot for up-regulated mRNAs
+p1 <- ggplot(data=plot, aes(x=type, y=up, fill = type)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.x=element_blank()) +
+  scale_fill_manual(values=c("#63bff0","#ffb022","#22a7f0","#ff810e","#1984c5","#c23728" )) +
+  ylim (0,9500)
+
+# plot for down-regulated mRNAs
+p2 <- ggplot(data=plot, aes(x=type, y=dw, fill = type)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.x=element_blank()) + 
+  scale_x_discrete(position = "top")  +
+  scale_fill_manual(values=c("#63bff0","#ffb022","#22a7f0","#ff810e","#1984c5","#c23728" )) +
+  scale_y_reverse(limits = c(9500,0))
+
+# combining both plots
+plot_grid(p1, p2, ncol = 1, align = 'v')
+
+# direct comparison of CHX- and mock-treated samples (Fig. S3M)
+plot <- process_deg_data(deg_cyclo[7:9])
+
+plot <- data.frame(
+  timepoint = c("1h","3h","6h"),
+  cyclo = lengths(plot$up),
+  mock = lengths(plot$dw)
+)
+
+plot$timepoint <- factor(plot$timepoint, levels = c("1h","3h","6h"))
+
+# plot for up-regulated mRNAs
+p1 <- ggplot(data=plot, aes(x=timepoint, y=cyclo, fill = timepoint)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank(),
+         axis.text.x=element_blank()) +
+  scale_fill_manual(values=c("#ffb022","#ff810e","#c23728")) +
+  coord_flip() +
+  ylim (0,2200)
+
+# plot for down-regulated mRNAs
+p2 <- ggplot(data=plot, aes(x=timepoint, y=mock, fill = timepoint)) +
+  geom_bar(stat="identity")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  scale_fill_manual(values=c("#63bff0","#22a7f0", "#1984c5"))  +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 2200), breaks = (seq(0,2200,by = 100))) 
+
+# combining both plots
+plot_grid(p1, p2, ncol = 2, align = 'hv')
+
+# comparison of CHX-stabilised mRNAs with new mRNAs showing differential accumulation upon CHX-treatment (Fig. S3N)
+plot <- list (up = res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "UP")],
+              dw = res_CvM_6h_new$gene [which(res_CvM_6h_new$change == "DW")],
+              stab = deg_cyclo$t06_C_M$gene [which(deg_cyclo$t06_C_M$log2FoldChange >1 & deg_cyclo$t06_C_M$padj < 0.05)])
+
+plot(euler(plot), 
+     quantities = TRUE, 
+     fill = c("#22a7f0","#E15759","#95c773ff"), 
+     edges = list(col = "transparent"))
+
+## Plot for CHX experiment model (Fig. 3G)
+plot_data <- bind_rows(mock_summ, amanitin_summ) %>%
+  mutate(group = paste0(cluster, type))
+plot_chx <- plot_data [which(plot_data$group %in% c("C1mock", "C2mock")),]
+
+ggplot(data = plot_chx, aes(x = time, y = mean, color = cluster, group = cluster)) +
+  geom_xspline(size =3) +
+  theme_classic() +
+  scale_color_manual(values = c("#fcab20", "#e7363c")) +
+  scale_x_discrete(expand = c(0.05, 0.05)) +
+  theme (legend.position = "none")
+
+## RT-qPCR analysis
+
+# RT-qPCR for analysis of new mRNA production in mock and CHX-treated seeds (Fig. S3J)
+plot <- read.table("qPCR/chx_new.txt",header=T, dec = ",")
+plot$treatment <- factor (plot$treatment, levels = c("mck","CHX"))
+plot$gene <- factor(plot$gene, levels =unique(plot$gene[order(plot$order)]))
+
+ggplot(plot, aes(x = treatment, y = norm, color = treatment, group = treatment)) +
+  geom_jitter(width = 0.08, height = 0.0) +
+  theme_classic() +
+  ggpubr::stat_compare_means(method="t.test", label="p.signif", method.args = list(var.equal = TRUE))+
+  theme(legend.position = "none") + 
+  geom_hpline(stat = "summary") +
+  scale_color_manual(values=c("#26456e","#e7363c"))  +
+  facet_wrap(~ gene, nrow = 1) +
+  ylim(0,8)
