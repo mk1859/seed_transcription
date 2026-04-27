@@ -1,0 +1,374 @@
+### Additional bioinformatic analysis (Figure S9).
+
+library (ggthemes)
+library (tidyverse)
+library (DESeq2)
+library (cowplot)
+library (data.table)
+library (multcomp)
+library (multcompView)
+library (patchwork)
+
+# set the path to the folder containing the data
+setwd("/data/")
+
+## mRNA levels change upon alpha-amanitin treatment.
+
+# import and format count data f
+or yeast mRNAs in Fig. 1.
+sc <- read.table("/data/yeast_counts.txt", header = T, sep = "\t")
+sc <- sc  [,-which(colnames(sc) == "M_X_03h_2")]   # Remove the failed library (very few reads obtained).
+
+# combined CPMs for Ath and Sce
+cpm <- rbind (ath, sc)
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+
+# plot for yeast mRNA content (Fig. S9A)
+plot <- data.frame(
+  libs = colnames(cpm),
+  yeast = colSums(cpm[37337:nrow(cpm), ]) / colSums(cpm) * 100
+) %>%
+  filter(!grepl("_A_", libs)) %>%  # Remove ABA samples
+  mutate(
+    time = substr(libs, 5, 7),
+    treat = substr(libs, 1, 1)
+  )
+
+ggplot(plot , aes(x=time, y=yeast, color = treat)) +
+  geom_jitter(size = 2, height = 0, width = .2) +
+  scale_color_tableau() +
+  theme_classic() +
+  ylab("% yeat mRNA") +
+  xlab("time point") +
+  ylim (0, 28)
+
+# comparison of CPM and DESeq2 normalisation using stable genes (Fig. S9B)
+
+# mean values after CPM normalisation
+cpm_mean <- as.data.frame(t(cpm))
+cpm_mean$condition <- as.factor(gsub('.{0,2}$', '', rownames(cpm_mean)))
+cpm_mean <- as.data.frame(t(apply (cpm_mean [,-ncol(cpm_mean)], 2, function (x) {
+  tapply (x, cpm_mean$condition, mean)})))
+
+cpm_mean <- cpm_mean %>%
+  mutate(
+    gene = rownames(.),
+    source = case_when(
+      row_number() <= 37336 ~ "At",
+      TRUE ~ "Sc"
+    ))
+
+# stable genes normalisation with yeast mRNAs in the samples
+coldata <- data.frame(
+  lib = colnames(ath),
+  inhibitor = factor(substr(colnames(ath), 1, 1), labels = c("amanitin", "dry", "mock")),
+  aba = factor(substr(colnames(ath), 3, 3), labels = c("Y", "N")),
+  time = substr(colnames(ath), 5, 7),
+  replica = factor(substr(colnames(ath), 9, 9)),
+  condition = substr(colnames(ath), 1, 7))
+
+dds <- DESeqDataSetFromMatrix(countData = rbind (ath, sc), colData = coldata, design = ~ condition)
+dds <- estimateSizeFactors(dds, controlGenes= rownames(rbind (ath, sc)) %in% stable_genes)
+dds <- DESeq(dds)
+stable_norm <- counts (dds, normalized = T)
+stable_norm  <- as.data.frame(t(stable_norm))
+stable_norm$condition <- as.factor(gsub('.{0,2}$', '', rownames(stable_norm )))
+stable_norm <- as.data.frame(t(apply (stable_norm [,-ncol(stable_norm)], 2, function (x) {
+  tapply (x, stable_norm$condition, mean)})))
+
+stable_norm <- cbind(stable_norm, cpm_mean [,12:13])
+
+ggplot(cpm_mean, aes(x=log10(M_X_01h), y=log10(A_X_01h), color = source)) +
+  geom_point(size = 0.5) +
+  scale_color_manual(values=c("#7f9bb0","#e15759")) +
+  theme_classic()+
+  ylim (-1, 5)+
+  xlim (-1, 5) +
+  ylab("log10(CPMs) 1h alpha-amanitin") +
+  xlab("log10(CPMs) 1h mock")
+
+ggplot(stable_norm, aes(x=log10(M_X_01h), y=log10(A_X_01h), color = source)) +
+  geom_point(size = 0.5) +
+  scale_color_manual(values=c("#7f9bb0","#e15759")) +
+  theme_classic()+
+  ylim (-1, 5)+
+  xlim (-1, 5) +
+  ylab("log10(baseMean) 1h alpha-amanitin") +
+  xlab("log10(baseMean) 1h mock")
+
+ggplot(cpm_mean, aes(x=log10(M_X_12h), y=log10(A_X_12h), color = source)) +
+  geom_point(size = 0.5) +
+  scale_color_manual(values=c("#7f9bb0","#e15759")) +
+  theme_classic()+
+  ylim (-1, 5)+
+  xlim (-1, 5) +
+  ylab("log10(CPMs) 12h alpha-amanitin") +
+  xlab("log10(CPMs) 12h mock")
+
+ggplot(stable_norm, aes(x=log10(M_X_12h), y=log10(A_X_12h), color = source)) +
+  geom_point(size = 0.5) +
+  scale_color_manual(values=c("#7f9bb0","#e15759")) +
+  theme_classic()+
+  ylim (-1, 5)+
+  xlim (-1, 5) +
+  ylab("log10(baseMean) 12h alpha-amanitin") +
+  xlab("log10(baseMean) 12h mock")
+
+# plot showing that mRNAs identified as stable in ERCC-based mRNA stability analysis tend to be upregulated during imbibition (Fig. S9C)
+
+coldata <- data.frame(lib = colnames (stabil),
+                      condition = substr (colnames (stabil), 1, 4),
+                      replicate = substr (colnames (stabil), 6, 6))
+
+ercc <- rownames (stabil)[grep ("ERCC", rownames(stabil))]
+
+dds <- DESeqDataSetFromMatrix(countData = stabil, colData = coldata, design = ~ condition)
+dds <- estimateSizeFactors(dds, controlGenes= rownames(stabil) %in% ercc)
+dds <- DESeq(dds)
+
+res <- results(dds, alpha = 0.05, contrast = c("condition", "M_6h", "D_0h"), lfcThreshold = log2(2),altHypothesis = "lessAbs")
+
+stab_test <- rownames(res[which(res$padj < 0.05), ])
+stab_test <- stab_test [which(stab_test %in% ara$gene)]
+
+plot <- as.data.frame(deg_alpha$M_06_00)
+plot <- plot [which(plot$baseMean > 1),] # filter for expressed genes
+plot <- plot [which(plot$gene %in% ara$gene),] # slect protein coding
+plot$stable <- ifelse (plot$gene %in% stab_test, "Y", "N")
+
+ggplot(plot, aes(x = stable, y = log2FoldChange, fill = stable)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("#7f9bb0","#e15759")) +
+  theme(legend.position = "none")
+
+t.test (plot$log2FoldChange [which(plot$stable == "Y")], plot$log2FoldChange [which(plot$stable == "N")])$p.value
+
+## Comparison of different labelling experiments (Fig. S9D).
+
+# functions for generating pair comparisons and plotting them
+
+compare_new_labeled <- function(new1, new2, name1, name2) { 
+  plot_data <- merge(new1, new2, by = "gene") %>%
+    mutate(
+      change_comm = case_when(
+        change.x == "NEW" & change.y == "NEW" ~ "BOTH",
+        change.x == "NEW" | change.y == "NEW" ~ "SINGLE",
+        TRUE ~ "NO"
+      ),
+      change_comm = factor(change_comm, levels = c("BOTH", "SINGLE", "NO"))
+    )
+  
+  p <- ggplot(plot_data, aes(x = log2FoldChange.x, y = log2FoldChange.y, color = change_comm)) +
+    geom_point(size = 0.1) + 
+    theme_classic() +
+    xlim(-4, 9) +
+    ylim(-4, 9) + 
+    scale_color_manual(values = c("#E15759", "#4E79A7", "#79706E")) +
+    labs(x = paste("log2FC -", name1), 
+         y = paste("log2FC -", name2)) +
+    theme(legend.position = "none")
+  
+  return(p)
+}
+
+create_comparison_grid <- function(data_list) {
+  list_names <- names(data_list)
+  pairs <- combn(seq_along(data_list), 2, simplify = FALSE)
+  
+  plot_list <- lapply(pairs, function(p) {
+    compare_new_labeled(
+      new1 = data_list[[p[1]]], 
+      new2 = data_list[[p[2]]], 
+      name1 = list_names[p[1]], 
+      name2 = list_names[p[2]]
+    )
+  })
+  
+  combined_plot <- wrap_plots(plot_list, ncol = length (data_list)-1)
+  
+  return(combined_plot)
+}
+
+# 3h
+new_comp <- list (spike = new_3h, old = new_3h_old, CHX_mock = new_3hM, conversion = new_convers, imb22C = new_t22, matur22 = new_M22C)
+
+create_comparison_grid (new_comp) 
+
+# 6h
+new_comp <- list (spike = new_6h, CHX_I_mock = new_3hM, CHX_II_mock = new_mck, aba = new_mock_ABA, ant = new_mock_ANT)
+
+create_comparison_grid (new_comp) 
+
+# 1h
+new_comp <- list (spike = new_1h, old = new_1h_old)
+
+create_comparison_grid (new_comp) 
+
+## Direct comparison of ERCC and non-transcribed genes normalisation (Fig. S9G).
+coldata <- data.frame(
+  lib = colnames(new_1),
+  condition = substr(colnames(new_1), 1, 6),
+  replicate = substr(colnames(new_1), 8, 8)
+)
+
+res <- new_identification(new_1, coldata, 17:20, 5:8, normalization_genes = non_trans)
+
+plot <- merge(new_3h, res, by = "gene") %>%
+  mutate(
+    change_comm = case_when(
+      change.x == "NEW" & change.y == "NEW" ~ "BOTH",
+      change.x == "NEW" | change.y == "NEW" ~ "SINGLE",
+      TRUE ~ "NO"
+    ),
+    change_comm = factor(change_comm, levels = c("BOTH", "SINGLE", "NO")))
+
+ggplot() +
+  geom_point(data = plot, aes(x = log2FoldChange.x, y = log2FoldChange.y, color = change_comm), size = 0.5) + 
+  theme_classic() +
+  xlim(-4, 10) +
+  ylim(-4, 10) + 
+  scale_color_manual(values=c("#E15759","#4E79A7","#79706E")) +
+  xlab("ERCC normalisation") +
+  ylab("stable genes normalisation")
+
+## Unlabelled mRNAs are down-regulated upon standard comparison of enriched and input mRNAs (Fig. S9H).
+
+dds <- DESeqDataSetFromMatrix(countData = new_1 [,c(17:20,5:8)], colData = coldata [c(17:20,5:8),], design = ~ condition)
+dds <- dds[rowSums(counts(dds) >= 4) >= 4,]
+dds <- DESeq(dds)
+res <- as.data.frame(results(dds, alpha = 0.05, contrast= c("condition","new_3h","inp_3h")))
+
+res <- res %>%
+  mutate(
+    gene = rownames(.),
+    change = case_when(
+      padj < 0.05 & log2FoldChange < -1 ~ "DW",
+      padj < 0.05 & log2FoldChange > 1 ~ "UP",
+      TRUE ~ "NO"
+    ),
+    change = factor(change, levels = c("UP", "DW", "NO")),
+    change2 = case_when(
+      grepl("ERCC", gene) ~ "ERCC",
+      gene %in% non_trans ~ "non-trans",
+      TRUE ~ NA_character_ 
+    ),
+    log_padj = -log10(padj)
+  ) %>%
+  filter(gene %in% c(araport$gene[araport$attribute == "protein_coding"], grep("ERCC", rownames(.), value = TRUE)),
+         change2 %in% c("ERCC", "non-trans"))
+
+ggplot(res , aes(x=log2FoldChange , y= log_padj, color = change2)) +
+  geom_point(size = 2, shape = 16, alpha = 0.8) + 
+  scale_color_manual(values=c("#E15759","#4E79A7","#79706E")) +
+  theme_classic() +
+  geom_vline(xintercept=c(-1, 1), linetype="dashed", color = "black") +
+  geom_hline(yintercept=-log10(.05), linetype="dashed", color = "black") +
+  theme (legend.position = "none", strip.text = element_blank())+
+  xlab ("log2 fold change") +
+  ylab ("-log10 adjusted p-value")
+
+## Plots to show that mRNAs stabilised by CHX upon alpha-amanitin treatment are also affected in treatment without alpha-amanitin (Fig. S9I).
+
+# select stabilised mRNAs
+res <- deg_cyclo$t06_C_M %>%
+  as.data.frame() %>%
+  mutate(
+    change = case_when(
+      padj < 0.05 & log2FoldChange > 1  ~ "UP",
+      padj < 0.05 & log2FoldChange < -1 ~ "DW",
+      TRUE                             ~ "NO"
+    ),
+    change = factor(change, levels = c("UP", "DW", "NO"))
+  )
+
+up_genes <- res$gene[res$change == "UP"]
+
+# merge with differential analysis for total mRNAs in the first CHX treatment
+plot <- res_CvM_6h_inp %>%
+  mutate(stab = if_else(gene %in% up_genes, "stab", "no"))
+
+ggplot(data = plot , aes(x = stab, y = log2FoldChange, fill = stab)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("#7f9bb0","#e15759")) +
+  theme(legend.position = "none")
+
+t.test (plot$log2FoldChange [which(plot$stab == "stab")], plot$log2FoldChange [which(plot$stab == "no")])$p.value
+
+# merge with differential analysis for total mRNAs in the second CHX treatment
+plot <- res_CvM_2_inp %>%
+  mutate(stab = if_else(gene %in% up_genes, "stab", "no"))
+
+ggplot(data = plot , aes(x = stab, y = log2FoldChange, fill = stab)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("#7f9bb0","#e15759")) +
+  theme(legend.position = "none")
+
+t.test (plot$log2FoldChange [which(plot$stab == "stab")], plot$log2FoldChange [which(plot$stab == "no")])$p.value
+
+## Plots to check if levels of new mRNA enrichment are related to their detection as differentially produced (Fig. S9J).
+
+# first CHX treatment experiment
+plot_data <- new_6hM %>%
+  dplyr::select(gene, mock_enrichment = log2FoldChange, mock_new = change) %>%
+  inner_join(dplyr::select(new_6hC, gene, CHX_enrichment = log2FoldChange, CHX_new = change), by = "gene") %>%
+  inner_join(dplyr::select(res_CvM_6h_new, gene, change), by = "gene")
+
+plot_data <- plot_data %>%
+  mutate(
+    change = case_when(
+      gene %in% non_trans ~ "non_transc",
+      grepl("ERCC", gene) ~ "ERCC",
+      is.na(change)       ~ "NO",
+      TRUE                ~ as.character(change)
+    ),
+    detection = ifelse(mock_new == "NO" & CHX_new == "NO", "no", "yes"),
+    # Convert to factor with specific order
+    change = factor(change, levels = c("NO", "non_transc", "ERCC", "DW", "UP"))
+  ) %>%
+  arrange(change)
+
+ggplot(plot_data, aes(x = mock_enrichment, y = CHX_enrichment, color = change, alpha = detection)) +
+  geom_point(size = 0.5) + 
+  scale_color_manual(values = c(
+    "NO" = "#BABABA", 
+    "non_transc" = "#4DAC26", 
+    "ERCC" = "#D01C8B", 
+    "DW" = "#E15759", 
+    "UP" = "#4E79A7"
+  )) +
+  theme_classic()
+
+# second CHX treatment experiment
+plot_data <- new_mck %>%
+  dplyr::select(gene, mock_enrichment = log2FoldChange, mock_new = change) %>%
+  inner_join(dplyr::select(new_chx, gene, CHX_enrichment = log2FoldChange, CHX_new = change), by = "gene") %>%
+  inner_join(dplyr::select(res_CvM_2_new, gene, change), by = "gene")
+
+plot_data <- plot_data %>%
+  mutate(
+    change = case_when(
+      gene %in% non_trans ~ "non_transc",
+      grepl("ERCC", gene) ~ "ERCC",
+      is.na(change)       ~ "NO",
+      TRUE                ~ as.character(change)
+    ),
+    detection = ifelse(mock_new == "NO" & CHX_new == "NO", "no", "yes"),
+    # Convert to factor with specific order
+    change = factor(change, levels = c("NO", "non_transc", "ERCC", "DW", "UP"))
+  ) %>%
+  arrange(change)
+
+ggplot(plot_data, aes(x = mock_enrichment, y = CHX_enrichment, color = change, alpha = detection)) +
+  geom_point(size = 0.5) + 
+  scale_color_manual(values = c(
+    "NO" = "#BABABA", 
+    "non_transc" = "#4DAC26", 
+    "ERCC" = "#D01C8B", 
+    "DW" = "#E15759", 
+    "UP" = "#4E79A7"
+  )) +
+  theme_classic() 
