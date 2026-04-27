@@ -1,0 +1,86 @@
+### ChIP-seq and smFISH data analysis (Figure 6, S7 and S8)
+
+library (seqplots)
+library (tidyverse)
+library (GenomicRanges)
+library (ggvenn)
+library (gprofiler2)
+library (data.table)
+library (multcomp)
+library (multcompView)
+
+# set the path to the folder containing the data
+setwd("/data/")
+
+# For the preparation of meta profile plots on these figures, we used the seqplots package.
+# After installation of seqplot, you need to start Shiny and add the right genome with the correct chromosome names.
+
+# paths to bigwigs containing normalised ChIP-seq 
+chip_tracks <- list("dry"="seqplot/bigwigs/dry_subtract.bigwig",
+                    "imb"="seqplot/bigwigs/imb_subtract.bigwig",
+                    "ATAC"="seqplot/bigwigs/GSM7977728_DS.ATACseq.bw")
+
+# each plot requires preparation of GTF files
+ara <- araport [which(araport$attribute == "protein_coding"),1:9]
+ara <- ara [-which(ara$chr %in% c("C", "M")),]
+
+# CPMs for expression levels
+cpm <- ath [,c(21:24,36:39)]
+depth <- colSums(cpm)
+cpm <- t(t(cpm) / depth) * 10^6
+cpm <- as.data.frame(t(cpm))
+cpm$condition <- factor(gsub('.{0,2}$', '', rownames(cpm)))
+cpm <- as.data.frame(t(apply (cpm [,-ncol(cpm)], 2, function (x) {
+  tapply (x, cpm$condition, mean)})))
+cpm$gene <- rownames(cpm) 
+
+cpm_mean <- cpm
+
+# divide genes according to expression levels (Fig. 6A)
+
+# function for binning expression levels
+create_gene_sets_with_bins <- function(cpm_mean, ara, bin_column,
+                                       bin_ranges = list(c(0, 0), c(0, 10),
+                                                         c(10, 50), c(50, 100),
+                                                         c(100, Inf)),
+                                       bin_names = c("q0", "q10", "q50", "q100", "qtop")) {
+  
+  gene_sets <- lapply(seq_along(bin_ranges), function(i) {
+    range <- bin_ranges[[i]]
+    name <- bin_names[i]
+    
+    if (range[1] == range[2]) { #Handle the case where the range is a single value, i.e. 0,0
+      cpm_mean %>%
+        filter(!!sym(bin_column) == range[1]) %>%
+        mutate(bin = name) %>%
+        pull(gene)
+    } else {
+      cpm_mean %>%
+        filter(!!sym(bin_column) > range[1] & !!sym(bin_column) <= range[2]) %>%
+        mutate(bin = name) %>%
+        pull(gene)
+    }
+  })
+  
+  names(gene_sets) <- bin_names
+  gene_sets <- lapply(gene_sets, function(genes) {
+    ara %>% filter(gene %in% genes)
+  })
+  
+  return(gene_sets)
+}
+
+# Function to write resulting GTF files.
+lapply_write_gtf <- function(data_list, output_dir) {
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir, recursive = TRUE)
+  }
+  
+  lapply(names(data_list), function(name) {
+    file_path <- file.path(output_dir, paste0(name, ".gtf"))
+    write.table(data_list[[name]], file = file_path, sep = "\t", quote = FALSE,
+                row.names = FALSE, col.names = FALSE)
+
+
+  })
+}
