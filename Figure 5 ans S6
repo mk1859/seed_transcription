@@ -14,7 +14,7 @@ library (ggrepel)
 library (viridis)
 library (ggpointdensity)
 
-# set the path to folder containing the data
+# set the path to the folder containing the data
 setwd("/data/")
 
 # Ath homologues of B. napus genes
@@ -218,7 +218,7 @@ cpm$gene <- rownames(cpm)
 
 cpm_napus <- cpm
 
-# function for new mRNA calling when comparing new mRNA enriched and input samples without filtering for type of genes
+# function for new mRNA calling when comparing new mRNA-enriched and input samples without filtering for the type of genes
 new_identification_2 <- function(counts_matrix, coldata, rows1, rows2, 
                                  min_counts = 4, normalization_genes) {
   
