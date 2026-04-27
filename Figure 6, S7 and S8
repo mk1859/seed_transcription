@@ -12,6 +12,8 @@ library (multcompView)
 # set the path to the folder containing the data
 setwd("/data/")
 
+## Analysis of ChIP-seq.
+
 # For the preparation of meta profile plots on these figures, we used the seqplots package.
 # After installation of seqplot, you need to start Shiny and add the right genome with the correct chromosome names.
 
@@ -70,7 +72,7 @@ create_gene_sets_with_bins <- function(cpm_mean, ara, bin_column,
   return(gene_sets)
 }
 
-# Function to write resulting GTF files.
+# function to write resulting GTF files
 lapply_write_gtf <- function(data_list, output_dir) {
   if (!dir.exists(output_dir)) {
     dir.create(output_dir, recursive = TRUE)
@@ -80,7 +82,151 @@ lapply_write_gtf <- function(data_list, output_dir) {
     file_path <- file.path(output_dir, paste0(name, ".gtf"))
     write.table(data_list[[name]], file = file_path, sep = "\t", quote = FALSE,
                 row.names = FALSE, col.names = FALSE)
-
-
   })
 }
+
+# dry seeds plot (Fig. 6A)
+gene_sets <- create_gene_sets_with_bins(cpm_mean, ara, bin_column = "D_X_00h")
+lapply_write_gtf (gene_sets, "seqplot/gtf/dry_exp/")
+
+features <- list.files(path = paste0("seqplot/gtf/dry_exp/",""),full.names = T) 
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["dry"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("black","#c4dbeaff","#4d94bfff","#88b8d5ff","#1170aaff"), error.estimates = T, legend=T)
+
+
+# imbibed seeds plot (Fig. 6A)
+gene_sets <- create_gene_sets_with_bins(cpm_mean, ara, bin_column = "M_X_06h")
+lapply_write_gtf (gene_sets, "seqplot/gtf/imb_exp/")
+
+features <- list.files(path = paste0("seqplot/gtf/imb_exp/",""),full.names = T) 
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["imb"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("black","#c4dbeaff","#4d94bfff","#88b8d5ff","#1170aaff"), error.estimates = T, legend=T)
+
+# Upregulated mRNAs (Fig. S7F)
+up <- lapply(names(deg_alpha[1:4]), function(time_point) {
+  subset <- as.data.frame(deg_alpha[1:4] [[time_point]])
+  genes <- subset$gene[subset$padj < 0.05 & subset$log2FoldChange > 1]
+  filter(ara, gene %in% genes)
+})
+names(up) <- names(deg_alpha[1:4])
+lapply_write_gtf (up, "seqplot/gtf/upregulated/")
+
+features <- list.files(path = paste0("seqplot/gtf/upregulated/",""),full.names = T) 
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["dry"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#7f9bb0ff","#627d9aff","#456084ff","#26456eff"), eror.estimates = T, legend=T)
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["imb"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#7f9bb0ff","#627d9aff","#456084ff","#26456eff"), error.estimates = T, legend=T)
+    
+# genes producing new mRNAs based on the difference in conversion levels between total and negative control (Fig. S7G)
+plot <- conversion [1:27445,] # select protein coding genes
+plot <- plot [which(plot$gene %in% cpm_convers$gene [which(cpm_convers$non_conv > 1)]),] # select mRNAs with more than 1 CPM
+plot$diff <- (plot$inp_conv_mean_reads - plot$non_conv_mean_reads) # calculate the difference
+
+new <- list (c04 = ara [which(ara$gene %in% plot$gene [which(plot$diff < 0)]),],
+                  c03 = ara [which(ara$gene %in% plot$gene [which(plot$diff < 0.01 & plot$diff > 0)]),],
+                  c02 = ara [which(ara$gene %in% plot$gene [which(plot$diff < 0.05 & plot$diff > 0.01)]),],
+                  c01 = ara [which(ara$gene %in% plot$gene [which(plot$diff > 0.05)]),])
+
+lapply_write_gtf (new, "seqplot/gtf/conversion2/")
+
+features <- list.files(path = paste0("seqplot/gtf/conversion2/",""),full.names = T)
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["dry"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#990000","#ff0800","#e7363cff","#ef797dff"), error.estimates = T, legend=T)
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["imb"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#990000","#ff0800","#e7363cff","#ef797dff"), error.estimates = T, legend=T)
+
+# genes in clusters Fig. 1 (Fig. S7H)
+cluster <- lapply(levels(clusters_alpha$cluster)[1:4], function(cluster) {
+  genes <- clusters_alpha$gene[clusters_alpha$cluster == cluster]
+  filter(ara, gene %in% genes)
+})
+names(cluster) <- levels(clusters_alpha$cluster)[1:4]
+
+lapply_write_gtf (cluster, "seqplot/gtf/cluster/")
+
+features <- list.files(path = paste0("seqplot/gtf/cluster/",""),full.names = T) 
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["dry"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#fcab20","#e7363c","#26456e","#59ac99"), error.estimates = T, legend=T)
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["imb"], features, refgenome = 'TAIR10_chr_names.fasta',
+                           type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
+  plotAverage(colvec = c("#fcab20","#e7363c","#26456e","#59ac99"), error.estimates = T, legend=T)
+
+# finding genes with Pol II peaks
+ara_gr <- GRanges(
+  seqnames = ara$chr,
+  ranges = IRanges(start = ara$start, end = ara$end, names = ara$gene),
+  strand = ara$strand)
+
+# read peaks, find common peaks between at least 2 replicates, filter them and find overlapping genes
+dry1 <- read.table("geo_counts/peaks/B_dry_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+dry1 <- GRanges(seqnames = dry1$V1, ranges = IRanges(start = dry1$V2, end = dry1$V3), levels = dry1$V9)
+dry2 <- read.table("geo_counts/peaks/C_dry_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+dry2 <- GRanges(seqnames = dry2$V1, ranges = IRanges(start = dry2$V2, end = dry2$V3), levels = dry2$V9)
+dry3 <- read.table("geo_counts/peaks/A_dry_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+dry3 <- GRanges(seqnames = dry3$V1, ranges = IRanges(start = dry3$V2, end = dry3$V3), levels = dry3$V9)
+
+# function to process peaks
+process_genomic_ranges <- function(gr1, gr2, gr3, ara_gr, min_overlap = 100, min_length = 200) {
+  
+  peak_a <- GenomicRanges::intersect(gr1, gr2) %>%
+    .[lengths(.) > min_length]
+  
+  peak_b <- GenomicRanges::intersect(gr1, gr3) %>%
+    .[lengths(.) > min_length]
+  
+  peak_c <- GenomicRanges::intersect(gr2, gr3) %>%
+    .[lengths(.) > min_length]
+  
+  peak <- c(peak_a, peak_b, peak_c) %>%
+    GenomicRanges::reduce()
+  
+  peak <- findOverlaps(peak, ara_gr, minoverlap = min_overlap) %>%
+    as.data.frame() %>%
+    pull(subjectHits) %>%
+    names(ara_gr)[.] %>%
+    unique()
+  
+  return(peak)
+}
+
+dry_peaks <- process_genomic_ranges(dry1, dry2, dry3, ara_gr = ara_gr, min_overlap = 100, min_length = 200)
+
+imb1 <- read.table("geo_counts/peaks/B_imb_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+imb1 <- GRanges(seqnames = imb1$V1, ranges = IRanges(start = imb1$V2, end = imb1$V3), levels = imb1$V9)
+imb2 <- read.table("geo_counts/peaks/C_imb_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+imb2 <- GRanges(seqnames = imb2$V1, ranges = IRanges(start = imb2$V2, end = imb2$V3), levels = imb2$V9)
+imb3 <- read.table("geo_counts/peaks/A_imb_peaks.broadPeak",header=F, sep = "\t", dec = ".")
+imb3 <- GRanges(seqnames = imb3$V1, ranges = IRanges(start = imb3$V2, end = imb3$V3), levels = imb3$V9)
+
+imb_peaks <- process_genomic_ranges(imb1, imb2, imb3, ara_gr = ara_gr, min_overlap = 100, min_length = 200)
+
+# select type of genes with peaks
+only_dry <- dry_peaks [-which(dry_peaks %in% imb_peaks)]
+only_imb <- imb_peaks [-which(imb_peaks %in% dry_peaks)]
+only_both <- imb_peaks [which(imb_peaks %in% dry_peaks)]
+only_no <- names (ara_gr) [-which(names (ara_gr) %in% c(dry_peaks, imb_peaks))]
+
+## Venn diagram for overlaps between genes with peaks (Fig. S7A)
+plot <- list (dry = dry_peaks, imb = imb_peaks)
+
+ggvenn(
+  plot,
+  fill_color = c("#cc3a3d","#0073C2FF"),
+  stroke_size = 0.5, set_name_size = 4, auto_scale = T)
+
+
