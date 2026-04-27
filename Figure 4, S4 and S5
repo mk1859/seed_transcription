@@ -13,7 +13,7 @@ library (ggrepel)
 library (ggvenn)
 library (scales)
 
-# set the path to folder containing the data
+# set the path to the folder containing the data
 setwd("/data/")
 
 ## Experiment on temperatures during imbibition.
@@ -140,8 +140,8 @@ ggplot(data=plot, aes(x=order, y=log)) +
   coord_flip() +
   scale_x_discrete(labels=rev(plot$term_name))
 
-# Overlap of identified clusters (imbibition temperature) with clusters from Fig. 1 (Fig. S4D) with extending clusters.
-# In this step, we want to check whether genes showing differential response to imbibition temperature exhibit a specific pattern of changes during the time-course imbibition at 22C.
+# Overlap of identified clusters (imbibition temperature) with clusters from Fig. 1 (Fig. S4D), with extending clusters.
+# In this step, we want to check whether genes showing differential response to imbibition temperature exhibit a specific pattern of changes during the time-course imbibition at 22°C.
 
 selected_genes <- as.data.frame(t(zscore_alpha[rownames(zscore_alpha) %in% clusters_temp_inp$gene [which(clusters_temp_inp$cluster == "G4" )], ]))
 selected_genes$condition <- factor(gsub('.{0,3}$', '', rownames(selected_genes)))
@@ -158,7 +158,7 @@ selected_genes <- selected_genes %>%
   mutate(cluster = net$colors,
          gene = rownames(.)) 
 
-# merge with orginal clusters from Fig. 1
+# merge with original clusters from Fig. 1
 selected_genes <- merge (selected_genes, clusters_alpha, by = "gene", all.x =T)
 selected_genes$cluster.y <- as.character(selected_genes$cluster.y)
 selected_genes$cluster.x <- as.character(selected_genes$cluster.x)
@@ -218,7 +218,7 @@ selected_genes <- selected_genes %>%
   mutate(cluster = net$colors,
          gene = rownames(.)) 
 
-# merge with orginal clusters from Fig. 1
+# merge with original clusters from Fig. 1
 selected_genes <- merge (selected_genes, clusters_alpha, by = "gene", all.x =T)
 selected_genes$cluster.y <- as.character(selected_genes$cluster.y)
 selected_genes$cluster.x <- as.character(selected_genes$cluster.x)
@@ -248,7 +248,7 @@ ggplot(data=plot, aes(x=cluster, y=Freq, fill=clusters)) +
   ylab("number of genes")+
   theme(legend.position = "none")
 
-# identificitaion of new mRNAs in seeds imbibed in different temperatures
+# identification of new mRNAs in seeds imbibed at different temperatures
 
 # import of counts for enriched new mRNAs
 dir <- "geo_counts/temp_imb/new/"
@@ -487,7 +487,7 @@ ggplot(res , aes(x=log2FoldChange , y= log_padj, color = change)) +
   ylim (0, 20) +
   geom_text_repel(data = res, aes(x = log2FoldChange, y = log_padj,label = lab ),box.padding = 0.5, max.overlaps = Inf)
 
-# change in new mRNA of genes affected in total mRNA by ABA treatment (Fig. S4J)
+# change in the new mRNA of genes affected in total mRNA by ABA treatment (Fig. S4J)
 res <- as.data.frame(deg_alpha$M_ABA)
 res$gene <- rownames(res)
 res$change <- "NO"
