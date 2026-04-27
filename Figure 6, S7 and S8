@@ -166,6 +166,20 @@ setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["imb"], features
                            type = 'af', xanchored = 1000, xmin = 100, xmax=500) %>% 
   plotAverage(colvec = c("#fcab20","#e7363c","#26456e","#59ac99"), error.estimates = T, legend=T)
 
+# profile of ATAC-seq for genes with peaks (Fig. S7C)
+peak <- list (dry = ara [which(ara$gene %in% only_dry),],
+             imb = ara [which(ara$gene %in% only_imb),],
+             both = ara [which(ara$gene %in% only_both),],
+             no = ara [which(ara$gene %in% only_no),])
+
+lapply_write_gtf (peak, "seqplot/gtf/peak/")
+
+features <- list.files(path = paste0("seqplot/gtf/peak/",""),full.names = T)
+
+setPlot <- getPlotSetArray(stat = "mean", bin = 10, chip_tracks["ATAC"],features, refgenome = 'TAIR9',
+                           type = 'pf', xmin = 500, xmax=500) %>% 
+  plotAverage(colvec = c("#34a853ff","#cc3a3dff","#0073c2ff","#999999ff"), error.estimates = T, legend=T)
+
 # finding genes with Pol II peaks
 ara_gr <- GRanges(
   seqnames = ara$chr,
@@ -221,7 +235,7 @@ only_imb <- imb_peaks [-which(imb_peaks %in% dry_peaks)]
 only_both <- imb_peaks [which(imb_peaks %in% dry_peaks)]
 only_no <- names (ara_gr) [-which(names (ara_gr) %in% c(dry_peaks, imb_peaks))]
 
-## Venn diagram for overlaps between genes with peaks (Fig. S7A)
+# Venn diagram for overlaps between genes with peaks (Fig. S7A)
 plot <- list (dry = dry_peaks, imb = imb_peaks)
 
 ggvenn(
@@ -229,4 +243,357 @@ ggvenn(
   fill_color = c("#cc3a3d","#0073C2FF"),
   stroke_size = 0.5, set_name_size = 4, auto_scale = T)
 
+# GO terms for genes with peaks (Fig. S7D)
+background <- araport$gene [which(araport$attribute == "protein_coding")]
+plot <- list ()
 
+res <- gost(query = only_imb, organism = "athaliana", custom_bg = background, user_threshold = 0.05)$result
+plot <- res [c(1,4,5,7,8,9,10,13,14,16,18,20,21,22,27,31,32,39,40,58),c(11,3,10)]
+plot$term_name <- factor(plot$term_name, levels = rev(plot$term_name))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=term_name, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+res <- gost(query = only_dry, organism = "athaliana", custom_bg = background, user_threshold = 0.01)$result
+plot <- res [c(1,2,5,6,7,10,12,13,14),c(11,3,10)]
+plot$term_name <- factor(plot$term_name, levels = rev(plot$term_name))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=term_name, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+res <- gost(query = only_both, organism = "athaliana", custom_bg = background, user_threshold = 0.01)$result
+plot <- res [c(1,2,3,8,9,12,13,15,18),c(11,3,10)]
+plot$term_name <- factor(plot$term_name, levels = rev(plot$term_name))
+plot$log <-  -log10(plot$p_value)
+
+ggplot(data=plot, aes(x=term_name, y=log)) +
+  geom_bar(stat="identity", fill = "lightgrey")+ 
+  theme_classic() +
+  theme (legend.position = "none",
+         axis.title.y=element_blank()) +
+  coord_flip() +
+  scale_x_discrete(labels=rev(plot$term_name))
+
+## ChIP qPCR (Fig. S7B).
+
+data <- read.table("qPCR/som_chip.txt",header=T, dec = ",")
+data1 <- read.table("qPCR/avg_chip.txt",header=T, dec = ",")
+
+ggplot() +
+  geom_jitter(data = data, aes(x=sample, y=level,color=sample),size = 1.5, height = 0, width = .3) +
+  scale_x_discrete(expand = c(0.35,0.35)) +
+  ylim (0, max(ceiling(data$level))) +
+  facet_wrap(~ gene, nrow = 1)+
+  theme_classic() +
+  scale_color_manual(values=c("#e7363c","#26456e")) +
+  theme (legend.position = "none") +
+  geom_errorbar(data = data1, aes(x = sample, y = avg,
+                                  ymin = avg - sd, ymax = avg + sd), size=.7, width=.3) +
+  geom_point(data = data1, aes(x =sample, y= avg), size=1)
+
+## smFISH for ICL and ssLEA. 
+
+# levels of ICL and ssLEA in 3'RNA-seq (Fig. S8A)
+plot <- zscore_alpha [which(rownames(zscore_alpha) %in% c("AT3G21720", "AT3G17520")),17:35]
+plot <- as.data.frame(t(plot))
+plot$condition <- as.factor(gsub('.{0,3}$', '', rownames(plot)))
+plot_avg <- as.data.frame(t(apply (plot [,-ncol(plot)], 2, function (x) {tapply (x, plot$condition, mean)})))
+plot_sd <- as.data.frame(t(apply (plot [,-ncol(plot)], 2, function (x) {tapply (x, plot$condition, sd)})))
+
+plot <- data.frame (z_score = unlist(plot_avg), 
+                    up = unlist(plot_avg) + unlist(plot_sd),
+                    lw = unlist(plot_avg) - unlist(plot_sd),
+                    time = rep (c("00h", "01h","03h","06h","12h"), each = 2),
+                    gene = rep (c("ssLEA", "ICL")))
+
+ggplot() +
+  geom_line(data=plot, aes(x=time, y=z_score, color = gene, group = gene), linewidth = 1.5)+
+  geom_line(data=plot, aes(x=time, y=up, color = gene, group = gene), linewidth = 0.75, linetype = "dashed")+
+  geom_line(data=plot, aes(x=time, y=lw, color = gene, group = gene), linewidth = 0.75, linetype = "dashed")+
+  theme_classic() +
+  theme (legend.position = "none") +
+  scale_color_manual(values=c("#e7363c","#26456e"))
+
+# analysis of smFISH for ICL
+
+# mport data
+smFISH_dataset_1 <- read.delim2 ("smFISH/icl_cells.txt", dec = "\t", header = F)
+smFISH_dataset_2 <- read.delim2 ("smFISH/icl_foci.txt", dec = ",", header = T)
+
+# number of cytoplasmic foci (Fig. S8C)
+smFISH_dataset_2_cyt <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Cytoplasm")) %>% 
+  group_by(name) %>% 
+  summarise(foci_number_per_cell=n(), mean_signal = mean(pixel_bright_sum_per_comp))
+
+plot <- smFISH_dataset_1 %>%
+  left_join(smFISH_dataset_2_cyt, by = c("V1" = "name")) %>%
+  mutate(type = factor(substr(V1, 1, 1), levels = c("D", "1", "3"),
+                       labels = c("dry", "1.5h", "3h")),
+         foci_number_per_cell = replace_na(foci_number_per_cell, 0)) # Replace NA with 0
+
+ggplot() + 
+  geom_violin(data = plot, aes(type, foci_number_per_cell, color=type)) + 
+  geom_boxplot(data = plot, aes(type, foci_number_per_cell, color=type, fill=type),alpha=0.4, width=0.15, outlier.shape = NA) + 
+  labs(x= "time point", y="cytoplasmic foci number per cell") +
+  theme_classic() +
+  scale_fill_manual(values=c("#e7363c","#34a853","#26456e")) +
+  scale_color_manual(values=c("#e7363c","#34a853","#26456e")) +
+  theme (legend.position = "none")
+
+one.way <- aov(foci_number_per_cell ~ type, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$type))
+
+# number of cells with cytoplasmic foci (Fig. 6F)
+plot2 <- plot %>%
+  group_by(type) %>%
+  summarise(
+    all = n(),
+    zero = sum(foci_number_per_cell == 0),
+    non_zero = sum(foci_number_per_cell > 0),
+    .groups = "drop" # Drop grouping
+  ) %>%
+  mutate(freq = non_zero / all,
+         type = factor(type, levels = c("dry", "1.5h", "3h")))
+
+ggplot(data=plot2, aes(x=type, y=freq, fill = type)) +
+  geom_bar (position="dodge", stat="identity")+
+  theme_classic() +
+  theme (legend.position = "none") +
+  ylim (0, 1) +
+  scale_fill_manual(values=c("#e7363c","#34a853","#26456e")) + 
+  labs(x="time point", y="fraction of cells with cytoplasmic foci")
+
+# identification of TS foci
+
+# filter data for cytoplasm and nucleus/mixed components
+smFISH_dataset_2_cyt <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Cytoplasm"))
+
+smFISH_dataset_2_nuc <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Nucleus", "Mixed"))
+
+# select top N-2 brightest objects in nucleus/mixed
+smFISH_dataset_2_nuc_sel <- smFISH_dataset_2_nuc %>% 
+  group_by(name) %>% 
+  arrange(desc(pixel_bright_sum_per_comp), .by_group=TRUE) %>% dplyr::slice(-(1:2))
+
+# calculate median brightness per cell without the two brightest dots in the nucleus
+med_brightness <- bind_rows(smFISH_dataset_2_cyt, smFISH_dataset_2_nuc_sel) %>%
+  group_by(name) %>%
+  summarise(med_brightness = median(pixel_bright_sum_per_comp))
+
+# merge and calculate fold change
+brightness_nucleus_FC <- smFISH_dataset_2_nuc %>%
+  left_join(med_brightness, by = "name") %>%
+  mutate(fold_change_brightness = pixel_bright_sum_per_comp / med_brightness)
+
+# filter for transcription sites (fold change >= 3)
+transcription_sites <- brightness_nucleus_FC %>%
+  filter(fold_change_brightness >= 3)
+
+# select top 2 transcription sites per cell
+transcription_sites_2n <- transcription_sites %>%
+  group_by(name) %>%
+  arrange(desc(fold_change_brightness), .by_group = TRUE) %>%
+  dplyr::slice(1:2)
+
+# process time point labels
+transcription_sites_2n <- transcription_sites_2n %>%
+  mutate(type = factor(substr(name, 1, 1), levels = c("D", "1", "3"),
+                       labels = c("dry", "1.5h", "3h")))
+
+# create the plot for intensity of TS (Fig. S8G)
+ggplot(transcription_sites_2n, aes(type, fold_change_brightness, color = type)) +
+  geom_violin() +
+  geom_boxplot(aes(fill = type), alpha = 0.4, width = 0.15, outlier.shape = NA) +
+  theme_classic() +
+  scale_fill_manual(values = c("#e7363c", "#34a853", "#26456e")) +
+  scale_color_manual(values = c("#e7363c", "#34a853", "#26456e")) +
+  theme(legend.position = "none") +
+  labs(x = "time point", y = "FC intensity of TS") +
+  geom_hline(yintercept = 3)
+
+one.way <- aov(fold_change_brightness ~ type, data = transcription_sites_2n)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$type))
+
+# number and type of nuclear foci per cell (Fig. 6I)
+plot <- smFISH_dataset_2_nuc
+plot$component <- "nuc"
+plot$component <- ifelse (paste0(plot$name, plot$seg_comp) %in% paste0(transcription_sites_2n$name, transcription_sites_2n$seg_comp), "TS1", plot$component)
+plot$component <- ifelse (paste0(plot$name, plot$seg_comp) %in% paste0(transcription_sites_2n$name, transcription_sites_2n$seg_comp) [which(duplicated(transcription_sites_2n$name))], "TS2", plot$component)
+
+# merge and process data
+plot2 <- smFISH_dataset_1 %>%
+  left_join(plot, by = c("V1" = "name")) %>%
+  mutate(component = replace_na(component, "no"),
+         component = factor(component, levels = c("TS2", "TS1", "nuc", "no")),
+         type = factor(substr(V1, 1, 1), levels = c("D", "1", "3"), labels = c("dry", "1.5h", "3h"))) %>%
+  arrange(component, V1) %>%
+  distinct(V1, .keep_all = TRUE) %>%
+  group_by(type, component) %>%
+  summarise(foci_number_per_cell = n(), .groups = "drop") %>%
+  group_by(type) %>%
+  mutate(all = sum(foci_number_per_cell),
+         frac = foci_number_per_cell / all) %>%
+  ungroup() %>%
+  filter(component != "no") %>%
+  mutate(component = factor(component, levels = c("nuc", "TS1", "TS2")))
+
+ggplot(data=plot2, aes(x=type, y=frac, fill = component)) +
+  geom_bar (position="stack", stat="identity")+
+  theme_classic() +
+  ylim (0, 1) +
+  scale_fill_manual(values=c("#edc948","#f28e2b","#e15759")) + 
+  labs(x="time points", y="fraction of cells with foci") +
+  theme (legend.position = "none")
+
+# analysis of smFISH for ssLEA
+
+# import data
+smFISH_dataset_1 <- read.delim2 ("smFISH/lea_cells.txt", dec = "\t", header = F)
+smFISH_dataset_2 <- read.delim2 ("smFISH/lea_foci.txt", dec = ",", header = T)
+
+# number of cytoplasmic foci (Fig. S8E)
+smFISH_dataset_2_cyt <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Cytoplasm")) %>% 
+  group_by(name) %>% 
+  summarise(foci_number_per_cell=n(), mean_signal = mean(pixel_bright_sum_per_comp))
+
+plot <- smFISH_dataset_1 %>%
+  left_join(smFISH_dataset_2_cyt, by = c("V1" = "name")) %>%
+  mutate(type = factor(substr(V1, 1, 1), levels = c("D", "1", "3"),
+                       labels = c("dry", "1.5h", "3h")),
+         foci_number_per_cell = replace_na(foci_number_per_cell, 0)) # Replace NA with 0
+
+ggplot() + 
+  geom_violin(data = plot, aes(type, foci_number_per_cell, color=type)) + 
+  geom_boxplot(data = plot, aes(type, foci_number_per_cell, color=type, fill=type),alpha=0.4, width=0.15, outlier.shape = NA) + 
+  labs(x= "time point", y="cytoplasmic foci number per cell") +
+  theme_classic() +
+  scale_fill_manual(values=c("#e7363c","#34a853","#26456e")) +
+  scale_color_manual(values=c("#e7363c","#34a853","#26456e")) +
+  theme (legend.position = "none")
+
+one.way <- aov(foci_number_per_cell ~ type, data = plot)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$type))
+
+# number of cells with cytoplasmic foci (Fig. 6H)
+plot2 <- plot %>%
+  group_by(type) %>%
+  summarise(
+    all = n(),
+    zero = sum(foci_number_per_cell == 0),
+    non_zero = sum(foci_number_per_cell > 0),
+    .groups = "drop" # Drop grouping
+  ) %>%
+  mutate(freq = non_zero / all,
+         type = factor(type, levels = c("dry", "1.5h", "3h")))
+
+ggplot(data=plot2, aes(x=type, y=freq, fill = type)) +
+  geom_bar (position="dodge", stat="identity")+
+  theme_classic() +
+  theme (legend.position = "none") +
+  ylim (0, 1) +
+  scale_fill_manual(values=c("#e7363c","#34a853","#26456e")) + 
+  labs(x="time point", y="fraction of cells with cytoplasmic foci")
+
+# identification of TS foci
+
+# filter data for cytoplasm and nucleus/mixed components
+smFISH_dataset_2_cyt <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Cytoplasm"))
+
+smFISH_dataset_2_nuc <- smFISH_dataset_2 %>% 
+  filter(component %in% c("Nucleus", "Mixed"))
+
+# select top N-2 brightest objects in nucleus/mixed
+smFISH_dataset_2_nuc_sel <- smFISH_dataset_2_nuc %>% 
+  group_by(name) %>% 
+  arrange(desc(pixel_bright_sum_per_comp), .by_group=TRUE) %>% dplyr::slice(-(1:2))
+
+# calculate median brightness per cell without the two brightest dots in the nucleus
+med_brightness <- bind_rows(smFISH_dataset_2_cyt, smFISH_dataset_2_nuc_sel) %>%
+  group_by(name) %>%
+  summarise(med_brightness = median(pixel_bright_sum_per_comp))
+
+# merge and calculate fold change
+brightness_nucleus_FC <- smFISH_dataset_2_nuc %>%
+  left_join(med_brightness, by = "name") %>%
+  mutate(fold_change_brightness = pixel_bright_sum_per_comp / med_brightness)
+
+# filter for transcription sites (fold change >= 1.5)
+transcription_sites <- brightness_nucleus_FC %>%
+  filter(fold_change_brightness >= 1.5)
+
+# select top 2 transcription sites per cell
+transcription_sites_2n <- transcription_sites %>%
+  group_by(name) %>%
+  arrange(desc(fold_change_brightness), .by_group = TRUE) %>%
+  dplyr::slice(1:2)
+
+# process time point labels
+transcription_sites_2n <- transcription_sites_2n %>%
+  mutate(type = factor(substr(name, 1, 1), levels = c("D", "1", "3"),
+                       labels = c("dry", "1.5h", "3h")))
+
+# create the plot for intensity of TS (Fig. S8F)
+ggplot(transcription_sites_2n, aes(type, fold_change_brightness, color = type)) +
+  geom_violin() +
+  geom_boxplot(aes(fill = type), alpha = 0.4, width = 0.15, outlier.shape = NA) +
+  theme_classic() +
+  scale_fill_manual(values = c("#e7363c", "#34a853", "#26456e")) +
+  scale_color_manual(values = c("#e7363c", "#34a853", "#26456e")) +
+  theme(legend.position = "none") +
+  labs(x = "time point", y = "FC intensity of TS") +
+  geom_hline(yintercept = 1.5)
+
+one.way <- aov(fold_change_brightness ~ type, data = transcription_sites_2n)
+tukey.one.way <- TukeyHSD(one.way)
+multcompLetters(extract_p(tukey.one.way$type))$Letters
+
+# number and type of nuclear foci per cell (Fig. 6J)
+plot <- smFISH_dataset_2_nuc
+plot$component <- "nuc"
+plot$component <- ifelse (paste0(plot$name, plot$seg_comp) %in% paste0(transcription_sites_2n$name, transcription_sites_2n$seg_comp), "TS1", plot$component)
+plot$component <- ifelse (paste0(plot$name, plot$seg_comp) %in% paste0(transcription_sites_2n$name, transcription_sites_2n$seg_comp) [which(duplicated(transcription_sites_2n$name))], "TS2", plot$component)
+
+# merge and process data
+plot2 <- smFISH_dataset_1 %>%
+  left_join(plot, by = c("V1" = "name")) %>%
+  mutate(component = replace_na(component, "no"),
+         component = factor(component, levels = c("TS2", "TS1", "nuc", "no")),
+         type = factor(substr(V1, 1, 1), levels = c("D", "1", "3"), labels = c("dry", "1.5h", "3h"))) %>%
+  arrange(component, V1) %>%
+  distinct(V1, .keep_all = TRUE) %>%
+  group_by(type, component) %>%
+  summarise(foci_number_per_cell = n(), .groups = "drop") %>%
+  group_by(type) %>%
+  mutate(all = sum(foci_number_per_cell),
+         frac = foci_number_per_cell / all) %>%
+  ungroup() %>%
+  filter(component != "no") %>%
+  mutate(component = factor(component, levels = c("nuc", "TS1", "TS2")))
+
+ggplot(data=plot2, aes(x=type, y=frac, fill = component)) +
+  geom_bar (position="stack", stat="identity")+
+  theme_classic() +
+  ylim (0, 1) +
+  scale_fill_manual(values=c("#edc948","#f28e2b","#e15759")) + 
+  labs(x="time points", y="fraction of cells with foci") +
+  theme (legend.position = "none")
