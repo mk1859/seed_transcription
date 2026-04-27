@@ -1,0 +1,1691 @@
+3 hour\3H LEA 080824_006\test_component01.seg
+3 hour\3H LEA 080824_006\test_component02.seg
+3 hour\3H LEA 080824_006\test_component03.seg
+3 hour\3H LEA 080824_006\test_component04.seg
+3 hour\3H LEA 080824_006\test_component05.seg
+3 hour\3H LEA 080824_006\test_component06.seg
+3 hour\3H LEA 080824_006\test_component07.seg
+3 hour\3H LEA 080824_006\test_component08.seg
+3 hour\3H LEA 080824_006\test_component09.seg
+3 hour\3H LEA 080824_006\test_component10.seg
+3 hour\3H LEA 080824_006\test_component11.seg
+3 hour\3H LEA 080824_006\test_component12.seg
+3 hour\3H LEA 080824_006\test_component13.seg
+3 hour\3H LEA 080824_006\test_component14.seg
+3 hour\3H LEA 080824_006\test_component15.seg
+3 hour\3H LEA 080824_006\test_component16.seg
+3 hour\3H LEA 080824_006\test_component17.seg
+3 hour\3H LEA 080824_006\test_component18.seg
+3 hour\3H LEA 080824_006\test_component19.seg
+3 hour\3H LEA 080824_006\test_component20.seg
+3 hour\3H LEA 080824_006\test_component21.seg
+3 hour\3H LEA 080824_006\test_component22.seg
+3 hour\3H LEA 080824_006\test_component23.seg
+3 hour\3H LEA 080824_006\test_component24.seg
+3 hour\3H LEA 080824_006\test_component25.seg
+3 hour\3H LEA 080824_006\test_component26.seg
+3 hour\3H LEA 080824_006\test_component27.seg
+3 hour\3H LEA 080824_006\test_component28.seg
+3 hour\3H LEA 080824_006\test_component29.seg
+3 hour\3H LEA 080824_006\test_component30.seg
+3 hour\3H LEA 080824_006\test_component31.seg
+3 hour\3H LEA 080824_006\test_component32.seg
+3 hour\3H LEA 080824_006\test_component33.seg
+3 hour\3H LEA 080824_006\test_component34.seg
+3 hour\3H LEA 080824_006\test_component35.seg
+3 hour\3H LEA 080824_006\test_component36.seg
+3 hour\3H LEA 080824_019\test_component01.seg
+3 hour\3H LEA 080824_019\test_component02.seg
+3 hour\3H LEA 080824_019\test_component03.seg
+3 hour\3H LEA 080824_019\test_component04.seg
+3 hour\3H LEA 080824_007\test_component01.seg
+3 hour\3H LEA 080824_007\test_component02.seg
+3 hour\3H LEA 080824_007\test_component03.seg
+3 hour\3H LEA 080824_007\test_component04.seg
+3 hour\3H LEA 080824_007\test_component05.seg
+3 hour\3H LEA 080824_007\test_component06.seg
+3 hour\3H LEA 080824_007\test_component07.seg
+3 hour\3H LEA 080824_007\test_component08.seg
+3 hour\3H LEA 080824_007\test_component09.seg
+3 hour\3H LEA 080824_007\test_component10.seg
+3 hour\3H LEA 080824_007\test_component11.seg
+3 hour\3H LEA 080824_007\test_component12.seg
+3 hour\3H LEA 080824_007\test_component13.seg
+3 hour\3H LEA 080824_007\test_component14.seg
+3 hour\3H LEA 080824_007\test_component15.seg
+3 hour\3H LEA 080824_007\test_component16.seg
+3 hour\3H LEA 080824_007\test_component17.seg
+3 hour\3H LEA 080824_007\test_component18.seg
+3 hour\3H LEA 080824_007\test_component19.seg
+3 hour\3H LEA 080824_019\test_component05.seg
+3 hour\3H LEA 080824_019\test_component06.seg
+3 hour\3H LEA 080824_019\test_component07.seg
+3 hour\3H LEA 080824_019\test_component08.seg
+3 hour\3H LEA 080824_019\test_component09.seg
+3 hour\3H LEA 080824_019\test_component10.seg
+3 hour\3H LEA 080824_019\test_component11.seg
+3 hour\3H LEA 080824_019\test_component12.seg
+3 hour\3H LEA 080824_019\test_component13.seg
+3 hour\3H LEA 080824_019\test_component14.seg
+3 hour\3H LEA 080824_019\test_component15.seg
+3 hour\3H LEA 080824_019\test_component16.seg
+3 hour\3H LEA 080824_019\test_component17.seg
+3 hour\3H LEA 080824_019\test_component18.seg
+3 hour\3H LEA 080824_019\test_component19.seg
+3 hour\3H LEA 080824_019\test_component20.seg
+3 hour\3H LEA 080824_019\test_component21.seg
+3 hour\3H LEA 080824_019\test_component22.seg
+3 hour\3H LEA 080824_019\test_component23.seg
+3 hour\3H LEA 080824_019\test_component24.seg
+3 hour\3H LEA 080824_019\test_component25.seg
+3 hour\3H LEA 080824_007\test_component20.seg
+3 hour\3H LEA 080824_007\test_component21.seg
+3 hour\3H LEA 080824_007\test_component22.seg
+3 hour\3H LEA 080824_007\test_component23.seg
+3 hour\3H LEA 080824_007\test_component24.seg
+3 hour\3H LEA 080824_007\test_component25.seg
+3 hour\3H LEA 080824_007\test_component26.seg
+3 hour\3H LEA 080824_007\test_component27.seg
+3 hour\3H LEA 080824_007\test_component28.seg
+3 hour\3H LEA 080824_007\test_component29.seg
+3 hour\3H LEA 080824_007\test_component30.seg
+3 hour\3H LEA 080824_007\test_component31.seg
+3 hour\3H LEA 080824_007\test_component32.seg
+3 hour\3H LEA 080824_007\test_component33.seg
+3 hour\3H LEA 080824_007\test_component34.seg
+3 hour\3H LEA 080824_007\test_component35.seg
+3 hour\3H LEA 080824_007\test_component36.seg
+3 hour\3H LEA 080824_012\test_component01.seg
+3 hour\3H LEA 080824_012\test_component02.seg
+3 hour\3H LEA 080824_012\test_component03.seg
+3 hour\3H LEA 080824_012\test_component04.seg
+3 hour\3H LEA 080824_012\test_component05.seg
+3 hour\3H LEA 080824_012\test_component06.seg
+3 hour\3H LEA 080824_012\test_component07.seg
+3 hour\3H LEA 080824_012\test_component08.seg
+3 hour\3H LEA 080824_012\test_component09.seg
+3 hour\3H LEA 080824_012\test_component10.seg
+3 hour\3H LEA 080824_012\test_component11.seg
+3 hour\3H LEA 080824_012\test_component12.seg
+3 hour\3H LEA 080824_012\test_component13.seg
+3 hour\3H LEA 080824_012\test_component14.seg
+3 hour\3H LEA 080824_012\test_component15.seg
+3 hour\3H LEA 080824_012\test_component16.seg
+3 hour\3H LEA 080824_012\test_component17.seg
+3 hour\3H LEA 080824_012\test_component18.seg
+3 hour\3H LEA 080824_012\test_component19.seg
+3 hour\3H LEA 080824_012\test_component20.seg
+3 hour\3H LEA 080824_012\test_component21.seg
+3 hour\3H LEA 080824_012\test_component22.seg
+3 hour\3H LEA 080824_012\test_component23.seg
+3 hour\3H LEA 080824_012\test_component24.seg
+3 hour\3H LEA 080824_012\test_component25.seg
+3 hour\3H LEA 080824_012\test_component26.seg
+3 hour\3H LEA 080824_012\test_component27.seg
+3 hour\3H LEA 080824_012\test_component28.seg
+3 hour\3H LEA 080824_012\test_component29.seg
+3 hour\3H LEA 080824_012\test_component30.seg
+3 hour\3H LEA 080824_012\test_component31.seg
+3 hour\3H LEA 080824_012\test_component32.seg
+3 hour\3H LEA 080824_012\test_component33.seg
+3 hour\3H LEA 080824_012\test_component34.seg
+3 hour\3H LEA 080824_012\test_component35.seg
+3 hour\3H LEA 080824_012\test_component36.seg
+3 hour\3H LEA 080824_012\test_component37.seg
+3 hour\3H LEA 080824_012\test_component38.seg
+3 hour\3H LEA 080824_013\test_component01.seg
+3 hour\3H LEA 080824_013\test_component02.seg
+3 hour\3H LEA 080824_013\test_component03.seg
+3 hour\3H LEA 080824_013\test_component04.seg
+3 hour\3H LEA 080824_013\test_component05.seg
+3 hour\3H LEA 080824_013\test_component06.seg
+3 hour\3H LEA 080824_013\test_component07.seg
+3 hour\3H LEA 080824_013\test_component08.seg
+3 hour\3H LEA 080824_013\test_component09.seg
+3 hour\3H LEA 080824_013\test_component10.seg
+3 hour\3H LEA 080824_013\test_component11.seg
+3 hour\3H LEA 080824_013\test_component12.seg
+3 hour\3H LEA 080824_013\test_component13.seg
+3 hour\3H LEA 080824_013\test_component14.seg
+3 hour\3H LEA 080824_013\test_component15.seg
+3 hour\3H LEA 080824_013\test_component16.seg
+3 hour\3H LEA 080824_013\test_component17.seg
+3 hour\3H LEA 080824_013\test_component18.seg
+3 hour\3H LEA 080824_013\test_component19.seg
+3 hour\3H LEA 080824_013\test_component20.seg
+3 hour\3H LEA 080824_013\test_component21.seg
+3 hour\3H LEA 080824_013\test_component22.seg
+3 hour\3H LEA 080824_013\test_component23.seg
+3 hour\3H LEA 080824_013\test_component24.seg
+3 hour\3H LEA 080824_013\test_component25.seg
+3 hour\3H LEA 080824_009\test_component01.seg
+3 hour\3H LEA 080824_009\test_component02.seg
+3 hour\3H LEA 080824_009\test_component03.seg
+3 hour\3H LEA 080824_009\test_component04.seg
+3 hour\3H LEA 080824_009\test_component05.seg
+3 hour\3H LEA 080824_009\test_component06.seg
+3 hour\3H LEA 080824_009\test_component07.seg
+3 hour\3H LEA 080824_009\test_component08.seg
+3 hour\3H LEA 080824_009\test_component09.seg
+3 hour\3H LEA 080824_009\test_component10.seg
+3 hour\3H LEA 080824_009\test_component11.seg
+3 hour\3H LEA 080824_009\test_component12.seg
+3 hour\3H LEA 080824_009\test_component13.seg
+3 hour\3H LEA 080824_009\test_component14.seg
+3 hour\3H LEA 080824_009\test_component15.seg
+3 hour\3H LEA 080824_009\test_component16.seg
+3 hour\3H LEA 080824_009\test_component17.seg
+3 hour\3H LEA 080824_009\test_component18.seg
+3 hour\3H LEA 080824_009\test_component19.seg
+3 hour\3H LEA 080824_009\test_component20.seg
+3 hour\3H LEA 080824_009\test_component21.seg
+3 hour\3H LEA 080824_009\test_component22.seg
+3 hour\3H LEA 080824_009\test_component23.seg
+3 hour\3H LEA 080824_009\test_component24.seg
+3 hour\3H LEA 080824_009\test_component25.seg
+3 hour\3H LEA 080824_009\test_component26.seg
+3 hour\3H LEA 080824_009\test_component27.seg
+3 hour\3H LEA 080824_013\test_component26.seg
+3 hour\3H LEA 080824_013\test_component27.seg
+3 hour\3H LEA 080824_013\test_component28.seg
+3 hour\3H LEA 080824_013\test_component29.seg
+3 hour\3H LEA 080824_013\test_component30.seg
+3 hour\3H LEA 080824_013\test_component31.seg
+3 hour\3H LEA 080824_013\test_component32.seg
+3 hour\3H LEA 080824_013\test_component33.seg
+3 hour\3H LEA 080824_013\test_component34.seg
+3 hour\3H LEA 080824_013\test_component35.seg
+3 hour\3H LEA 080824_013\test_component36.seg
+3 hour\3H LEA 080824_013\test_component37.seg
+3 hour\3H LEA 080824_013\test_component38.seg
+3 hour\3H LEA 080824_009\test_component28.seg
+3 hour\3H LEA 080824_009\test_component29.seg
+3 hour\3H LEA 080824_009\test_component30.seg
+3 hour\3H LEA 080824_009\test_component31.seg
+3 hour\3H LEA 080824_009\test_component32.seg
+3 hour\3H LEA 080824_009\test_component33.seg
+3 hour\3H LEA 080824_009\test_component34.seg
+3 hour\3H LEA 080824_009\test_component35.seg
+3 hour\3H LEA 080824_009\test_component36.seg
+3 hour\3H LEA 080824_009\test_component37.seg
+3 hour\3H LEA 080824_009\test_component38.seg
+3 hour\3H LEA 080824_009\test_component39.seg
+3 hour\3H LEA 080824_009\test_component40.seg
+3 hour\3H LEA 080824_009\test_component41.seg
+3 hour\3H LEA 080824_009\test_component42.seg
+3 hour\3H LEA 080824_009\test_component43.seg
+3 hour\3H LEA 080824_009\test_component44.seg
+3 hour\3H LEA 080824_009\test_component45.seg
+3 hour\3H LEA 080824_009\test_component46.seg
+3 hour\3H LEA 080824_009\test_component47.seg
+3 hour\3H LEA 080824_009\test_component48.seg
+3 hour\3H LEA 080824_009\test_component49.seg
+3 hour\3H LEA 080824_009\test_component50.seg
+3 hour\3H LEA 080824_009\test_component51.seg
+3 hour\3H LEA 080824_009\test_component52.seg
+3 hour\3H LEA 080824_023\test_component01.seg
+3 hour\3H LEA 080824_023\test_component02.seg
+3 hour\3H LEA 080824_023\test_component03.seg
+3 hour\3H LEA 080824_023\test_component04.seg
+3 hour\3H LEA 080824_023\test_component05.seg
+3 hour\3H LEA 080824_023\test_component06.seg
+3 hour\3H LEA 080824_023\test_component07.seg
+3 hour\3H LEA 080824_023\test_component08.seg
+3 hour\3H LEA 080824_023\test_component09.seg
+3 hour\3H LEA 080824_023\test_component10.seg
+3 hour\3H LEA 080824_023\test_component11.seg
+3 hour\3H LEA 080824_023\test_component12.seg
+3 hour\3H LEA 080824_023\test_component13.seg
+3 hour\3H LEA 080824_023\test_component14.seg
+3 hour\3H LEA 080824_023\test_component15.seg
+3 hour\3H LEA 080824_023\test_component16.seg
+3 hour\3H LEA 080824_023\test_component17.seg
+3 hour\3H LEA 080824_023\test_component18.seg
+3 hour\3H LEA 080824_023\test_component19.seg
+3 hour\3H LEA 080824_023\test_component20.seg
+3 hour\3H LEA 080824_023\test_component21.seg
+3 hour\3H LEA 080824_023\test_component22.seg
+3 hour\3H LEA 080824_023\test_component23.seg
+3 hour\3H LEA 080824_023\test_component24.seg
+3 hour\3H LEA 080824_023\test_component25.seg
+3 hour\3H LEA 080824_023\test_component26.seg
+3 hour\3H LEA 080824_023\test_component27.seg
+3 hour\3H LEA 080824_023\test_component28.seg
+3 hour\3H LEA 080824_023\test_component29.seg
+3 hour\3H LEA 080824_023\test_component30.seg
+3 hour\3H LEA 080824_023\test_component31.seg
+3 hour\3H LEA 080824_023\test_component32.seg
+3 hour\3H LEA 080824_023\test_component33.seg
+3 hour\3H LEA 080824_023\test_component34.seg
+3 hour\3H LEA 080824_023\test_component35.seg
+3 hour\3H LEA 080824_023\test_component36.seg
+3 hour\3H LEA 080824_023\test_component37.seg
+3 hour\3H LEA 080824_023\test_component38.seg
+3 hour\3H LEA 080824_023\test_component39.seg
+3 hour\3H LEA 080824_023\test_component40.seg
+3 hour\3H LEA 080824_023\test_component41.seg
+3 hour\3H LEA 080824_023\test_component42.seg
+3 hour\3H LEA 080824_023\test_component43.seg
+3 hour\3H LEA 080824_023\test_component44.seg
+3 hour\3H LEA 080824_023\test_component45.seg
+3 hour\3H LEA 080824_023\test_component46.seg
+3 hour\3H LEA 080824_023\test_component47.seg
+3 hour\3H LEA 080824_027\test_component01.seg
+3 hour\3H LEA 080824_027\test_component02.seg
+3 hour\3H LEA 080824_027\test_component03.seg
+3 hour\3H LEA 080824_027\test_component04.seg
+3 hour\3H LEA 080824_027\test_component05.seg
+3 hour\3H LEA 080824_027\test_component06.seg
+3 hour\3H LEA 080824_027\test_component07.seg
+3 hour\3H LEA 080824_027\test_component08.seg
+3 hour\3H LEA 080824_025\test_component01.seg
+3 hour\3H LEA 080824_025\test_component02.seg
+3 hour\3H LEA 080824_027\test_component09.seg
+3 hour\3H LEA 080824_027\test_component10.seg
+3 hour\3H LEA 080824_027\test_component11.seg
+3 hour\3H LEA 080824_027\test_component12.seg
+3 hour\3H LEA 080824_027\test_component13.seg
+3 hour\3H LEA 080824_027\test_component14.seg
+3 hour\3H LEA 080824_027\test_component15.seg
+3 hour\3H LEA 080824_027\test_component16.seg
+3 hour\3H LEA 080824_027\test_component17.seg
+3 hour\3H LEA 080824_027\test_component18.seg
+3 hour\3H LEA 080824_027\test_component19.seg
+3 hour\3H LEA 080824_027\test_component20.seg
+3 hour\3H LEA 080824_027\test_component21.seg
+3 hour\3H LEA 080824_027\test_component22.seg
+3 hour\3H LEA 080824_027\test_component23.seg
+3 hour\3H LEA 080824_027\test_component24.seg
+3 hour\3H LEA 080824_027\test_component25.seg
+3 hour\3H LEA 080824_027\test_component26.seg
+3 hour\3H LEA 080824_027\test_component27.seg
+3 hour\3H LEA 080824_027\test_component28.seg
+3 hour\3H LEA 080824_027\test_component29.seg
+3 hour\3H LEA 080824_027\test_component30.seg
+3 hour\3H LEA 080824_027\test_component31.seg
+3 hour\3H LEA 080824_027\test_component32.seg
+3 hour\3H LEA 080824_027\test_component33.seg
+3 hour\3H LEA 080824_027\test_component34.seg
+3 hour\3H LEA 080824_027\test_component35.seg
+3 hour\3H LEA 080824_027\test_component36.seg
+3 hour\3H LEA 080824_027\test_component37.seg
+3 hour\3H LEA 080824_027\test_component38.seg
+3 hour\3H LEA 080824_027\test_component39.seg
+3 hour\3H LEA 080824_027\test_component40.seg
+3 hour\3H LEA 080824_027\test_component41.seg
+3 hour\3H LEA 080824_027\test_component42.seg
+3 hour\3H LEA 080824_027\test_component43.seg
+3 hour\3H LEA 080824_027\test_component44.seg
+3 hour\3H LEA 080824_027\test_component45.seg
+3 hour\3H LEA 080824_027\test_component46.seg
+3 hour\3H LEA 080824_025\test_component03.seg
+3 hour\3H LEA 080824_025\test_component04.seg
+3 hour\3H LEA 080824_025\test_component05.seg
+3 hour\3H LEA 080824_025\test_component06.seg
+3 hour\3H LEA 080824_025\test_component07.seg
+3 hour\3H LEA 080824_025\test_component08.seg
+3 hour\3H LEA 080824_025\test_component09.seg
+3 hour\3H LEA 080824_025\test_component10.seg
+3 hour\3H LEA 080824_025\test_component11.seg
+3 hour\3H LEA 080824_025\test_component12.seg
+3 hour\3H LEA 080824_025\test_component13.seg
+3 hour\3H LEA 080824_025\test_component14.seg
+3 hour\3H LEA 080824_025\test_component15.seg
+3 hour\3H LEA 080824_025\test_component16.seg
+3 hour\3H LEA 080824_025\test_component17.seg
+3 hour\3H LEA 080824_025\test_component18.seg
+3 hour\3H LEA 080824_025\test_component19.seg
+3 hour\3H LEA 080824_025\test_component20.seg
+3 hour\3H LEA 080824_025\test_component21.seg
+3 hour\3H LEA 080824_025\test_component22.seg
+3 hour\3H LEA 080824_025\test_component23.seg
+3 hour\3H LEA 080824_025\test_component24.seg
+3 hour\3H LEA 080824_025\test_component25.seg
+3 hour\3H LEA 080824_025\test_component26.seg
+3 hour\3H LEA 080824_025\test_component27.seg
+3 hour\3H LEA 080824_025\test_component28.seg
+3 hour\3H LEA 080824_025\test_component29.seg
+3 hour\3H LEA 080824_025\test_component30.seg
+3 hour\3H LEA 080824_025\test_component31.seg
+3 hour\3H LEA 080824_025\test_component32.seg
+3 hour\3H LEA 080824_025\test_component33.seg
+3 hour\3H LEA 080824_025\test_component34.seg
+3 hour\3H LEA 080824_025\test_component35.seg
+3 hour\3H LEA 080824_025\test_component36.seg
+3 hour\3H LEA 080824_025\test_component37.seg
+3 hour\3H LEA 080824_025\test_component38.seg
+3 hour\3H LEA 080824_025\test_component39.seg
+3 hour\3H LEA 080824_025\test_component40.seg
+3 hour\3H LEA 080824_025\test_component41.seg
+3 hour\3H LEA 080824_025\test_component42.seg
+3 hour\3H LEA 080824_025\test_component43.seg
+3 hour\3H LEA 080824_025\test_component44.seg
+3 hour\3H LEA 080824_025\test_component45.seg
+3 hour\3H LEA 080824_025\test_component46.seg
+3 hour\3H LEA 080824_025\test_component47.seg
+3 hour\3H LEA 080824_025\test_component48.seg
+3 hour\3H LEA 080824_025\test_component49.seg
+3 hour\3H LEA 080824_025\test_component50.seg
+3 hour\3H LEA 080824_025\test_component51.seg
+3 hour\3H LEA 080824_025\test_component52.seg
+3 hour\3H LEA 080824_025\test_component53.seg
+3 hour\3H LEA 080824_025\test_component54.seg
+3 hour\3H LEA 080824_025\test_component55.seg
+3 hour\3H LEA 080824_039\test_component01.seg
+3 hour\3H LEA 080824_039\test_component02.seg
+3 hour\3H LEA 080824_039\test_component03.seg
+3 hour\3H LEA 080824_039\test_component04.seg
+3 hour\3H LEA 080824_039\test_component05.seg
+3 hour\3H LEA 080824_039\test_component06.seg
+3 hour\3H LEA 080824_039\test_component07.seg
+3 hour\3H LEA 080824_039\test_component08.seg
+3 hour\3H LEA 080824_039\test_component09.seg
+3 hour\3H LEA 080824_039\test_component10.seg
+3 hour\3H LEA 080824_039\test_component11.seg
+3 hour\3H LEA 080824_039\test_component12.seg
+3 hour\3H LEA 080824_039\test_component13.seg
+3 hour\3H LEA 080824_039\test_component14.seg
+3 hour\3H LEA 080824_039\test_component15.seg
+3 hour\3H LEA 080824_039\test_component16.seg
+3 hour\3H LEA 080824_039\test_component17.seg
+3 hour\3H LEA 080824_039\test_component18.seg
+3 hour\3H LEA 080824_039\test_component19.seg
+3 hour\3H LEA 080824_039\test_component20.seg
+3 hour\3H LEA 080824_039\test_component21.seg
+3 hour\3H LEA 080824_039\test_component22.seg
+3 hour\3H LEA 080824_039\test_component23.seg
+3 hour\3H LEA 080824_039\test_component24.seg
+3 hour\3H LEA 080824_039\test_component25.seg
+3 hour\3H LEA 080824_039\test_component26.seg
+3 hour\3H LEA 080824_039\test_component27.seg
+3 hour\3H LEA 080824_026\test_component01.seg
+3 hour\3H LEA 080824_026\test_component02.seg
+3 hour\3H LEA 080824_026\test_component03.seg
+3 hour\3H LEA 080824_026\test_component04.seg
+3 hour\3H LEA 080824_026\test_component05.seg
+3 hour\3H LEA 080824_026\test_component06.seg
+3 hour\3H LEA 080824_026\test_component07.seg
+3 hour\3H LEA 080824_026\test_component08.seg
+3 hour\3H LEA 080824_026\test_component09.seg
+3 hour\3H LEA 080824_026\test_component10.seg
+3 hour\3H LEA 080824_026\test_component11.seg
+3 hour\3H LEA 080824_026\test_component12.seg
+3 hour\3H LEA 080824_026\test_component13.seg
+3 hour\3H LEA 080824_026\test_component14.seg
+3 hour\3H LEA 080824_026\test_component15.seg
+3 hour\3H LEA 080824_026\test_component16.seg
+3 hour\3H LEA 080824_026\test_component17.seg
+3 hour\3H LEA 080824_026\test_component18.seg
+3 hour\3H LEA 080824_026\test_component19.seg
+3 hour\3H LEA 080824_026\test_component20.seg
+3 hour\3H LEA 080824_026\test_component21.seg
+3 hour\3H LEA 080824_026\test_component22.seg
+3 hour\3H LEA 080824_026\test_component23.seg
+3 hour\3H LEA 080824_026\test_component24.seg
+3 hour\3H LEA 080824_026\test_component25.seg
+3 hour\3H LEA 080824_026\test_component26.seg
+3 hour\3H LEA 080824_026\test_component27.seg
+3 hour\3H LEA 080824_026\test_component28.seg
+3 hour\3H LEA 080824_026\test_component29.seg
+3 hour\3H LEA 080824_026\test_component30.seg
+3 hour\3H LEA 080824_026\test_component31.seg
+3 hour\3H LEA 080824_039\test_component28.seg
+3 hour\3H LEA 080824_039\test_component29.seg
+3 hour\3H LEA 080824_039\test_component30.seg
+3 hour\3H LEA 080824_039\test_component31.seg
+3 hour\3H LEA 080824_039\test_component32.seg
+3 hour\3H LEA 080824_039\test_component33.seg
+3 hour\3H LEA 080824_039\test_component34.seg
+3 hour\3H LEA 080824_039\test_component35.seg
+3 hour\3H LEA 080824_039\test_component36.seg
+3 hour\3H LEA 080824_026\test_component32.seg
+3 hour\3H LEA 080824_026\test_component33.seg
+3 hour\3H LEA 080824_026\test_component34.seg
+3 hour\3H LEA 080824_026\test_component35.seg
+3 hour\3H LEA 080824_026\test_component36.seg
+3 hour\3H LEA 080824_026\test_component37.seg
+3 hour\3H LEA 080824_026\test_component38.seg
+3 hour\3H LEA 080824_037\test_component01.seg
+3 hour\3H LEA 080824_037\test_component02.seg
+3 hour\3H LEA 080824_037\test_component03.seg
+3 hour\3H LEA 080824_037\test_component04.seg
+3 hour\3H LEA 080824_037\test_component05.seg
+3 hour\3H LEA 080824_037\test_component06.seg
+3 hour\3H LEA 080824_037\test_component07.seg
+3 hour\3H LEA 080824_037\test_component08.seg
+3 hour\3H LEA 080824_037\test_component09.seg
+3 hour\3H LEA 080824_037\test_component10.seg
+3 hour\3H LEA 080824_037\test_component11.seg
+3 hour\3H LEA 080824_037\test_component12.seg
+3 hour\3H LEA 080824_037\test_component13.seg
+3 hour\3H LEA 080824_037\test_component14.seg
+3 hour\3H LEA 080824_037\test_component15.seg
+3 hour\3H LEA 080824_037\test_component16.seg
+3 hour\3H LEA 080824_037\test_component17.seg
+3 hour\3H LEA 080824_037\test_component18.seg
+3 hour\3H LEA 080824_037\test_component19.seg
+3 hour\3H LEA 080824_037\test_component20.seg
+3 hour\3H LEA 080824_037\test_component21.seg
+3 hour\3H LEA 080824_037\test_component22.seg
+3 hour\3H LEA 080824_037\test_component23.seg
+3 hour\3H LEA 080824_037\test_component24.seg
+3 hour\3H LEA 080824_037\test_component25.seg
+3 hour\3H LEA 080824_037\test_component26.seg
+3 hour\3H LEA 080824_037\test_component27.seg
+3 hour\3H LEA 080824_037\test_component28.seg
+3 hour\3H LEA 080824_037\test_component29.seg
+3 hour\3H LEA 080824_037\test_component30.seg
+3 hour\3H LEA 080824_037\test_component31.seg
+3 hour\3H LEA 080824_037\test_component32.seg
+3 hour\3H LEA 080824_037\test_component33.seg
+3 hour\3H LEA 080824_032\test_component01.seg
+3 hour\3H LEA 080824_032\test_component02.seg
+3 hour\3H LEA 080824_032\test_component03.seg
+3 hour\3H LEA 080824_032\test_component04.seg
+3 hour\3H LEA 080824_032\test_component05.seg
+3 hour\3H LEA 080824_032\test_component06.seg
+3 hour\3H LEA 080824_032\test_component07.seg
+3 hour\3H LEA 080824_032\test_component08.seg
+3 hour\3H LEA 080824_032\test_component09.seg
+3 hour\3H LEA 080824_032\test_component10.seg
+3 hour\3H LEA 080824_032\test_component11.seg
+3 hour\3H LEA 080824_032\test_component12.seg
+3 hour\3H LEA 080824_032\test_component13.seg
+3 hour\3H LEA 080824_032\test_component14.seg
+3 hour\3H LEA 080824_032\test_component15.seg
+3 hour\3H LEA 080824_032\test_component16.seg
+3 hour\3H LEA 080824_032\test_component17.seg
+3 hour\3H LEA 080824_032\test_component18.seg
+3 hour\3H LEA 080824_032\test_component19.seg
+3 hour\3H LEA 080824_032\test_component20.seg
+3 hour\3H LEA 080824_032\test_component21.seg
+3 hour\3H LEA 080824_032\test_component22.seg
+3 hour\3H LEA 080824_032\test_component23.seg
+3 hour\3H LEA 080824_032\test_component24.seg
+3 hour\3H LEA 080824_032\test_component25.seg
+3 hour\3H LEA 080824_032\test_component26.seg
+3 hour\3H LEA 080824_032\test_component27.seg
+3 hour\3H LEA 080824_032\test_component28.seg
+3 hour\3H LEA 080824_032\test_component29.seg
+3 hour\3H LEA 080824_032\test_component30.seg
+3 hour\3H LEA 080824_032\test_component31.seg
+3 hour\3H LEA 080824_032\test_component32.seg
+3 hour\3H LEA 080824_032\test_component33.seg
+3 hour\3H LEA 080824_032\test_component34.seg
+3 hour\3H LEA 080824_037\test_component34.seg
+3 hour\3H LEA 080824_037\test_component35.seg
+3 hour\3H LEA 080824_037\test_component36.seg
+3 hour\3H LEA 080824_037\test_component37.seg
+3 hour\3H LEA 080824_037\test_component38.seg
+3 hour\3H LEA 080824_037\test_component39.seg
+3 hour\3H LEA 080824_032\test_component35.seg
+3 hour\3H LEA 080824_032\test_component36.seg
+3 hour\3H LEA 080824_032\test_component37.seg
+3 hour\3H LEA 080824_032\test_component38.seg
+3 hour\3H LEA 080824_032\test_component39.seg
+3 hour\3H LEA 080824_032\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_003\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_007\test_component41.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_036\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component41.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component42.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component43.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component44.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5HOURS_24DEC24_046\test_component45.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component41.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component42.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component43.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component44.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component45.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component46.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component47.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component48.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component49.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component50.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_009\test_component51.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_035\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component41.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component42.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component43.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component44.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_011\test_component45.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_110125_018\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_014\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_012\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_015\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_271224_004\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_023\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component01.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component02.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component03.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component04.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component05.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component06.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component07.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component08.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component09.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component10.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component11.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component12.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component13.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component14.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component15.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component16.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component17.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component18.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component19.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component20.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component21.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component22.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component23.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component24.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component25.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component26.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component27.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component28.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component29.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component30.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component31.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component32.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component33.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component34.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component35.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component36.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component37.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component38.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component39.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component40.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component41.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component42.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component43.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component44.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component45.seg
+1,5H LEA  MICHAL_SEGMENT\LEA_1.5H_26DEC24_041\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_016\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_026\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component53.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component54.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component55.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component56.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component57.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component58.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component59.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component60.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component61.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component62.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component63.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component64.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component65.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component66.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component67.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component68.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component69.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component70.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component71.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component72.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component73.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component74.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component75.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component76.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component77.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component78.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component79.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_110125_029 MUST\test_component80.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_011\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_021\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component53.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component54.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component55.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component56.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component57.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component58.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component59.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component60.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component61.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component62.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component63.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component64.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_023\test_component65.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_017\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component53.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component54.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component55.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component56.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component57.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component58.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component59.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component60.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component61.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component62.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component63.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component64.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component65.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component66.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component67.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component68.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_24DEC24_026\test_component69.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_26DEC24_031\test_component53.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component48.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component49.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component50.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component51.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component52.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component53.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_011\test_component54.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_014\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component01.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component02.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component03.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component04.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component05.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component06.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component07.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component08.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component09.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component10.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component11.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component12.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component13.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component14.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component15.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component16.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component17.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component18.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component19.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component20.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component21.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component22.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component23.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component24.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component25.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component26.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component27.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component28.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component29.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component30.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component31.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component32.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component33.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component34.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component35.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component36.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component37.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component38.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component39.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component40.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component41.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component42.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component43.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component44.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component45.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component46.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component47.seg
+DRY LEA MICHAL_ SEGMENT\LEA_DRY_271224_028\test_component48.seg
