@@ -15,7 +15,7 @@ library (eulerr)
 library (scales)
 library (ungeviz)
 
-# set the path to folder containing the data
+# set the path to the folder containing the data
 setwd("/data/")
 
 ## New mRNA production during imbibition for genes belonging to clusters from Fig. 1 (Fig. 3A).
@@ -245,7 +245,7 @@ selected_genes <- selected_genes [,c(5:9)]
 
 scale <- range(selected_genes, na.rm = TRUE)
 
-# subset for down-regualted mRNAs
+# subset for down-regulated mRNAs
 dw <- selected_genes[rownames(selected_genes) %in% res_CvM_6h_new$gene[which(res_CvM_6h_new$change == "DW")], ]
 
 net <- blockwiseModules(t(dw), power = 10, TOMType = "signed", minModuleSize = 30,
@@ -257,7 +257,7 @@ dw <- dw %>%
   mutate(cluster = net$colors,
          gene = rownames(.)) 
 
-# merge with orginal clusters from Fig. 1
+# merge with original clusters from Fig. 1
 dw <- merge (dw, clusters_alpha, by = "gene", all.x =T)
 dw$cluster.y <- as.character(dw$cluster.y)
 dw$cluster.x <- as.character(dw$cluster.x)
@@ -303,7 +303,7 @@ up <- up %>%
   mutate(cluster = net$colors,
          gene = rownames(.)) 
 
-# merge with orginal clusters from Fig. 1
+# merge with original clusters from Fig. 1
 up <- merge (up, clusters_alpha, by = "gene", all.x =T)
 up$cluster.y <- as.character(up$cluster.y)
 up$cluster.x <- as.character(up$cluster.x)
@@ -342,7 +342,7 @@ res <- res_CvM_6h_new %>%
   mutate(change = as.character(change)) %>%
   mutate(change = ifelse(is.na(change), "NO", change))
 
-# create data frame with numbers of affected genes
+# create a data frame with the numbers of affected genes
 plot_df <- res %>%
   merge(clusters_alpha, by = "gene", all.x = TRUE) %>%
   mutate(cluster = ifelse(is.na(cluster) | cluster == "C0", "no", as.character(cluster)),
