@@ -13,7 +13,7 @@ library (ungeviz)
 library (multcomp)
 library (multcompView)
 
-# set the path to folder containing the data
+# set the path to the folder containing the data
 setwd("/data/")
 
 # load Araport annotation data
@@ -43,7 +43,7 @@ dds <- DESeq(DESeqDataSetFromMatrix(countData = ath, colData = coldata, design =
 
 # Relative abundance of stable mRNAs in libraries is expected to increase during treatment with a transcription inhibitor (see Supplementary Bioinformatic Methods and references therein).
 # This is because their content in the library rises due to the degradation of unstable mRNAs.
-# We compared amanitin- and mock-treated seeds at 6-hour and 12-hour time points and selected genes with highly confident up-regulated mRNAs at both time points.
+# We compared amanitin- and mock-treated seeds at 6 and 12 hours and selected genes with highly confident up-regulated mRNAs at both time points.
 
 res_6h <- results(dds, alpha = 0.05, contrast = c("condition", "A_X_06h", "M_X_06h"), altHypothesis = "greater")
 up_t06 <- rownames(res_6h[which(res_6h$padj < 0.05), ])
@@ -219,7 +219,7 @@ imb_genes <- imb_genes [!duplicated(imb_genes)]
 imb_genes <- imb_genes [which(imb_genes %in% araport$gene [which(araport$attribute == "protein_coding")])]
 imb_genes <- imb_genes [-c(grep ("ATM", imb_genes),grep ("ATC", imb_genes))]
 
-# calculate CPMs for whole experiment
+# calculate CPMs for the whole experiment
 cpm <- ath
 depth <- colSums(cpm)
 cpm <- t(t(cpm) / depth) * 10^6
