@@ -16,7 +16,7 @@ library (ggthemes)
 library (ungeviz)
 library (scales)
 
-# set the path to folder containing the data
+# set the path to the folder containing the data
 setwd("/data/")
 
 ## Experiment with both positive and negative spike-ins were used for new mRNA identification during seed imbibition.
@@ -55,9 +55,9 @@ cpm_new1 <- cpm
 
 # identification of new mRNAs using ERCC normalisation (Fig. 2B-D)
 
-# unlabelled ERCC spike-ins are detectable in both input and enriched samples
-# in enriched samples, they serve as indicators of nonspecific binding of transcripts to the beads
-# we leveraged this by including ERCC normalisation in our pipeline for new mRNA calling using DESeq2.
+# Unlabelled ERCC spike-ins are detectable in both input and enriched samples.
+# In enriched samples, they serve as indicators of nonspecific binding of transcripts to the beads.
+# We leveraged this by including ERCC normalisation in our pipeline for new mRNA calling using DESeq2.
 
 # function for calling new mRNA when comparing enriched and input samples
 
@@ -235,9 +235,9 @@ ggplot(plot, aes(y = value, x = type, fill = top)) +
             curve_type = "linear", 
             width = .5)
 
-# calculate labeling percentages (Fig. 2G)
+# calculate labelling percentages (Fig. 2G)
 
-# function to calculate labeling percentage.
+# function to calculate labelling percentage.
 calculate_labeling_percentage <- function(cpm_data, deseq_results, time_column) {
   genes <- cpm_data$gene[cpm_data[[time_column]] > 1] 
   genes <- genes[genes %in% araport$gene[araport$attribute == "protein_coding"]]
@@ -286,7 +286,7 @@ ggplot(data = plot_data, aes(x = time, y = percent, color = change, group = chan
 
 # accumulation of new mRNAs along the imbibition (Fig. S2I)
 
-# to relaibly do this we calculate CPMs normalised to ERCC levels
+# to reliably do this, we calculate CPMs normalised to ERCC levels
 cpm <- new_1
 depth <- colSums(cpm [which(rownames(cpm) %in% ercc),])
 cpm <- t(t(cpm) / depth) * 10^6
@@ -438,7 +438,7 @@ new_mRNA_plot(cpm_new2, new_1h_old, ercc, "new1h", "inp1h", return_data = F)
 # plot 3h (Fig. S2D)
 new_mRNA_plot(cpm_new2, new_3h_old, ercc, "new3h", "inp3h", return_data = F)
 
-# Venn diagram for overlaps between new mRNAs identified at 1h in original (old) and spike-in (new) experiment (Fig. S2E)
+# Venn diagram for overlaps between new mRNAs identified at 1h in the original (old) and spike-in (new) experiment (Fig. S2E)
 plot <- list (new = new_1h$gene [which(new_1h$change == "NEW" & grepl("AT", new_1h$gene))],
               old = new_1h_old$gene [which(new_1h_old$change == "NEW")])
 
@@ -608,7 +608,7 @@ ggplot() +
 
 # prepare plot comparing enrichment levels with conversion in total mRNA samples (Fig. S2H)
 
-# combine with new mRNA calling and select ratio of converted nucleotides
+# combine with new mRNA calling and select the ratio of converted nucleotides
 plot <- new_convers %>%
   inner_join(conversion, by = "gene") %>%
   dplyr::select(gene, log2FoldChange, change, non_conv_mean_conv, inp_conv_mean_conv) 
@@ -698,7 +698,7 @@ plot(euler(plot),
 
 ## RT-qPCR analysis
 
-# enhancement of 4-SU labeling by scarification (Fig. S2A)
+# enhancement of 4-SU labelling by scarification (Fig. S2A)
 plot <- read.table("qPCR/4su_norm_data.txt",header=T, dec = ",")
 plot$mark <- as.factor(plot$mark)
 
