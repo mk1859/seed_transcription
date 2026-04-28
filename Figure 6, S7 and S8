@@ -289,19 +289,17 @@ ggplot(data=plot, aes(x=term_name, y=log)) +
 ## ChIP qPCR (Fig. S7B).
 
 data <- read.table("qPCR/som_chip.txt",header=T, dec = ",")
-data1 <- read.table("qPCR/avg_chip.txt",header=T, dec = ",")
 
-ggplot() +
-  geom_jitter(data = data, aes(x=sample, y=level,color=sample),size = 1.5, height = 0, width = .3) +
-  scale_x_discrete(expand = c(0.35,0.35)) +
-  ylim (0, max(ceiling(data$level))) +
-  facet_wrap(~ gene, nrow = 1)+
+ggplot(data, aes(x = sample, y = level, color = sample, group = sample)) +
+  geom_jitter(width = 0.08, height = 0.0, alpha = 0.5) + 
+  stat_summary(fun.data = mean_sdl, geom = "errorbar", width = 0.1, color = "black", fun.args = list(mult = 1)) +
+  stat_summary(fun = mean, geom = "point", size = 3, color = "black") +
   theme_classic() +
-  scale_color_manual(values=c("#e7363c","#26456e")) +
-  theme (legend.position = "none") +
-  geom_errorbar(data = data1, aes(x = sample, y = avg,
-                                  ymin = avg - sd, ymax = avg + sd), size=.7, width=.3) +
-  geom_point(data = data1, aes(x =sample, y= avg), size=1)
+  ggpubr::stat_compare_means(method="t.test", label="p.signif", method.args = list(var.equal = TRUE)) +
+  theme(legend.position = "none") + 
+  scale_color_manual(values=c( "#e7363c","#26456e")) +
+  facet_wrap(~ gene, nrow = 1) +
+  ylim(0, max(ceiling(data$level)))
 
 ## smFISH for ICL and ssLEA. 
 
