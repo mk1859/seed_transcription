@@ -702,13 +702,18 @@ plot(euler(plot),
 plot <- read.table("qPCR/4su_norm_data.txt",header=T, dec = ",")
 plot$mark <- as.factor(plot$mark)
 
-ggplot(plot, aes(x = mark, y = log2FC, color = replica, group = mark)) +
+plot1 <- plot [which(plot$treatment == "nicked"),]
+ggplot(plot1, aes(x = mark, y = log2FC, color = replica, group = mark)) +
   geom_jitter(width = 0.08, height = 0.0) +
   theme_classic() +
   theme(legend.position = "none") + 
   scale_color_tableau() + 
   geom_hpline(stat = "summary") +
   ylim(0,7)
+
+t.test (plot$log2FC [which(plot$gene == "HSP17.6II" & plot$treatment == "nicked")], plot$log2FC [which(plot$gene == "HSP17.6II" & plot$treatment == "intact")], var.equal = TRUE)$p.value
+t.test (plot$log2FC [which(plot$gene == "HSP70-4" & plot$treatment == "nicked")], plot$log2FC [which(plot$gene == "HSP70-4" & plot$treatment == "intact")], var.equal = TRUE)$p.value
+t.test (plot$log2FC [which(plot$gene == "HSP89.1" & plot$treatment == "nicked")], plot$log2FC [which(plot$gene == "HSP89.1" & plot$treatment == "intact")], var.equal = TRUE)$p.value
 
 # enrichment using 5-EU labelling (Fig. S2L)
 plot <- read.table("qPCR/lab_5eu.txt",header=T, dec = ",")
