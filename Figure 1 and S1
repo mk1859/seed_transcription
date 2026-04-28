@@ -578,18 +578,6 @@ one.way <- aov(dreb2c ~ sample, data = plot)
 tukey.one.way <- TukeyHSD(one.way)
 multcompLetters(extract_p(tukey.one.way$sample))
 
-ggplot(plot, aes(x = sample, y = dreb2c, color = rep, group = sample)) +
-  geom_jitter(width = 0.08, height = 0.0) +
-  theme_classic() +
-  theme(legend.position = "none") + 
-  scale_color_tableau() + 
-  geom_hpline(stat = "summary") +
-  ylim(0,1.4)
-
-one.way <- aov(dreb2c ~ sample, data = plot)
-tukey.one.way <- TukeyHSD(one.way)
-multcompLetters(extract_p(tukey.one.way$sample))
-
 ggplot(plot, aes(x = sample, y = sro5, color = rep, group = sample)) +
   geom_jitter(width = 0.08, height = 0.0) +
   theme_classic() +
