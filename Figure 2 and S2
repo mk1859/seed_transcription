@@ -170,7 +170,7 @@ res <- gost(query = new_6h$gene [which(new_6h$change == "NEW")], organism = "ath
 # Changes in alpha-amanitin-treated samples are checked for total mRNA levels. Usually, there is a delay between the start of new mRNA production and changes in total mRNA levels.
 # Therefore, rather than comparing the same time points of two experiments, we analyse subsequent time points.
 
-# plot for 6h alpha-amanitin treatment and 3h labelling (Fig. S2C)
+# plot for 6h alpha-amanitin treatment and 3h labelling (Fig. S2H)
 plot <- merge (new_3h [,c(2,7,8)], as.data.frame(deg_alpha$t06_A_M) [,c(2,6,7)], by = "gene")
 colnames(plot) <- c("gene", "log2FC_enrichment", "new", "log2FC_amanitin", "padj")
 param <- as.data.frame(summary(lm(plot$log2FC_amanitin ~ plot$log2FC_enrichment))$coefficients)
@@ -185,7 +185,7 @@ ggplot(plot, aes(x = log2FC_enrichment, y = log2FC_amanitin)) +
   xlab ("log2 new mRNA enrichment 3h") +
   ylab ("log2 (amanitin / mock) 6h")
 
-# plot for 12h alpha-amanitin treatment and 6h labelling (Fig. 2E)
+# plot for 12h alpha-amanitin treatment and 6h labelling (Fig. 2F)
 plot <- merge (new_6h [,c(2,7,8)], as.data.frame(deg_alpha$t12_A_M) [,c(2,6,7)], by = "gene")
 colnames(plot) <- c("gene", "log2FC_enrichment", "new", "log2FC_amanitin", "padj")
 param <- as.data.frame(summary(lm(plot$log2FC_amanitin ~ plot$log2FC_enrichment))$coefficients)
@@ -432,13 +432,13 @@ new_1h_old <- new_identification(new_2, coldata, 9:12, 1:4, normalization_genes 
 # process 3h data
 new_3h_old <- new_identification(new_2, coldata, 13:16, 5:8, normalization_genes = ercc)
 
-# plot 1h (Fig. S2D)
+# plot 1h (Fig. S2F)
 new_mRNA_plot(cpm_new2, new_1h_old, ercc, "new1h", "inp1h", return_data = F)
 
-# plot 3h (Fig. S2D)
+# plot 3h (Fig. S2F)
 new_mRNA_plot(cpm_new2, new_3h_old, ercc, "new3h", "inp3h", return_data = F)
 
-# Venn diagram for overlaps between new mRNAs identified at 1h in the original (old) and spike-in (new) experiment (Fig. S2E)
+# Venn diagram for overlaps between new mRNAs identified at 1h in the original (old) and spike-in (new) experiment (Fig. S2G)
 plot <- list (new = new_1h$gene [which(new_1h$change == "NEW" & grepl("AT", new_1h$gene))],
               old = new_1h_old$gene [which(new_1h_old$change == "NEW")])
 
@@ -447,7 +447,7 @@ plot(euler(plot),
      fill = c("#a7d5ed", "#ffbd4c"), 
      edges = list(col = "transparent"))
 
-# Venn diagram for overlaps between new mRNAs identified at 3h (Fig. S2E)
+# Venn diagram for overlaps between new mRNAs identified at 3h (Fig. S2G)
 plot <- list (new = new_3h$gene [which(new_3h$change == "NEW" & grepl("AT", new_3h$gene))],
               old = new_3h_old$gene [which(new_3h_old$change == "NEW")])
 
@@ -500,7 +500,7 @@ coldata <- data.frame(
 ercc <- rownames(convers)[grepl("ERCC", rownames(convers))]
 spike <- rownames(convers)[grepl("spike", rownames(convers))]
 
-# call new mRNAs in conversion experiment and plot them (Fig. S2F).
+# call new mRNAs in conversion experiment and plot them (Fig. S2C).
 new_convers <- new_identification(convers, coldata, 5:8, 1:4, normalization_genes = ercc)
 
 new_mRNA_plot(cpm_convers, new_convers, ercc, "new_conv", "inp_conv", return_data = F, highlight = spike)
@@ -572,7 +572,7 @@ plot <- new_convers %>%
 genes <- plot %>% filter(!change %in% c("NEG", "POS"))
 spikes <- plot %>% filter(change %in% c("NEG", "POS"))
 
-# plot on Fig. 2F (converted reads)
+# plot on Fig. 2E (converted reads)
 ggplot() +
   geom_boxplot(data = genes, aes(x = type, y = ratio_reads, fill = change), alpha = 0.7) +
   geom_jitter(data = spikes, aes(x = type, y = ratio_reads, color = change), width = 0.2, size = 2) +
@@ -580,7 +580,7 @@ ggplot() +
   scale_fill_manual(values=c("#4E79A7","#79706E")) +
   scale_color_manual(values=c("#E15759","#fcab20"))
 
-# plot on Fig. S2G (conversion ratios) 
+# plot on Fig. S2D (conversion ratios) 
 # combine with new mRNA calling, select ratio of converted nucleotides and mark spike-ins
 plot <- new_convers %>%
   inner_join(conversion, by = "gene") %>%
@@ -606,7 +606,7 @@ ggplot() +
   scale_fill_manual(values=c("#4E79A7","#79706E")) +
   scale_color_manual(values=c("#E15759","#fcab20"))
 
-# prepare plot comparing enrichment levels with conversion in total mRNA samples (Fig. S2H)
+# prepare plot comparing enrichment levels with conversion in total mRNA samples (Fig. S2F)
 
 # combine with new mRNA calling and select the ratio of converted nucleotides
 plot <- new_convers %>%
@@ -622,7 +622,7 @@ plot <- plot [which(plot$gene %in% inp_conv$gene [which(inp_conv$mean_cpm > 1)])
 plot$diff <- (plot$inp_conv_mean_conv)-(plot$non_conv_mean_conv)
 plot <- plot [grep("AT",plot$gene),]
 
-# plot with squishing outliers (Fig. S2H)
+# plot with squishing outliers (Fig. S2F)
 ggplot(plot, aes(x = log2FoldChange, y = squish(diff, range = c(-0.002, 0.02)))) +
   geom_pointdensity(size = 0.5, method = "kde2d") +
   scale_color_viridis() +
@@ -630,7 +630,7 @@ ggplot(plot, aes(x = log2FoldChange, y = squish(diff, range = c(-0.002, 0.02))))
   labs(x = "log2(beads enrichment)", y = "conversion - control") +
   theme(legend.position = "none")
 
-## Analysis of new mRNA production from initially imbibed intact seeds and then squeezed for 4-SU uptake (pulse labeling).
+## Analysis of new mRNA production from initially imbibed intact seeds and then squeezed for 4-SU uptake (pulse labelling).
 
 # import and format count data
 dir <- "geo_counts/squeezed/"
