@@ -8,6 +8,7 @@ library (data.table)
 library (multcomp)
 library (multcompView)
 library (patchwork)
+library (eulerr)
 
 # set the path to the folder containing the data
 setwd("/data/")
@@ -233,7 +234,47 @@ ggplot() +
   xlab("ERCC normalisation") +
   ylab("stable genes normalisation")
 
-## Unlabelled mRNAs are down-regulated upon standard comparison of enriched and input mRNAs (Fig. S9H).
+## Comparison of ERCC and non-transcribed genes normalisation on robustness of new mRNA calling (Fig. S9H)
+
+# 3h plot
+coldata1 <- data.frame(
+  lib = colnames(new_1),
+  condition = substr(colnames(new_1), 1, 6),
+  replicate = substr(colnames(new_1), 8, 8)
+)
+
+res1 <- new_identification(new_1, coldata1, 17:20, 5:8, normalization_genes = non_trans)
+
+coldata2 <- data.frame(
+  lib = colnames(new_2),
+  condition = substr(colnames(new_2), 1, 5),
+  replicate = substr(colnames(new_2), 7, 7)
+)
+
+res2 <- new_identification(new_2, coldata2, 13:16, 5:8, normalization_genes = non_trans)
+
+plot <- list (new = res1$gene [which(res1$change == "NEW" & grepl("AT", res1$gene))],
+              old = res2$gene [which(res2$change == "NEW")])
+
+plot(euler(plot [1:2]), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#ffbd4c"), 
+     edges = list(col = "transparent"))
+
+# 1h plot
+res1 <- new_identification(new_1, coldata1, 13:16, 1:4, normalization_genes = non_trans)
+
+res2 <- new_identification(new_2, coldata2, 9:12, 1:4, normalization_genes = non_trans)
+
+plot <- list (new = res1$gene [which(res1$change == "NEW" & grepl("AT", res1$gene))],
+              old = res2$gene [which(res2$change == "NEW")])
+
+plot(euler(plot [1:2]), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#ffbd4c"), 
+     edges = list(col = "transparent"))
+
+## Unlabelled mRNAs are down-regulated upon standard comparison of enriched and input mRNAs (Fig. S9I).
 
 dds <- DESeqDataSetFromMatrix(countData = new_1 [,c(17:20,5:8)], colData = coldata [c(17:20,5:8),], design = ~ condition)
 dds <- dds[rowSums(counts(dds) >= 4) >= 4,]
@@ -269,7 +310,35 @@ ggplot(res , aes(x=log2FoldChange , y= log_padj, color = change2)) +
   xlab ("log2 fold change") +
   ylab ("-log10 adjusted p-value")
 
-## Plots to show that mRNAs stabilised by CHX upon alpha-amanitin treatment are also affected in treatment without alpha-amanitin (Fig. S9I).
+## Comparison of "downregulated mRNAs" vs and "non-transcribed homologues" normalisation on new mRNA calling in B. napus (Fig. S9J)
+
+coldata <- data.frame(lib = colnames (napus),
+                      condition = substr (colnames (napus), 1, 4),
+                      replicate = as.factor(1:4))
+
+new_napus_4h_2 <- new_identification_2 (napus, coldata, 1:4, 9:12, normalization_genes = non_trx_homolog)
+
+new_napus_8h_2 <- new_identification_2 (napus, coldata, 5:8, 13:16, normalization_genes = non_trx_homolog)
+
+# 4h labelling
+plot <- list (downreg = new_napus_4h$gene [which(new_napus_4h$change == "NEW")],
+              homolog = new_napus_4h_2$gene [which(new_napus_4h_2$change == "NEW")])
+
+plot(euler(plot [1:2]), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#ffbd4c"), 
+     edges = list(col = "transparent"))
+
+# 8h labelling
+plot <- list (downreg = new_napus_8h$gene [which(new_napus_8h$change == "NEW")],
+              homolog = new_napus_8h_2$gene [which(new_napus_8h_2$change == "NEW")])
+
+plot(euler(plot [1:2]), 
+     quantities = TRUE, 
+     fill = c("#a7d5ed", "#ffbd4c"), 
+     edges = list(col = "transparent"))
+
+## Plots to show that mRNAs stabilised by CHX upon alpha-amanitin treatment are also affected in treatment without alpha-amanitin (Fig. S9K).
 
 # select stabilised mRNAs
 res <- deg_cyclo$t06_C_M %>%
@@ -309,7 +378,7 @@ ggplot(data = plot , aes(x = stab, y = log2FoldChange, fill = stab)) +
 
 t.test (plot$log2FoldChange [which(plot$stab == "stab")], plot$log2FoldChange [which(plot$stab == "no")])$p.value
 
-## Plots to check if levels of new mRNA enrichment are related to their detection as differentially produced (Fig. S9J).
+## Plots to check if levels of new mRNA enrichment are related to their detection as differentially produced (Fig. S9L).
 
 # first CHX treatment experiment
 plot_data <- new_6hM %>%
